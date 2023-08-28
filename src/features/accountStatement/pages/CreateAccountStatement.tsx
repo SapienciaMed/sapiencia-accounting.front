@@ -178,7 +178,7 @@ export const CreateAccountStatement = () => {
     );
   }, [paymentTypeValue]);
 
-  const baseURL: string = process.env.urlApiAccounting;
+  const baseURL: string = process.env.urlApiAccounting + "/api/v1/";
 
   const { get, post } = useCrudService(null, baseURL);
 
