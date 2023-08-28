@@ -2,16 +2,14 @@ import React from "react";
 import { EDirection } from "../../constants/input.enum";
 import { LabelComponent } from "./label.component";
 
-import { Dropdown } from "primereact/dropdown";
+import { InputNumber } from "primereact/inputnumber";
 import { Control, Controller } from "react-hook-form";
-import { IDropdownProps } from "../../interfaces/select.interface";
 
-interface ISelectProps<T> {
+interface IInputnumber<T> {
   idInput: string;
   control: Control<any>;
   className?: string;
   placeholder?: string;
-  data?: Array<IDropdownProps>;
   label?: string | React.JSX.Element;
   classNameLabel?: string;
   direction?: EDirection;
@@ -19,8 +17,16 @@ interface ISelectProps<T> {
   errors?: any;
   disabled?: boolean;
   fieldArray?: boolean;
-  filter?: boolean;
-  emptyMessage?: string;
+  mode?: "decimal" | "currency";
+  minFractionDigits?: number;
+  maxFractionDigits?: number;
+  prefix?: string;
+  suffix?: string;
+  currency?: string;
+  locale?: string;
+  min?: number;
+  max?: number;
+  optionsRegister?: {};
 }
 
 function LabelElement({ label, idInput, classNameLabel }): React.JSX.Element {
@@ -34,12 +40,11 @@ function LabelElement({ label, idInput, classNameLabel }): React.JSX.Element {
   );
 }
 
-export function SelectComponent({
+export function InputNumberComponent({
   idInput,
   control,
   className = "select-basic",
-  placeholder = "Seleccione",
-  data = [{} as IDropdownProps],
+  placeholder = "00",
   label,
   classNameLabel = "text-main",
   direction = EDirection.column,
@@ -47,17 +52,17 @@ export function SelectComponent({
   errors = {},
   disabled,
   fieldArray,
-  filter,
-  emptyMessage = "Sin resultados.",
-}: ISelectProps<any>): React.JSX.Element {
-  if (data) {
-    const seleccione: IDropdownProps = { name: "Seleccione", value: "" };
-    const dataSelect = data?.find(
-      (item) => item.name === seleccione.name && item.value === seleccione.value
-    );
-    if (!dataSelect) data.unshift(seleccione);
-  }
-
+  mode,
+  minFractionDigits,
+  maxFractionDigits,
+  prefix,
+  suffix,
+  currency,
+  locale,
+  min,
+  max,
+  optionsRegister,
+}: IInputnumber<any>): React.JSX.Element {
   const messageError = () => {
     const keysError = idInput.split(".");
     let errs = errors;
@@ -90,19 +95,24 @@ export function SelectComponent({
         <Controller
           name={idInput}
           control={control}
+          rules={optionsRegister}
           render={({ field }) => (
-            <Dropdown
+            <InputNumber
               id={field.name}
-              value={data?.find((row) => row.value === field.value)?.value}
               onChange={(e) => field.onChange(e.value)}
-              options={data}
-              optionLabel="name"
               placeholder={placeholder}
+              value={field.value}
               className={`${className} ${messageError() ? "p-invalid" : ""}`}
               disabled={disabled}
-              filter={filter}
-              emptyMessage={emptyMessage}
-              emptyFilterMessage={emptyMessage}
+              mode={mode}
+              minFractionDigits={minFractionDigits}
+              maxFractionDigits={maxFractionDigits}
+              prefix={prefix}
+              suffix={suffix}
+              currency={currency}
+              locale={locale}
+              min={min}
+              max={max}
             />
           )}
         />

@@ -1,26 +1,27 @@
 import React from "react";
 import { EDirection } from "../../constants/input.enum";
 import { LabelComponent } from "./label.component";
+import { Controller, Control } from "react-hook-form";
+import { Calendar } from "primereact/calendar";
+import { IoCalendarOutline } from "react-icons/io5";
 
-import { Dropdown } from "primereact/dropdown";
-import { Control, Controller } from "react-hook-form";
-import { IDropdownProps } from "../../interfaces/select.interface";
-
-interface ISelectProps<T> {
+interface IDateProps<T> {
   idInput: string;
   control: Control<any>;
+  dateFormat: string;
   className?: string;
   placeholder?: string;
-  data?: Array<IDropdownProps>;
   label?: string | React.JSX.Element;
   classNameLabel?: string;
   direction?: EDirection;
   children?: React.JSX.Element | React.JSX.Element[];
   errors?: any;
   disabled?: boolean;
+  disabledDays?: number[];
+  disabledDates?: Date[];
+  maxDate?: Date;
+  minDate?: Date;
   fieldArray?: boolean;
-  filter?: boolean;
-  emptyMessage?: string;
 }
 
 function LabelElement({ label, idInput, classNameLabel }): React.JSX.Element {
@@ -34,30 +35,24 @@ function LabelElement({ label, idInput, classNameLabel }): React.JSX.Element {
   );
 }
 
-export function SelectComponent({
+export function DatePickerComponent({
   idInput,
-  control,
-  className = "select-basic",
-  placeholder = "Seleccione",
-  data = [{} as IDropdownProps],
+  className = "dataPicker-basic",
+  placeholder = "DD/MM/AAAA",
   label,
   classNameLabel = "text-main",
   direction = EDirection.column,
   children,
   errors = {},
-  disabled,
+  maxDate,
+  minDate,
   fieldArray,
-  filter,
-  emptyMessage = "Sin resultados.",
-}: ISelectProps<any>): React.JSX.Element {
-  if (data) {
-    const seleccione: IDropdownProps = { name: "Seleccione", value: "" };
-    const dataSelect = data?.find(
-      (item) => item.name === seleccione.name && item.value === seleccione.value
-    );
-    if (!dataSelect) data.unshift(seleccione);
-  }
-
+  control,
+  dateFormat,
+  disabled,
+  disabledDates,
+  disabledDays
+}: IDateProps<any>): React.JSX.Element {
   const messageError = () => {
     const keysError = idInput.split(".");
     let errs = errors;
@@ -91,21 +86,31 @@ export function SelectComponent({
           name={idInput}
           control={control}
           render={({ field }) => (
-            <Dropdown
+            <Calendar
               id={field.name}
-              value={data?.find((row) => row.value === field.value)?.value}
-              onChange={(e) => field.onChange(e.value)}
-              options={data}
-              optionLabel="name"
+              mask="99/99/9999"
+              dateFormat={dateFormat}
               placeholder={placeholder}
               className={`${className} ${messageError() ? "p-invalid" : ""}`}
+              showIcon
+              icon={
+                <span>
+                  <IoCalendarOutline />
+                </span>
+              }
+              showButtonBar
+              value={field.value && new Date(field.value)}
+              onChange={(e) => field.onChange(e.value)}
+              inputStyle={{ borderRight: "none" }}
+              minDate={minDate}
+              maxDate={maxDate}
+              disabledDates={disabledDates}
+              disabledDays={disabledDays}
               disabled={disabled}
-              filter={filter}
-              emptyMessage={emptyMessage}
-              emptyFilterMessage={emptyMessage}
             />
           )}
         />
+
         {messageError() && <span className="icon-error"></span>}
       </div>
       {messageError() && (

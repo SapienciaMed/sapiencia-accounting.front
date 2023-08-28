@@ -1,17 +1,18 @@
-import React, { Suspense, lazy, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AppContextProvider } from "./common/contexts/app.context";
-import "./styles/_app.scss";
 import "primereact/resources/primereact.min.css";
-import ModalMessageComponent from "./common/components/modal-message.component";
+import React, { Suspense, lazy, useEffect } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ApplicationProvider from "./application-provider";
+import ModalMessageComponent from "./common/components/modal-message.component";
+import { AppContextProvider } from "./common/contexts/app.context";
 import useAppCominicator from "./common/hooks/app-communicator.hook";
+import AccountStatementRoutes from "./features/accountStatement/accountStatementRoutes";
+import "./styles/_app.scss";
 
 function App() {
   const HomePage = lazy(() => import("./common/components/home.page"));
   const { publish } = useAppCominicator();
 
-  // Effect que cominica la aplicacion actual
+  // Effect que comunica la aplicación actual
   useEffect(() => {
     localStorage.setItem("currentAplication", process.env.aplicationId);
     setTimeout(
@@ -27,9 +28,19 @@ function App() {
         <Router>
           <Suspense fallback={<p>Loading...</p>}>
             <Routes>
-              <Route path={"/contabilidad/"} element={<HomePage />} />;
-              {/* <Route path={"/contabilidad/razon-social/*"} element={<BussinesRoutes />} />
-            <Route path={"/contabilidad/contratos/*"} element={<ContractRoutes />} /> */}
+              <Route path="/contabilidad" element={<HomePage />} />
+              <Route
+                path="/contabilidad/cuenta-de-cobro/*"
+                element={<AccountStatementRoutes />}
+              />
+              {/* <Route
+                path={"/contabilidad/razon-social/*"}
+                element={<BussinesRoutes />}
+              /> */}
+              {/* <Route
+                path={"/contabilidad/contratos/*"}
+                element={<ContractRoutes />}
+              /> */}
             </Routes>
           </Suspense>
         </Router>
