@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import writtenNumber from "written-number";
 import * as yup from "yup";
 import {
   ButtonComponent,
@@ -18,34 +19,34 @@ import { ApiResponse } from "../../../common/utils/api-response";
 
 const contracts = [
   {
-    value: 1,
+    value: "1",
     name: "PAC ENERO 2023",
   },
   {
-    value: 2,
+    value: "2",
     name: "338",
   },
   {
-    value: 3,
+    value: "3",
     name: "328",
   },
 ];
 
-const business = [
+const businessData = [
   {
-    id: 1,
+    id: "1",
     name: "Institución Universitaria Colegio Mayor de Antioquia",
-    value: "890980134",
+    nit: "890980134",
   },
   {
-    id: 2,
+    id: "2",
     name: "Instituto Tecnológico Metropolitano",
-    value: "800214750",
+    nit: "800214750",
   },
   {
-    id: 3,
+    id: "3",
     name: "DATOLABS S.A.S",
-    value: "901131054",
+    nit: "901131054",
   },
 ];
 
@@ -72,11 +73,18 @@ export const CreateAccountStatement = () => {
   const { setMessage } = useContext(AppContext);
 
   const accountStatementSchema = yup.object({
-    contractCode: yup.number().required("Completar información"),
-    business: yup.number().required("Completar información"),
-    paymentType: yup.number().required("Completar información"),
-    concept: yup.string().min(1).required("Completar información"),
-    valuePay: yup.string().required("Completar información"),
+    contractCode: yup.string().required("Completar información"),
+    business: yup.string().required("Completar información"),
+    paymentType: yup.string().required("Completar información"),
+    concept: yup
+      .string()
+      .min(1)
+      .max(500, "Solo se permiten 500 caracteres")
+      .required("Completar información"),
+    valuePay: yup
+      .string()
+      .max(16, "Solo se permiten 15 caracteres")
+      .required("Completar información"),
   });
 
   const resolver = useYupValidationResolver(accountStatementSchema);
@@ -99,7 +107,6 @@ export const CreateAccountStatement = () => {
         "account-statement",
         data
       );
-      console.log(resp);
       setReloadId(new Date());
       reset();
       setMessage({
@@ -119,16 +126,6 @@ export const CreateAccountStatement = () => {
     }
   };
 
-  function formaterNumberToCurrency(number) {
-    const formatter = new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      minimumFractionDigits: 2,
-    });
-
-    return formatter.format(number);
-  }
-
   const onSubmit = (data) => {
     const { expeditionDate, expirationDate, paymentType } = data;
     const body = {
@@ -136,10 +133,9 @@ export const CreateAccountStatement = () => {
       expeditionDate: DateTime.fromJSDate(expeditionDate).toSQL(),
       expirationDate: DateTime.fromJSDate(expirationDate).toSQL(),
       accountNum: lastId,
-      userCreate: "7672687234",
+      userCreate: "000 0000 0000",
       paymentType: String(paymentType),
     };
-    console.log(body);
     setMessage({
       title: "Crear cuenta de cobro",
       description: "Estás segur@ de crear la cuenta de cobro?",
@@ -162,12 +158,7 @@ export const CreateAccountStatement = () => {
   };
   const contractValue = watch("contractCode");
   const paymentTypeValue = watch("paymentType");
-
-  useEffect(() => {
-    if (!contractValue) return;
-    const itemFound = business.find((el) => el.id === contractValue);
-    setValue("nit", itemFound.value);
-  }, [contractValue]);
+  const valuePayValue = watch("valuePay");
 
   useEffect(() => {
     setValue("expeditionDate", new Date());
@@ -207,6 +198,19 @@ export const CreateAccountStatement = () => {
     getLastAccountStatement();
   }, [reloadId]);
 
+  useEffect(() => {
+    if (!valuePayValue) return;
+    let lettersValue: string = writtenNumber(valuePayValue, { lang: "es" });
+    lettersValue = lettersValue.charAt(0).toUpperCase() + lettersValue.slice(1);
+    setValue("valueLabel", lettersValue.concat(" m/l."));
+  }, [valuePayValue]);
+
+  useEffect(() => {
+    const businessFound = businessData.find(({ id }) => id === contractValue);
+    setValue("nit", businessFound?.nit ?? "");
+    setValue("business", businessFound?.name ?? "");
+  }, [contractValue]);
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -221,7 +225,6 @@ export const CreateAccountStatement = () => {
                 label={<>No. Cuenta de cobro</>}
                 typeInput="text"
                 value={lastId}
-                // register={register}
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
@@ -240,34 +243,26 @@ export const CreateAccountStatement = () => {
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccione."
-                //   disabled={disabledFields}
               />
               <InputComponent
                 idInput="nit"
                 label={<>NIT</>}
                 typeInput="text"
                 register={register}
-                errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
                 disabled
               />
 
               <div className="grid-span-3-columns">
-                <SelectComponent
+                <InputComponent
                   idInput="business"
-                  control={control}
-                  errors={errors}
-                  data={business}
-                  label={
-                    <>
-                      Razón social / Nombre <span>*</span>
-                    </>
-                  }
-                  className="select-basic medium"
+                  label={<>Razón social / Nombre</>}
+                  typeInput="text"
+                  register={register}
+                  className="input-basic medium"
                   classNameLabel="text-black big bold"
-                  placeholder="Seleccione."
-                  //   disabled={disabledFields}
+                  disabled
                 />
               </div>
             </div>
@@ -280,7 +275,6 @@ export const CreateAccountStatement = () => {
                 errors={errors}
                 classNameLabel="text-black big bold"
                 className="dataPicker-basic  medium "
-                //   disabled={disabledFields}
                 placeholder="DD/MM/YYYY"
                 dateFormat="dd/mm/yy"
                 maxDate={new Date()}
@@ -294,7 +288,6 @@ export const CreateAccountStatement = () => {
                 errors={errors}
                 classNameLabel="text-black big bold"
                 className="dataPicker-basic  medium "
-                //   disabled={disabledFields}
                 placeholder="DD/MM/YYYY"
                 dateFormat="dd/mm/yy"
                 maxDate={new Date()}
@@ -313,42 +306,24 @@ export const CreateAccountStatement = () => {
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccione."
-                //   disabled={disabledFields}
               />
               <InputNumberComponent
                 idInput="valuePay"
                 control={control}
-                label={<>Valor</>}
+                label={
+                  <>
+                    Valor <span>*</span>
+                  </>
+                }
                 errors={errors}
                 classNameLabel="text-black big bold"
                 className="inputNumber-basic medium"
-                // disabled={disabledFields}
                 mode="currency"
                 currency="COP"
                 locale="es-CO"
                 minFractionDigits={2}
                 maxFractionDigits={2}
               />
-              {/* <InputComponent
-                idInput="valuePay"
-                label={
-                  <>
-                    Valor <span>*</span>
-                  </>
-                }
-                typeInput="number"
-                register={register}
-                onChange={({ target }) => {
-                  let result: string = writtenNumber(target.value, {
-                    lang: "es",
-                  });
-                  setValue("valueLabel", result.concat(" m/l."));
-                }}
-                errors={errors}
-                className="input-basic medium"
-                classNameLabel="text-black big bold"
-                //   disabled={disabledFields}
-              /> */}
               <div className="grid-span-4-columns">
                 <InputComponent
                   idInput="valueLabel"
@@ -366,25 +341,13 @@ export const CreateAccountStatement = () => {
                   idInput="concept"
                   className="text-area-basic"
                   classNameLabel="text-black big bold"
-                  label="Observaciones"
-                  register={register}
-                  disabled={false}
-                  errors={errors}
-                  rows={5}
-                />
-                <InputComponent
-                  idInput="concept"
                   label={
                     <>
                       Concepto de cobro <span>*</span>
                     </>
                   }
-                  typeInput={"text"}
                   register={register}
                   errors={errors}
-                  className="input-basic medium"
-                  classNameLabel="text-black big bold"
-                  //   disabled={disabledFields}
                 />
               </div>
             </div>
@@ -401,7 +364,6 @@ export const CreateAccountStatement = () => {
         </div>
         <div
           style={{
-            // width: "100%",
             height: "1px",
             margin: "0 20px",
             backgroundColor: "#e0e0e0",
@@ -412,11 +374,6 @@ export const CreateAccountStatement = () => {
             value="Cancelar"
             className="button-clean bold"
             type="button"
-            action={() => {
-              setMessage({
-                show: false,
-              });
-            }}
           />
           <ButtonComponent
             value="Guardar"
