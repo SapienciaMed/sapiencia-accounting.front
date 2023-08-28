@@ -1,4 +1,4 @@
-FROM node:14-alpine AS app
+FROM node:14-alpine AS root
 WORKDIR /app
 COPY . .
 RUN npm install -g npm@8.0.0
