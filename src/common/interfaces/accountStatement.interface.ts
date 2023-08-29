@@ -14,3 +14,70 @@ export interface IAccountStatement {
   createdAt: DateTime; // CTC_FECHA_CREO
   updatedAt: DateTime; // CTC_FECHA_MODIFICO
 }
+
+export interface IBusiness {
+  id?: number;
+  name: string;
+  nit: string;
+  address: string;
+  email: string;
+  municipalityCode: string;
+  sender: string;
+  chargeSender: string;
+  userModified?: string;
+  userCreate: string;
+  createdAt?: DateTime;
+  updatedAt?: DateTime;
+}
+
+export interface IContract {
+  id: number;
+  contractId: string;
+  businessCode: number;
+  userModified: string;
+  userCreate: string;
+  createdAt: string;
+  updatedAt: string;
+  business: IBusiness;
+}
+
+export interface IAccountStatementForm {
+  contractCode: number;
+  accountNum: number;
+  expeditionDate: string;
+  expirationDate: string;
+  paymentType: string;
+  valuePay: number;
+  concept: string;
+  valueLabel: string;
+}
+
+export interface IGetAccountStatement {
+  id: number;
+  contractCode: number;
+  accountNum: number;
+  expeditionDate: string;
+  expirationDate: string;
+  paymentType: string;
+  valuePay: number;
+  concept: string;
+  userCreate: string;
+  userModified?: string;
+  createdAt: string;
+  updatedAt: string;
+  contract: IContract;
+}
+
+export interface IFilterAccountStatement {
+  contractCode?: number;
+  accountNum?: number;
+  expeditionDate?: DateTime;
+  concept?: string;
+}
+
+export enum PAYMENT_TYPE {
+  "CONTADO" = "1",
+  "A 30 días" = "2",
+  "A 60 días" = "3",
+  "A 90 días" = "4",
+}

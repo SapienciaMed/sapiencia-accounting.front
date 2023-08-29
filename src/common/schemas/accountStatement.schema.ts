@@ -15,3 +15,23 @@ export const accountStatementSchema = yup.object({
     .max(15, "Solo se permiten 15 caracteres")
     .required("Completar información"),
 });
+
+export const filtersAccountStatementSchema = yup.object({
+  id: yup.string().optional(),
+  contractCode: yup.string().optional(),
+  nit: yup.string().optional(),
+  expeditionDate: yup.date().optional(),
+});
+
+export const editAccountStatementSchema = yup.object({
+  contractCode: yup.string().required("Completar información"),
+  valuePay: yup
+    .string()
+    .max(15, "Solo se permiten 15 caracteres")
+    .required("Completar información"),
+  concept: yup
+    .string()
+    .min(1)
+    .max(500, "Solo se permiten 500 caracteres")
+    .required("Completar información"),
+});

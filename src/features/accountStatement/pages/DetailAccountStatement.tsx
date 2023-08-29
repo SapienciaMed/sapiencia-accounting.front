@@ -1,56 +1,45 @@
 import { memo } from "react";
 import {
   ButtonComponent,
-  FormComponent,
   InputComponent,
   SelectComponent,
 } from "../../../common/components/Form";
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { InputNumberComponent } from "../../../common/components/Form/input-number.component";
 import { TextAreaComponent } from "../../../common/components/Form/input-text-area.component";
-import { contractsData, paymentTypeData } from "../data";
-import { useAccountStatement } from "../hooks/accountStatement.hook";
+import { paymentTypeData } from "../data";
+import { useGetDetailAccountStatement } from "../hooks/getDetailAccountStatement.hook";
 
-const CreateAccountStatement = () => {
-  const { control, handleSubmit, register, errors } = useAccountStatement();
+const DetailAccountStatement = () => {
+  const { register, control, handleClose } = useGetDetailAccountStatement();
   return (
-    <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
-      <FormComponent
-        id="createAccountStatementForm"
-        className="form-signIn"
-        action={handleSubmit}
-      >
+    <>
+      <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
         <div className=" container-sections-forms ml-20px mr-20px">
           <div className="grid-form-3-container gap-25">
             <span className="text-black large bold grid-span-3-columns">
-              Crear cuenta de cobro
+              Detalle de cuenta de cobro
             </span>
             <InputComponent
-              idInput="id"
+              idInput="accountNum"
               label={<>No. Cuenta de cobro</>}
               typeInput="text"
               register={register}
-              errors={errors}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
-            <SelectComponent
-              idInput="contractCode"
-              control={control}
-              errors={errors}
-              data={contractsData}
-              label={
-                <>
-                  Contrato <span>*</span>
-                </>
-              }
-              className="select-basic medium"
+            <InputComponent
+              idInput="contract.contractId"
+              label={<>Contrato</>}
+              register={register}
+              typeInput="text"
+              className="input-basic medium"
               classNameLabel="text-black big bold"
-              placeholder="Seleccione."
+              disabled
             />
             <InputComponent
-              idInput="nit"
+              idInput="contract.business.nit"
               label={<>NIT</>}
               typeInput="text"
               register={register}
@@ -58,10 +47,9 @@ const CreateAccountStatement = () => {
               classNameLabel="text-black big bold"
               disabled
             />
-
             <div className="grid-span-3-columns">
               <InputComponent
-                idInput="business"
+                idInput="contract.business.name"
                 label={<>Razón social / Nombre</>}
                 typeInput="text"
                 register={register}
@@ -71,13 +59,11 @@ const CreateAccountStatement = () => {
               />
             </div>
           </div>
-
           <div className="grid-form-4-container gap-25 mt-25px">
             <DatePickerComponent
               idInput="expeditionDate"
               control={control}
               label={<>Fecha de expedición</>}
-              errors={errors}
               classNameLabel="text-black big bold"
               className="dataPicker-basic  medium "
               placeholder="DD/MM/YYYY"
@@ -85,12 +71,10 @@ const CreateAccountStatement = () => {
               maxDate={new Date()}
               disabled
             />
-
             <DatePickerComponent
               idInput="expirationDate"
               control={control}
               label={<>Fecha de vencimiento</>}
-              errors={errors}
               classNameLabel="text-black big bold"
               className="dataPicker-basic  medium "
               placeholder="DD/MM/YYYY"
@@ -101,26 +85,17 @@ const CreateAccountStatement = () => {
             <SelectComponent
               idInput="paymentType"
               control={control}
-              errors={errors}
               data={paymentTypeData}
-              label={
-                <>
-                  Forma de pago <span>*</span>
-                </>
-              }
+              label={<>Forma de pago</>}
               className="select-basic medium"
               classNameLabel="text-black big bold"
               placeholder="Seleccione."
+              disabled
             />
             <InputNumberComponent
               idInput="valuePay"
               control={control}
-              label={
-                <>
-                  Valor <span>*</span>
-                </>
-              }
-              errors={errors}
+              label={<>Valor</>}
               classNameLabel="text-black big bold"
               className="inputNumber-basic medium"
               mode="currency"
@@ -128,6 +103,7 @@ const CreateAccountStatement = () => {
               locale="es-CO"
               minFractionDigits={0}
               maxFractionDigits={2}
+              disabled
             />
             <div className="grid-span-4-columns">
               <InputComponent
@@ -135,7 +111,6 @@ const CreateAccountStatement = () => {
                 label={<>Valor en letras</>}
                 typeInput="text"
                 register={register}
-                errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
                 disabled
@@ -146,13 +121,9 @@ const CreateAccountStatement = () => {
                 idInput="concept"
                 className="text-area-basic"
                 classNameLabel="text-black big bold"
-                label={
-                  <>
-                    Concepto de cobro <span>*</span>
-                  </>
-                }
+                label={<>Concepto de cobro</>}
                 register={register}
-                errors={errors}
+                disabled
               />
             </div>
           </div>
@@ -166,28 +137,23 @@ const CreateAccountStatement = () => {
             Máx 500 caracteres.
           </div>
         </div>
-        <div
-          style={{
-            height: "1px",
-            margin: "0 20px",
-            backgroundColor: "#e0e0e0",
-          }}
-        ></div>
-        <div className="button-save-container-display mr-24px">
-          <ButtonComponent
-            value="Cancelar"
-            className="button-clean bold"
-            type="button"
-          />
-          <ButtonComponent
-            value="Guardar"
-            className="button-save big"
-            type="submit"
-          />
-        </div>
-      </FormComponent>
-    </div>
+      </div>
+      <div
+        style={{
+          height: "1px",
+          margin: "32px 20px 0",
+          backgroundColor: "#e0e0e0",
+        }}
+      ></div>
+      <div className="button-save-container-display mr-24px">
+        <ButtonComponent
+          value="Cerrar"
+          action={handleClose}
+          className="button-save big"
+        />
+      </div>
+    </>
   );
 };
 
-export default memo(CreateAccountStatement);
+export default memo(DetailAccountStatement);

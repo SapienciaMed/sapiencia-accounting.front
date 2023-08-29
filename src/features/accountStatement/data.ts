@@ -1,14 +1,16 @@
+import { PAYMENT_TYPE } from "../../common/interfaces/accountStatement.interface";
+
 export const contractsData = [
   {
-    value: "1",
+    value: 1,
     name: "PAC ENERO 2023",
   },
   {
-    value: "2",
+    value: 2,
     name: "338",
   },
   {
-    value: "3",
+    value: 3,
     name: "328",
   },
 ];
@@ -33,19 +35,19 @@ export const businessData = [
 
 export const paymentTypeData = [
   {
-    value: -1,
+    value: PAYMENT_TYPE.CONTADO,
     name: "Contado",
   },
   {
-    value: 30,
+    value: PAYMENT_TYPE["A 30 días"],
     name: "A 30 días",
   },
   {
-    value: 60,
+    value: PAYMENT_TYPE["A 60 días"],
     name: "A 60 días",
   },
   {
-    value: 90,
+    value: PAYMENT_TYPE["A 90 días"],
     name: "A 90 días",
   },
 ];

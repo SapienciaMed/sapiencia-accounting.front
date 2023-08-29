@@ -1,21 +1,23 @@
 import { DateTime } from "luxon";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import writtenNumber from "written-number";
 import { AppContext } from "../../../common/contexts/app.context";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { IAccountStatement } from "../../../common/interfaces/accountStatement.interface";
+import {
+  IAccountStatement,
+  PAYMENT_TYPE,
+} from "../../../common/interfaces/accountStatement.interface";
 import { accountStatementSchema } from "../../../common/schemas/accountStatement.schema";
-import { ApiResponse } from "../../../common/utils/api-response";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { jsDateToSQL } from "../../../common/utils/helpers";
+import { jsDateToSQL, numberToWord } from "../../../common/utils/helpers";
 import { businessData } from "../data";
 import { useGetLastConsecutive } from "./getLastConsecutive.hook";
 
 export const useAccountStatement = () => {
   const { setMessage } = useContext(AppContext);
   const { lastConsecutive, setRealoadConsecutive } = useGetLastConsecutive();
+  const { post } = useCrudService(null, urlApiAccounting);
   const resolver = useYupValidationResolver(accountStatementSchema);
   const {
     control,
@@ -31,12 +33,11 @@ export const useAccountStatement = () => {
     "paymentType",
     "valuePay",
   ]);
-  const { post } = useCrudService(null, urlApiAccounting);
 
-  const createAccountStatement = async (data) => {
+  const createAccountStatement = async (data: IAccountStatement) => {
     try {
       const endpoint = "/api/v1/account-statement";
-      const resp: ApiResponse<IAccountStatement> = await post(endpoint, data);
+      await post(endpoint, data);
       setRealoadConsecutive(new Date());
       reset();
       setMessage({
@@ -51,7 +52,7 @@ export const useAccountStatement = () => {
       console.log(err);
       setMessage({
         title: "Cuenta de cobro",
-        description: err.message,
+        description: "Error, por favor intente más tarde",
         show: true,
         OkTitle: "Cerrar",
         onOk: () => setMessage({ show: false }),
@@ -67,7 +68,7 @@ export const useAccountStatement = () => {
       expeditionDate: jsDateToSQL(expeditionDate),
       expirationDate: jsDateToSQL(expirationDate),
       accountNum: lastConsecutive,
-      userCreate: crypto.randomUUID(),
+      userCreate: "000 0000 0000",
       paymentType: String(paymentType),
     };
     setMessage({
@@ -87,7 +88,7 @@ export const useAccountStatement = () => {
 
   useEffect(() => {
     if (!paymentTypeValue) return;
-    if (paymentTypeValue === -1) {
+    if (paymentTypeValue === PAYMENT_TYPE.CONTADO) {
       return setValue(
         "expirationDate",
         DateTime.now().plus({ days: 0 }).toJSDate()
@@ -101,20 +102,24 @@ export const useAccountStatement = () => {
 
   useEffect(() => {
     if (!valuePayValue) return;
-    let lettersValue: string = writtenNumber(valuePayValue, { lang: "es" });
-    lettersValue = lettersValue.charAt(0).toUpperCase() + lettersValue.slice(1);
-    setValue("valueLabel", lettersValue.concat(" m/l."));
+    setValue("valueLabel", numberToWord(valuePayValue));
   }, [valuePayValue]);
 
   useEffect(() => {
-    const businessFound = businessData.find(({ id }) => id === contractValue);
+    const businessFound = businessData.find(
+      ({ id }) => Number(id) === contractValue
+    );
     setValue("nit", businessFound?.nit ?? "");
     setValue("business", businessFound?.name ?? "");
   }, [contractValue]);
 
   useEffect(() => {
     setValue("expeditionDate", new Date());
-  }, []);
+  }, [lastConsecutive]);
+
+  useEffect(() => {
+    setValue("id", lastConsecutive);
+  }, [lastConsecutive]);
 
   return {
     lastConsecutive,
