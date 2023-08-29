@@ -1,17 +1,18 @@
 import "primereact/resources/primereact.min.css";
-import React, { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, memo, useEffect } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ApplicationProvider from "./application-provider";
 import ModalMessageComponent from "./common/components/modal-message.component";
 import { AppContextProvider } from "./common/contexts/app.context";
 import useAppCominicator from "./common/hooks/app-communicator.hook";
-import AccountStatementRoutes from "./features/accountStatement/accountStatementRoutes";
 import "./styles/_app.scss";
 
 function App() {
-  const HomePage = lazy(() => import("./common/components/home.page"));
   const { publish } = useAppCominicator();
-
+  const HomePage = lazy(() => import("./common/components/home.page"));
+  const AccountStatementRoutes = lazy(
+    () => import("./features/accountStatement/accountStatementRoutes")
+  );
   // Effect que comunica la aplicación actual
   useEffect(() => {
     localStorage.setItem("currentAplication", process.env.aplicationId);
@@ -20,7 +21,6 @@ function App() {
       500
     );
   }, []);
-
   return (
     <AppContextProvider>
       <ModalMessageComponent />
@@ -33,14 +33,6 @@ function App() {
                 path="/contabilidad/cuenta-de-cobro/*"
                 element={<AccountStatementRoutes />}
               />
-              {/* <Route
-                path={"/contabilidad/razon-social/*"}
-                element={<BussinesRoutes />}
-              /> */}
-              {/* <Route
-                path={"/contabilidad/contratos/*"}
-                element={<ContractRoutes />}
-              /> */}
             </Routes>
           </Suspense>
         </Router>
@@ -49,4 +41,4 @@ function App() {
   );
 }
 
-export default React.memo(App);
+export default memo(App);
