@@ -19,7 +19,19 @@ export const formaterNumberToCurrency = (value: number) => {
 };
 
 export const numberToWord = (value: number) => {
-  let lettersValue: string = writtenNumber(value, { lang: "es" });
-  lettersValue = lettersValue.charAt(0).toUpperCase() + lettersValue.slice(1);
-  return lettersValue.concat(" m/l.");
+  return writtenNumber(value, { lang: "es" });
+};
+
+export const upperCaseFirstLetter = (word: string) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
+
+export const numberToPesosWord = (value: number) => {
+  const decimalPortion = String(value).split(".")?.[1];
+  const valueWord = numberToWord(value);
+  if (!decimalPortion) {
+    return upperCaseFirstLetter(valueWord.concat(" pesos m/l."));
+  }
+  const decimalWord = numberToWord(Number(decimalPortion));
+  return upperCaseFirstLetter(valueWord.concat(` y ${decimalWord} pesos m/l.`));
 };

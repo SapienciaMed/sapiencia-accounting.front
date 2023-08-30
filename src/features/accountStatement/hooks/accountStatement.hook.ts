@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../common/contexts/app.context";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
@@ -10,11 +11,12 @@ import {
 } from "../../../common/interfaces/accountStatement.interface";
 import { accountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { jsDateToSQL, numberToWord } from "../../../common/utils/helpers";
+import { jsDateToSQL, numberToPesosWord } from "../../../common/utils/helpers";
 import { businessData } from "../data";
 import { useGetLastConsecutive } from "./getLastConsecutive.hook";
 
 export const useAccountStatement = () => {
+  const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { lastConsecutive, setRealoadConsecutive } = useGetLastConsecutive();
   const { post } = useCrudService(null, urlApiAccounting);
@@ -26,7 +28,7 @@ export const useAccountStatement = () => {
     watch,
     setValue,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
   const [contractValue, paymentTypeValue, valuePayValue] = watch([
     "contractCode",
@@ -86,23 +88,34 @@ export const useAccountStatement = () => {
     });
   };
 
+  const handleCancel = () => {
+    navigate("/contabilidad/cuenta-de-cobro/consultar");
+  };
+
   useEffect(() => {
-    if (!paymentTypeValue) return;
-    if (paymentTypeValue === PAYMENT_TYPE.CONTADO) {
+    const formatExpirationDate = (days: number) => {
       return setValue(
         "expirationDate",
-        DateTime.now().plus({ days: 0 }).toJSDate()
+        DateTime.now().plus({ days }).toJSDate()
       );
+    };
+    if (!paymentTypeValue) {
+      return setValue("expirationDate", null);
     }
-    setValue(
-      "expirationDate",
-      DateTime.now().plus({ days: paymentTypeValue }).toJSDate()
-    );
+    if (paymentTypeValue === PAYMENT_TYPE.CONTADO) {
+      formatExpirationDate(0);
+    } else if (paymentTypeValue === PAYMENT_TYPE["A 30 días"]) {
+      formatExpirationDate(30);
+    } else if (paymentTypeValue === PAYMENT_TYPE["A 60 días"]) {
+      formatExpirationDate(60);
+    } else if (paymentTypeValue === PAYMENT_TYPE["A 90 días"]) {
+      formatExpirationDate(90);
+    }
   }, [paymentTypeValue]);
 
   useEffect(() => {
     if (!valuePayValue) return;
-    setValue("valueLabel", numberToWord(valuePayValue));
+    setValue("valueLabel", numberToPesosWord(valuePayValue));
   }, [valuePayValue]);
 
   useEffect(() => {
@@ -127,5 +140,7 @@ export const useAccountStatement = () => {
     handleSubmit: handleSubmit(onSubmit),
     register,
     errors,
+    handleCancel,
+    isValid,
   };
 };
