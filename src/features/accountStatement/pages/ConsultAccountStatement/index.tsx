@@ -40,7 +40,7 @@ const ConsultAccountStatement = () => {
               idInput="accountNum"
               label={<>No. Cuenta de cobro</>}
               register={register}
-              typeInput="text"
+              typeInput="number"
               errors={errors}
               className="input-basic medium"
               classNameLabel="text-black big bold"
