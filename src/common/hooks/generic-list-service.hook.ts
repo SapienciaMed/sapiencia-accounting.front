@@ -6,7 +6,7 @@ import useCrudService from "./crud-service.hook";
 export function useGenericListService() {
   const baseURL: string = "http://localhost:4202";
   const listUrl: string = "/api/v1/generic-list";
-  const { get } = useCrudService(null, baseURL);
+  const { get } = useCrudService( baseURL);
 
   async function getListByGrouper(
     grouper: string

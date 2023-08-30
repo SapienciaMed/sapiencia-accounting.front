@@ -19,7 +19,7 @@ export const useAccountStatement = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { lastConsecutive, setRealoadConsecutive } = useGetLastConsecutive();
-  const { post } = useCrudService(null, urlApiAccounting);
+  const { post } = useCrudService( urlApiAccounting);
   const resolver = useYupValidationResolver(accountStatementSchema);
   const {
     control,
