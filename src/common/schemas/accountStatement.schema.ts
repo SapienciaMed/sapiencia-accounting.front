@@ -19,7 +19,14 @@ export const accountStatementSchema = yup.object({
 export const filtersAccountStatementSchema = yup.object({
   id: yup.string().optional(),
   contractCode: yup.string().optional(),
-  nit: yup.string().optional(),
+  nit: yup
+    .string()
+    .optional()
+    .max(15, "Solo se permiten 15 caracteres")
+    .matches(/(^[0-9]+-{1}[0-9]{1})/, {
+      message: "NIT inválido",
+      excludeEmptyString: true,
+    }),
   expeditionDate: yup.date().optional(),
 });
 

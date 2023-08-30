@@ -60,6 +60,7 @@ const ConsultAccountStatement = () => {
               label={<>NIT</>}
               typeInput="text"
               register={register}
+              errors={errors}
               className="input-basic medium"
               classNameLabel="text-black big bold"
             />
