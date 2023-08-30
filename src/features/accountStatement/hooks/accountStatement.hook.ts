@@ -19,7 +19,7 @@ export const useAccountStatement = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { lastConsecutive, setRealoadConsecutive } = useGetLastConsecutive();
-  const { post } = useCrudService( urlApiAccounting);
+  const { post } = useCrudService(urlApiAccounting);
   const resolver = useYupValidationResolver(accountStatementSchema);
   const {
     control,
@@ -29,7 +29,7 @@ export const useAccountStatement = () => {
     setValue,
     reset,
     formState: { errors, isValid },
-  } = useForm({ resolver, mode: "all" });
+  } = useForm({ resolver, mode: "onChange" });
   const [contractValue, paymentTypeValue, valuePayValue] = watch([
     "contractCode",
     "paymentType",

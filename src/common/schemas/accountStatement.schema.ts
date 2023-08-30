@@ -18,7 +18,7 @@ export const accountStatementSchema = yup.object({
 
 export const filtersAccountStatementSchema = yup.object({
   accountNum: yup.mixed().optional().typeError("Debe ser un número"),
-  contractCode: yup.string().optional(),
+  contractCode: yup.string().optional().nullable(),
   nit: yup
     .string()
     .optional()
