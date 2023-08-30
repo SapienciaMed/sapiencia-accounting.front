@@ -49,6 +49,7 @@ const CreateAccountStatement = () => {
               className="select-basic medium"
               classNameLabel="text-black big bold"
               placeholder="Seleccione."
+              filter
             />
             <InputComponent
               idInput="nit"
