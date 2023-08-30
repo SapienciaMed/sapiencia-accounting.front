@@ -46,7 +46,6 @@ export const useConsultAccountStatement = () => {
   };
 
   const onSubmit = handleSubmit((filters: IFilterAccountStatement) => {
-    console.log(filters);
     setTableView(true);
     tableComponentRef.current?.loadData(filters);
   });

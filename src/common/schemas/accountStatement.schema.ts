@@ -27,7 +27,7 @@ export const filtersAccountStatementSchema = yup.object({
       message: "NIT inválido",
       excludeEmptyString: true,
     }),
-  expeditionDate: yup.date().optional(),
+  expeditionDate: yup.date().optional().nullable(),
 });
 
 export const editAccountStatementSchema = yup.object({
