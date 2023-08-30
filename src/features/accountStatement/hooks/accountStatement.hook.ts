@@ -93,17 +93,24 @@ export const useAccountStatement = () => {
   };
 
   useEffect(() => {
-    if (!paymentTypeValue) return;
-    if (paymentTypeValue === PAYMENT_TYPE.CONTADO) {
+    const formatExpirationDate = (days: number) => {
       return setValue(
         "expirationDate",
-        DateTime.now().plus({ days: 0 }).toJSDate()
+        DateTime.now().plus({ days }).toJSDate()
       );
+    };
+    if (!paymentTypeValue) {
+      return setValue("expirationDate", null);
     }
-    setValue(
-      "expirationDate",
-      DateTime.now().plus({ days: paymentTypeValue }).toJSDate()
-    );
+    if (paymentTypeValue === PAYMENT_TYPE.CONTADO) {
+      formatExpirationDate(0);
+    } else if (paymentTypeValue === PAYMENT_TYPE["A 30 días"]) {
+      formatExpirationDate(30);
+    } else if (paymentTypeValue === PAYMENT_TYPE["A 60 días"]) {
+      formatExpirationDate(60);
+    } else if (paymentTypeValue === PAYMENT_TYPE["A 90 días"]) {
+      formatExpirationDate(90);
+    }
   }, [paymentTypeValue]);
 
   useEffect(() => {
