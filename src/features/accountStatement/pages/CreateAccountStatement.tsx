@@ -12,7 +12,8 @@ import { contractsData, paymentTypeData } from "../data";
 import { useAccountStatement } from "../hooks/accountStatement.hook";
 
 const CreateAccountStatement = () => {
-  const { control, handleSubmit, register, errors } = useAccountStatement();
+  const { control, handleSubmit, register, errors, handleCancel } =
+    useAccountStatement();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
@@ -178,6 +179,7 @@ const CreateAccountStatement = () => {
             value="Cancelar"
             className="button-clean bold"
             type="button"
+            action={handleCancel}
           />
           <ButtonComponent
             value="Guardar"
