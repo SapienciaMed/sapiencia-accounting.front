@@ -14,7 +14,7 @@ export const useEditAccountStatement = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { id, accountStatement } = useGetAccountStatementById();
-  const { put } = useCrudService(null, urlApiAccounting);
+  const { put } = useCrudService( urlApiAccounting);
   const resolver = useYupValidationResolver(editAccountStatementSchema);
   const {
     control,

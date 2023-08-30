@@ -14,6 +14,7 @@ interface IAppContext {
   setAuthorization: Dispatch<SetStateAction<IAuthorization>>;
   message: IMessage;
   setMessage: Dispatch<SetStateAction<IMessage>>;
+  validateActionAccess: (indicator: string) => boolean;
 }
 interface IProps {
   children: ReactElement | ReactElement[];
@@ -24,6 +25,7 @@ export const AppContext = createContext<IAppContext>({
   setAuthorization: () => {},
   message: {} as IMessage,
   setMessage: () => {},
+  validateActionAccess: () => true,
 });
 
 export function AppContextProvider({ children }: IProps) {
@@ -33,12 +35,18 @@ export function AppContextProvider({ children }: IProps) {
     {} as IAuthorization
   );
 
+  // Metodo que verifica si el usuario posee permisos sobre un accion
+  function validateActionAccess(indicator: string): boolean {
+    return authorization.allowedActions?.findIndex((i) => i === indicator) >= 0;
+  }
+
   const values = useMemo<IAppContext>(() => {
     return {
       authorization,
       setAuthorization,
       message,
       setMessage,
+      validateActionAccess,
     };
   }, [message, authorization]);
 

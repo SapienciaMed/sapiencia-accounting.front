@@ -1,7 +1,14 @@
-import { Column } from "primereact/column";
+import React, {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+  useContext,
+} from "react";
+import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 import { DataView } from "primereact/dataview";
-import { Dropdown } from "primereact/dropdown";
 import {
   Paginator,
   PaginatorCurrentPageReportOptions,
@@ -12,21 +19,14 @@ import {
   PaginatorRowsPerPageDropdownOptions,
   PaginatorTemplateOptions,
 } from "primereact/paginator";
-import { classNames } from "primereact/utils";
-import React, {
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from "react";
-import * as Icons from "react-icons/fa";
-import { EResponseCodes } from "../constants/api.enum";
-import { AppContext } from "../contexts/app.context";
-import useCrudService from "../hooks/crud-service.hook";
-import { useWidth } from "../hooks/use-width";
-import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { IPagingData } from "../utils/api-response";
+import useCrudService from "../hooks/crud-service.hook";
+import { EResponseCodes } from "../constants/api.enum";
+import { classNames } from "primereact/utils";
+import * as Icons from "react-icons/fa";
+import { Dropdown } from "primereact/dropdown";
+import { useWidth } from "../hooks/use-width";
+import { AppContext } from "../contexts/app.context";
 
 interface IProps<T> {
   url: string;
@@ -41,7 +41,6 @@ interface IProps<T> {
 
 interface IRef {
   loadData: (newSearchCriteria?: object) => void;
-  emptyData: () => void;
 }
 
 const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
@@ -66,26 +65,17 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   const { width } = useWidth();
   const { setMessage } = useContext(AppContext);
 
-  const token = localStorage.getItem("token");
-
   // Declaraciones
-  const { post } = useCrudService(token, url);
+  const { post } = useCrudService(url);
   useImperativeHandle(ref, () => ({
     loadData: loadData,
-    emptyData: emptyData,
   }));
 
   // Metodo que hace la peticion para realizar la carga de datos
   async function loadData(
     newSearchCriteria?: object,
-    sameData?: object,
-    excludeData?: object,
     currentPage?: number
   ): Promise<void> {
-    /*  ----  ALERTA  ----  */
-    /* Evitar usar la propiedad 'sameData' o 'excludeData' para filtrar los datos ya que puede hacer pesada la consulta si existen muchos registros. */
-    /* Solo usar en el caso extremo de no poder filtrar desde el backend ya que el uso de esta traera todos los registros en la peticion. */
-
     setLoading(true);
     if (newSearchCriteria) {
       setSearchCriteria(newSearchCriteria);
@@ -94,150 +84,33 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     const res = await post<IPagingData<any>>(url, {
       ...body,
       page: currentPage || 1,
-      perPage: sameData || excludeData ? "Infinity" : perPage,
+      perPage: perPage,
     });
     if (res.operation.code === EResponseCodes.OK) {
-      if (sameData) {
-        const sameFilters = Reflect.ownKeys(sameData);
-        let filteredData = [];
-        if (sameFilters.length !== 0) {
-          sameFilters.forEach((filter) => {
-            if (!Reflect.has(res.data.array[0], filter)) return;
-            if (Array.isArray(sameData[filter])) {
-              sameData[filter].forEach((filt) => {
-                filteredData = filteredData.concat(
-                  res.data.array.filter((item) => item[filter] === filt)
-                );
-              });
-            } else {
-              filteredData = filteredData.concat(
-                res.data.array.filter(
-                  (item) => item[filter] === sameData[filter]
-                )
-              );
-            }
-          });
-          if (excludeData) {
-            const excludeFilters = Reflect.ownKeys(excludeData);
-            if (excludeFilters.length !== 0) {
-              excludeFilters.forEach((filter) => {
-                if (!Reflect.has(res.data.array[0], filter)) return;
-                if (Array.isArray(excludeData[filter])) {
-                  excludeData[filter].forEach((filt) => {
-                    filteredData = filteredData.filter(
-                      (item) => item[filter] !== filt
-                    );
-                  });
-                } else {
-                  filteredData = filteredData.filter(
-                    (item) => item[filter] !== excludeData[filter]
-                  );
-                }
-              });
-            }
-          }
-          const meta = {
-            total: filteredData.length,
-            per_page: perPage,
-            current_page: page,
-            last_page: Math.trunc(filteredData.length / perPage),
-            first_page: 1,
-          };
-          setResultData({
-            array: filteredData.slice(perPage * page, perPage * page + perPage),
-            meta: meta,
-          });
-        } else {
-          if (excludeData) {
-            let filteredData = res.data.array;
-            const excludeFilters = Reflect.ownKeys(excludeData);
-            if (excludeFilters.length !== 0) {
-              excludeFilters.forEach((filter) => {
-                if (!Reflect.has(res.data.array[0], filter)) return;
-                if (Array.isArray(excludeData[filter])) {
-                  excludeData[filter].forEach((filt) => {
-                    filteredData = filteredData.filter(
-                      (item) => item[filter] !== filt
-                    );
-                  });
-                } else {
-                  filteredData = filteredData.filter(
-                    (item) => item[filter] !== excludeData[filter]
-                  );
-                }
-              });
-              const meta = {
-                total: filteredData.length,
-                per_page: perPage,
-                current_page: page,
-                last_page: Math.trunc(filteredData.length / perPage),
-                first_page: 1,
-              };
-              setResultData({
-                array: filteredData.slice(
-                  perPage * page,
-                  perPage * page + perPage
-                ),
-                meta: meta,
-              });
-            } else {
-              setResultData(res.data);
-            }
-          }
-        }
-      } else if (excludeData) {
-        let filteredData = res.data.array;
-        const excludeFilters = Reflect.ownKeys(excludeData);
-        if (excludeFilters.length !== 0) {
-          excludeFilters.forEach((filter) => {
-            if (!Reflect.has(res.data.array[0], filter)) return;
-            if (Array.isArray(excludeData[filter])) {
-              excludeData[filter].forEach((filt) => {
-                filteredData = filteredData.filter(
-                  (item) => item[filter] !== filt
-                );
-              });
-            } else {
-              filteredData = filteredData.filter(
-                (item) => item[filter] !== excludeData[filter]
-              );
-            }
-          });
-          const meta = {
-            total: filteredData.length,
-            per_page: perPage,
-            current_page: page,
-            last_page: Math.trunc(filteredData.length / perPage),
-            first_page: 1,
-          };
-          setResultData({
-            array: filteredData.slice(perPage * page, perPage * page + perPage),
-            meta: meta,
-          });
-        } else {
-          setResultData(res.data);
-        }
-      } else {
-        setResultData(res.data);
+      setResultData(res.data);
+
+      if (res.data.array.length <= 0 && isShowModal) {
+        setMessage({
+          title: `${titleMessageModalNoResult || ""}`,
+          show: true,
+          description: "No hay resultado para la búsqueda",
+          okTitle: "Aceptar",
+          background: true,
+        });
       }
     } else {
-      // generar mensaje de error / advetencia
-    }
-    if (res.data.array.length <= 0 && isShowModal) {
       setMessage({
-        title: `${titleMessageModalNoResult || ""}`,
+        title: `Error en la consulta de datos`,
         show: true,
-        description: "No hay resultado para la búsqueda",
-        OkTitle: "Aceptar",
+        description: res.operation.message,
+        okTitle: "Aceptar",
         background: true,
+        onOk: () => {
+          setMessage({});
+        },
       });
     }
-    setLoading(false);
-  }
 
-  async function emptyData(): Promise<void> {
-    setLoading(true);
-    setResultData({ array: [], meta: { total: 0 } });
     setLoading(false);
   }
 
@@ -249,7 +122,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   }
 
   useEffect(() => {
-    if (charged) loadData(undefined, undefined, undefined, page + 1);
+    if (charged) loadData(undefined, page + 1);
   }, [perPage, first, page]);
 
   useEffect(() => {
@@ -288,6 +161,17 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
       </div>
     );
   };
+
+  useImperativeHandle(ref, () => ({
+    loadData: loadData,
+    emptyData: EmptyData,
+  }));
+
+  async function EmptyData(): Promise<void> {
+    setLoading(true);
+    setResultData({ array: [], meta: { total: 0 } });
+    setLoading(false);
+  }
 
   return (
     <div className="spc-common-table">
@@ -336,8 +220,8 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
         <DataView
           value={resultData?.array || []}
           itemTemplate={mobilTemplate}
-          emptyMessage={emptyMessage}
           rows={5}
+          emptyMessage={emptyMessage}
         />
       )}
       <Paginator
@@ -489,9 +373,19 @@ const ActionComponent = (props: {
 }): React.JSX.Element => {
   return (
     <div className="spc-table-action-button">
-      {props.actions.map((action) => (
-        <div key={action.icon} onClick={() => action.onClick(props.row)}>
-          {getIconElement(action.icon, "src")}
+      {props.actions.map((action, index) => (
+        <div
+          style={{ display: action.hide ? "none" : "block" }}
+          key={index}
+          onClick={() => action.onClick(props.row)}
+        >
+          {action.customIcon ? (
+            <div className="button grid-button button-link">
+              {action.customIcon()}
+            </div>
+          ) : (
+            getIconElement(action.icon, "src")
+          )}
         </div>
       ))}
     </div>
