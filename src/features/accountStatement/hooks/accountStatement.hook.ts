@@ -28,7 +28,7 @@ export const useAccountStatement = () => {
     watch,
     setValue,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
   const [contractValue, paymentTypeValue, valuePayValue] = watch([
     "contractCode",
@@ -141,5 +141,6 @@ export const useAccountStatement = () => {
     register,
     errors,
     handleCancel,
+    isValid,
   };
 };

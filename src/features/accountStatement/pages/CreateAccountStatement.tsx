@@ -12,7 +12,7 @@ import { contractsData, paymentTypeData } from "../data";
 import { useAccountStatement } from "../hooks/accountStatement.hook";
 
 const CreateAccountStatement = () => {
-  const { control, handleSubmit, register, errors, handleCancel } =
+  const { control, handleSubmit, register, errors, handleCancel, isValid } =
     useAccountStatement();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
@@ -183,8 +183,9 @@ const CreateAccountStatement = () => {
           />
           <ButtonComponent
             value="Guardar"
-            className="button-save big"
             type="submit"
+            disabled={!isValid}
+            className={`button-save ${!isValid ? "disabled-black" : ""} big`}
           />
         </div>
       </FormComponent>
