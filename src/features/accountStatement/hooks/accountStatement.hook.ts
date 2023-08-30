@@ -11,7 +11,7 @@ import {
 } from "../../../common/interfaces/accountStatement.interface";
 import { accountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { jsDateToSQL, numberToWord } from "../../../common/utils/helpers";
+import { jsDateToSQL, numberToPesosWord } from "../../../common/utils/helpers";
 import { businessData } from "../data";
 import { useGetLastConsecutive } from "./getLastConsecutive.hook";
 
@@ -115,7 +115,7 @@ export const useAccountStatement = () => {
 
   useEffect(() => {
     if (!valuePayValue) return;
-    setValue("valueLabel", numberToWord(valuePayValue));
+    setValue("valueLabel", numberToPesosWord(valuePayValue));
   }, [valuePayValue]);
 
   useEffect(() => {
