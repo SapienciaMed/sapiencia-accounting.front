@@ -29,9 +29,29 @@ export const upperCaseFirstLetter = (word: string) => {
 export const numberToPesosWord = (value: number) => {
   const decimalPortion = String(value).split(".")?.[1];
   const valueWord = numberToWord(value);
-  if (!decimalPortion) {
+  if (!decimalPortion || Number(decimalPortion) === 0) {
     return upperCaseFirstLetter(valueWord.concat(" pesos m/l."));
   }
   const decimalWord = numberToWord(Number(decimalPortion));
+  if (decimalPortion.length > 1) {
+    if (Number(decimalPortion) >= 50) {
+      const newDecimalPortion = value - 1;
+      const newDecimalPortionWord = numberToWord(newDecimalPortion);
+      return upperCaseFirstLetter(
+        newDecimalPortionWord.concat(` y ${decimalWord} pesos m/l.`)
+      );
+    }
+    return upperCaseFirstLetter(
+      valueWord.concat(` y ${decimalWord} pesos m/l.`)
+    );
+  }
+
+  if (Number(decimalPortion) >= 5) {
+    const newDecimalPortion = value - 1;
+    const newDecimalPortionWord = numberToWord(newDecimalPortion);
+    return upperCaseFirstLetter(
+      newDecimalPortionWord.concat(` y ${decimalWord} pesos m/l.`)
+    );
+  }
   return upperCaseFirstLetter(valueWord.concat(` y ${decimalWord} pesos m/l.`));
 };

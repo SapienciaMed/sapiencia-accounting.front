@@ -69,10 +69,10 @@ export interface IGetAccountStatement {
 }
 
 export interface IFilterAccountStatement {
-  contractCode?: number;
   accountNum?: number;
+  contractCode?: number;
+  nit?: string;
   expeditionDate?: DateTime;
-  concept?: string;
 }
 
 export enum PAYMENT_TYPE {
