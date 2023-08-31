@@ -6,7 +6,7 @@ import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { editAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { numberToWord } from "../../../common/utils/helpers";
+import { numberToPesosWord } from "../../../common/utils/helpers";
 import { businessData } from "../data";
 import { useGetAccountStatementById } from "./getAccountStatementById";
 
@@ -14,7 +14,7 @@ export const useEditAccountStatement = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { id, accountStatement } = useGetAccountStatementById();
-  const { put } = useCrudService( urlApiAccounting);
+  const { put } = useCrudService(urlApiAccounting);
   const resolver = useYupValidationResolver(editAccountStatementSchema);
   const {
     control,
@@ -25,7 +25,7 @@ export const useEditAccountStatement = () => {
     reset,
     formState: { errors },
   } = useForm({ resolver, mode: "all" });
-  const contractCodeValue = watch("contractCode");
+  const [contractCode, valuePay] = watch(["contractCode", "valuePay"]);
 
   const updateAccountStatement = async (data) => {
     try {
@@ -82,17 +82,22 @@ export const useEditAccountStatement = () => {
 
   useEffect(() => {
     const businessFound = businessData.find(
-      ({ id }) => Number(id) === contractCodeValue
+      ({ id }) => Number(id) === contractCode,
+      valuePay
     );
     setValue("nit", businessFound?.nit ?? "");
     setValue("business", businessFound?.name ?? "");
-  }, [contractCodeValue]);
+  }, [contractCode, valuePay]);
 
   useEffect(() => {
     if (accountStatement) {
-      setValue("valueLabel", numberToWord(accountStatement.valuePay));
+      setValue("valueLabel", numberToPesosWord(accountStatement.valuePay));
     }
   }, [accountStatement]);
+
+  useEffect(() => {
+    setValue("valueLabel", numberToPesosWord(valuePay));
+  }, [valuePay]);
 
   return {
     control,
