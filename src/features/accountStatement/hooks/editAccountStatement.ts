@@ -1,3 +1,4 @@
+import { numberToColombianPesosWord } from "@isildur1/number-to-word";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +7,6 @@ import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { editAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { numberToPesosWord } from "../../../common/utils/helpers";
 import { businessData } from "../data";
 import { useGetAccountStatementById } from "./getAccountStatementById";
 
@@ -91,12 +91,15 @@ export const useEditAccountStatement = () => {
 
   useEffect(() => {
     if (accountStatement) {
-      setValue("valueLabel", numberToPesosWord(accountStatement.valuePay));
+      setValue(
+        "valueLabel",
+        numberToColombianPesosWord(accountStatement.valuePay)
+      );
     }
   }, [accountStatement]);
 
   useEffect(() => {
-    setValue("valueLabel", numberToPesosWord(valuePay));
+    setValue("valueLabel", numberToColombianPesosWord(valuePay));
   }, [valuePay]);
 
   return {

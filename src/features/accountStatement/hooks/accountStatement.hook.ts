@@ -1,3 +1,4 @@
+import { numberToColombianPesosWord } from "@isildur1/number-to-word";
 import { DateTime } from "luxon";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -11,7 +12,7 @@ import {
 } from "../../../common/interfaces/accountStatement.interface";
 import { accountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { jsDateToSQL, numberToPesosWord } from "../../../common/utils/helpers";
+import { jsDateToSQL } from "../../../common/utils/helpers";
 import { businessData } from "../data";
 import { useGetLastConsecutive } from "./getLastConsecutive.hook";
 
@@ -115,7 +116,7 @@ export const useAccountStatement = () => {
 
   useEffect(() => {
     if (!valuePayValue) return;
-    setValue("valueLabel", numberToPesosWord(valuePayValue));
+    setValue("valueLabel", numberToColombianPesosWord(valuePayValue));
   }, [valuePayValue]);
 
   useEffect(() => {
