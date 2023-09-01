@@ -7,7 +7,7 @@ import { urlApiAccounting } from "../../../common/utils/base-url";
 
 export const useGetAccountStatementById = () => {
   const { id } = useParams();
-  const { get } = useCrudService( urlApiAccounting);
+  const { get } = useCrudService(urlApiAccounting);
   const [accountStatement, setAccountStatement] =
     useState<IGetAccountStatement>(null);
 

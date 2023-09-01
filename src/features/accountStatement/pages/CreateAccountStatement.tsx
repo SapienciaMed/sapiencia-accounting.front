@@ -21,7 +21,7 @@ const CreateAccountStatement = () => {
         className="form-signIn"
         action={handleSubmit}
       >
-        <div className=" container-sections-forms ml-20px mr-20px">
+        <div className="container-sections-forms ml-20px mr-20px">
           <div className="grid-form-3-container gap-25">
             <span className="text-black large bold grid-span-3-columns">
               Crear cuenta de cobro
