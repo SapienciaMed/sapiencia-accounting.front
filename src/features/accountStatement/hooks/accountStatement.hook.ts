@@ -47,7 +47,7 @@ export const useAccountStatement = () => {
         title: "Cuenta de cobro",
         description: "¡Creada exitosamente!",
         show: true,
-        OkTitle: "Cerrar",
+        okTitle: "Cerrar",
         onOk: () => setMessage({ show: false }),
         background: true,
       });
@@ -57,7 +57,7 @@ export const useAccountStatement = () => {
         title: "Cuenta de cobro",
         description: "Error, por favor intente más tarde",
         show: true,
-        OkTitle: "Cerrar",
+        okTitle: "Cerrar",
         onOk: () => setMessage({ show: false }),
         background: true,
       });
@@ -78,7 +78,7 @@ export const useAccountStatement = () => {
       title: "Crear cuenta de cobro",
       description: "Estás segur@ de crear la cuenta de cobro?",
       show: true,
-      OkTitle: "Aceptar",
+      okTitle: "Aceptar",
       cancelTitle: "Cancelar",
       onOk: () => {
         setMessage({ show: false });

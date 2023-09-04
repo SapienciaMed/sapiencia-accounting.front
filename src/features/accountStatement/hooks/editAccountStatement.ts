@@ -35,7 +35,7 @@ export const useEditAccountStatement = () => {
         title: "¡Cambios guardados!",
         description: "Cambios guardados exitosamente",
         show: true,
-        OkTitle: "Cerrar",
+        okTitle: "Cerrar",
         onOk: () => setMessage({ show: false }),
         background: true,
       });
@@ -45,7 +45,7 @@ export const useEditAccountStatement = () => {
         title: "Cuenta de cobro",
         description: "Error, por favor intente más tarde",
         show: true,
-        OkTitle: "Cerrar",
+        okTitle: "Cerrar",
         onOk: () => setMessage({ show: false }),
         background: true,
       });
@@ -63,7 +63,7 @@ export const useEditAccountStatement = () => {
       title: "Guardar cambios",
       description: "Estás segur@ de guardar los cambios?",
       show: true,
-      OkTitle: "Aceptar",
+      okTitle: "Aceptar",
       cancelTitle: "Cancelar",
       onOk: () => {
         setMessage({ show: false });

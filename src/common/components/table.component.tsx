@@ -1,14 +1,7 @@
-import React, {
-  useState,
-  forwardRef,
-  useImperativeHandle,
-  useEffect,
-  useContext,
-} from "react";
-import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
-import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import { DataView } from "primereact/dataview";
+import { Dropdown } from "primereact/dropdown";
 import {
   Paginator,
   PaginatorCurrentPageReportOptions,
@@ -19,14 +12,21 @@ import {
   PaginatorRowsPerPageDropdownOptions,
   PaginatorTemplateOptions,
 } from "primereact/paginator";
-import { IPagingData } from "../utils/api-response";
-import useCrudService from "../hooks/crud-service.hook";
-import { EResponseCodes } from "../constants/api.enum";
 import { classNames } from "primereact/utils";
+import React, {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import * as Icons from "react-icons/fa";
-import { Dropdown } from "primereact/dropdown";
-import { useWidth } from "../hooks/use-width";
+import { EResponseCodes } from "../constants/api.enum";
 import { AppContext } from "../contexts/app.context";
+import useCrudService from "../hooks/crud-service.hook";
+import { useWidth } from "../hooks/use-width";
+import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
+import { IPagingData } from "../utils/api-response";
 
 interface IProps<T> {
   url: string;
@@ -94,7 +94,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
           title: `${titleMessageModalNoResult || ""}`,
           show: true,
           description: "No hay resultado para la búsqueda",
-          OkTitle: "Aceptar",
+          okTitle: "Aceptar",
           background: true,
         });
       }
@@ -103,7 +103,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
         title: `Error en la consulta de datos`,
         show: true,
         description: res.operation.message,
-        OkTitle: "Aceptar",
+        okTitle: "Aceptar",
         background: true,
         onOk: () => {
           setMessage({});

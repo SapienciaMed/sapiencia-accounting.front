@@ -5,13 +5,15 @@ export interface IMessage {
   title?: string;
   description?: string | React.JSX.Element;
   show?: boolean;
-  OkTitle?: string;
+  okTitle?: string;
   cancelTitle?: string;
   onOk?: () => void;
   onCancel?: () => void;
   onClickOutClose?: boolean;
   onClose?: () => void;
   background?: boolean;
+  size?: string;
+  style?: string;
 }
 
 export interface IGenericList {
@@ -22,5 +24,3 @@ export interface IGenericList {
   parentGrouper?: string;
   parentItemCode?: string;
 }
-
-
