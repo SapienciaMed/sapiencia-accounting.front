@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
@@ -15,14 +15,25 @@ export const useConsultAccountStatement = () => {
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
   const [tableView, setTableView] = useState<boolean>(false);
+  const [formWatch, setFormWatch] = useState({
+    accountNum: "",
+    nit: "",
+  });
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(filtersAccountStatementSchema);
   const {
     control,
     handleSubmit,
     register,
     reset,
-    formState: { errors },
-  } = useForm<IFilterAccountStatement>({ resolver, mode: "all" });
+    watch,
+    formState: { errors, isValid },
+  } = useForm({ resolver, mode: "onBlur" });
+
+  const [contractCode, expeditionDate] = watch([
+    "contractCode",
+    "expeditionDate",
+  ]);
 
   const tableActions: ITableAction<IAccountStatement>[] = [
     {
@@ -50,6 +61,22 @@ export const useConsultAccountStatement = () => {
     tableComponentRef.current?.loadData(filters);
   });
 
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setFormWatch({
+      ...formWatch,
+      [name]: value,
+    });
+  };
+
+  useEffect(() => {
+    const { accountNum, nit } = formWatch;
+    if (contractCode || expeditionDate || accountNum || nit) {
+      return setSubmitDisabled(false);
+    }
+    setSubmitDisabled(true);
+  }, [contractCode, expeditionDate, formWatch]);
+
   return {
     urlGetAccountStatement,
     tableComponentRef,
@@ -58,7 +85,10 @@ export const useConsultAccountStatement = () => {
     register,
     control,
     errors,
+    isValid,
     tableActions,
     handleClean,
+    handleChange,
+    submitDisabled,
   };
 };
