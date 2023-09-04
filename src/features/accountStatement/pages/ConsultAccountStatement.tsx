@@ -1,5 +1,5 @@
-import ConsultAccountStatementForm from "../../forms/consultAccountStatement";
-import { useConsultAccountStatement } from "../../hooks/consultAccountStatement";
+import ConsultAccountStatementForm from "../forms/consultAccountStatement";
+import { useConsultAccountStatement } from "../hooks/consultAccountStatement";
 
 const ConsultAccountStatement = () => {
   const {
