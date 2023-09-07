@@ -2,7 +2,7 @@ import { IGetAccountStatement } from "../../../../common/interfaces/accountState
 import { ITableElement } from "../../../../common/interfaces/table.interfaces";
 import {
   formaterNumberToCurrency,
-  jsToLocaleString,
+  jsToLocaleStringMinusOneDay,
 } from "../../../../common/utils/helpers";
 
 export const tableColumns: ITableElement<IGetAccountStatement>[] = [
@@ -21,7 +21,7 @@ export const tableColumns: ITableElement<IGetAccountStatement>[] = [
     fieldName: "expeditionDate",
     header: "Fecha expedición",
     renderCell: (row) => {
-      return <>{jsToLocaleString(row.expeditionDate)}</>;
+      return <>{jsToLocaleStringMinusOneDay(row.expeditionDate)}</>;
     },
   },
   {
