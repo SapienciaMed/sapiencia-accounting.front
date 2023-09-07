@@ -5,7 +5,7 @@ export const jsDateToSQL = (jsDate: Date) => {
 };
 
 export const jsToLocaleString = (jsDate: string) => {
-  return DateTime.fromJSDate(new Date(jsDate)).toLocaleString();
+  return DateTime.fromJSDate(new Date(jsDate)).toFormat("dd/MM/yyyy");
 };
 
 export const formaterNumberToCurrency = (value: number) => {
