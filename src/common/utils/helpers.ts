@@ -5,7 +5,7 @@ export const jsDateToSQL = (jsDate: Date) => {
 };
 
 export const jsToLocaleString = (jsDate: string) => {
-  const exitDate = DateTime.fromJSDate(new Date(jsDate)).toFormat("dd/MM/yyyy");
+  const exitDate = DateTime.fromISO(jsDate).toFormat("dd/MM/yyyy");
   console.log({ jsDate, exitDate });
   return exitDate;
 };
