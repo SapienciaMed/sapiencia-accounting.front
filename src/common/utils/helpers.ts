@@ -4,8 +4,8 @@ export const jsDateToSQL = (jsDate: Date) => {
   return DateTime.fromJSDate(jsDate).toSQL();
 };
 
-export const ISOToLocale = (data: string) => {
-  return DateTime.fromISO(data).toLocaleString();
+export const jsToLocaleString = (jsDate: string) => {
+  return DateTime.fromJSDate(new Date(jsDate)).toLocaleString();
 };
 
 export const formaterNumberToCurrency = (value: number) => {
