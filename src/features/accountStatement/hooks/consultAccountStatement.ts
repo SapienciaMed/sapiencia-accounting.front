@@ -10,10 +10,7 @@ import { ITableAction } from "../../../common/interfaces/table.interfaces";
 import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { AppContext } from "../../../common/contexts/app.context";
-import { FaFilePdf } from "react-icons/fa"; 
-import * as Icons from "react-icons/fa";
-import { IconManifest } from "react-icons/lib";
-
+import { useWidth } from "../../../common/hooks/use-width";
 
 export const useConsultAccountStatement = () => {
   const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
@@ -24,6 +21,8 @@ export const useConsultAccountStatement = () => {
     accountNum: "",
     nit: "",
   });
+  const { width } = useWidth();
+  const resultRespons = width < 720 ? 1 : 0;
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(filtersAccountStatementSchema);
   const { validateActionAccess } = useContext(AppContext);
@@ -57,16 +56,10 @@ export const useConsultAccountStatement = () => {
     {
       icon: "Pdf",
       onClick: (row) => {
-        navigate(`/contabilidad/cuenta-de-cobro/pdf/${row.id}`);
+        const pdfUrl = `https://sapiencia-accounting-api-ukyunq2uxa-uc.a.run.app/api/v1/account-statement/${row.id}/generate-account-statement-pdf?responsive=${resultRespons}`;
+        window.open(pdfUrl, "_blank");
       },
     },
-  //   {
-  //   customIcon: () => <Icons. />,
-  //   customName: "Pdf",
-  //   onClick: (row) => {
-  //     navigate(`/contabilidad/cuenta-de-cobro/pdf/${row.id}`);
-  //   },
-  // },
   ];
 
   const handleClean = () => {
