@@ -49,6 +49,7 @@ export function SelectComponent({
   fieldArray,
   filter,
   emptyMessage = "Sin resultados.",
+  
 }: ISelectProps<any>): React.JSX.Element {
   if (data) {
     const seleccione: IDropdownProps = { name: "Seleccione", value: null };
@@ -56,8 +57,7 @@ export function SelectComponent({
       (item) => item.name === seleccione.name && item.value === seleccione.value
     );
     if (!dataSelect) data.unshift(seleccione);
-  }
-
+  };
   const messageError = () => {
     const keysError = idInput.split(".");
     let errs = errors;
@@ -71,7 +71,7 @@ export function SelectComponent({
           break;
         }
       }
-      return errs?.message ?? null;
+      return errs?.message ?? null; 
     }
   };
 

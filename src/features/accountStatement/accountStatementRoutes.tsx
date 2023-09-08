@@ -4,6 +4,8 @@ import ConsultAccountStatement from "./pages/ConsultAccountStatement";
 import CreateAccountStatement from "./pages/CreateAccountStatement";
 import DetailAccountStatement from "./pages/DetailAccountStatement";
 import EditAccountStatement from "./pages/EditAccountStatement";
+import TracingAccountStatement from "./pages/TracingAccountStatement";
+import EditTracingAccountStatement from "./pages/EditTracingAccountStatement";
 
 const AccountStatementRoutes = () => {
   // const CreateAccountStatement = lazy(
@@ -24,6 +26,8 @@ const AccountStatementRoutes = () => {
       <Route path="/consultar" element={<ConsultAccountStatement />} />
       <Route path="/detalle/:id" element={<DetailAccountStatement />} />
       <Route path="/editar/:id" element={<EditAccountStatement />} />
+      <Route path="/seguimiento" element={<TracingAccountStatement />} />
+      <Route path="/seguimiento/:accountNum" element={<EditTracingAccountStatement />} />
     </Routes>
   );
 };

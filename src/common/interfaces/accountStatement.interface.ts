@@ -81,3 +81,9 @@ export enum PAYMENT_TYPE {
   "A 60 días" = "3",
   "A 90 días" = "4",
 }
+
+export enum STATE_TYPE {
+  "ANULADA" = "1",
+  "PAGADA" = "2",
+  "VENCIDA" = "3",
+}

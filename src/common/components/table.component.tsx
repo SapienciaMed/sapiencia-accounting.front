@@ -263,6 +263,12 @@ function getIconElement(icon: string, element: "name" | "src") {
       ) : (
         <Icons.FaLink className="button grid-button button-link" />
       );
+      case "Pdf":
+      return element == "name" ? (
+        "Pdf"
+      ) : (
+        <Icons.FaRegFilePdf className="button grid-button button-pdf color-icon-pdf" />
+      );
     default:
       return "";
   }

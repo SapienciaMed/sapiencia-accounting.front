@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
@@ -9,6 +9,8 @@ import {
 import { ITableAction } from "../../../common/interfaces/table.interfaces";
 import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
+import { AppContext } from "../../../common/contexts/app.context";
+// import { FaFilePdf } from "react-icons/fa"; 
 
 export const useConsultAccountStatement = () => {
   const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
@@ -21,6 +23,7 @@ export const useConsultAccountStatement = () => {
   });
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(filtersAccountStatementSchema);
+  const { validateActionAccess } = useContext(AppContext);
   const {
     control,
     handleSubmit,
@@ -48,6 +51,19 @@ export const useConsultAccountStatement = () => {
         navigate(`/contabilidad/cuenta-de-cobro/editar/${row.id}`);
       },
     },
+    {
+      icon: "Pdf",
+      onClick: (row) => {
+        navigate(`/contabilidad/cuenta-de-cobro/pdf/${row.id}`);
+      },
+    },
+  //   {
+  //   customIcon: () => <FaFilePdf />,
+  //   customName: "Pdf",
+  //   onClick: (row) => {
+  //     navigate(`/contabilidad/cuenta-de-cobro/pdf/${row.id}`);
+  //   },
+  // },
   ];
 
   const handleClean = () => {

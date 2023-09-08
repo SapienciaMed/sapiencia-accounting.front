@@ -1,8 +1,8 @@
 import React, { useContext, useRef } from "react";
-import cancelIcon from "../../public/images/icons/cancel.png";
-import okIcon from "../../public/images/icons/ok.png";
 import { AppContext } from "../contexts/app.context";
 import useOnClickOutside from "../hooks/click-outside.hook";
+import cancelIcon from "../../public/images/icons/cancel.png";
+import okIcon from "../../public/images/icons/ok.png";
 
 function ModalMessageComponent(): React.JSX.Element {
   // Services
@@ -17,11 +17,7 @@ function ModalMessageComponent(): React.JSX.Element {
   );
 
   return (
-    <div
-      className={`modal ${message.background ? "modal-bg" : ""} ${
-        message.show ? "is-open" : "modal-close"
-      }`}
-    >
+    <div className={`modal ${message.background ? "modal-bg" : ""} ${message.show ? "is-open" : "modal-close"}`}>
       <div ref={modal} className="modal-container">
         <div className="modal-header">
           <button
