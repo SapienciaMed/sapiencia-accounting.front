@@ -1,8 +1,8 @@
 import { IGetAccountStatement } from "../../../../common/interfaces/accountStatement.interface";
 import { ITableElement } from "../../../../common/interfaces/table.interfaces";
 import {
-  ISOToLocale,
   formaterNumberToCurrency,
+  jsToLocaleStringMinusOneDay,
 } from "../../../../common/utils/helpers";
 
 export const tableColumns: ITableElement<IGetAccountStatement>[] = [
@@ -21,7 +21,7 @@ export const tableColumns: ITableElement<IGetAccountStatement>[] = [
     fieldName: "expeditionDate",
     header: "Fecha expedición",
     renderCell: (row) => {
-      return <>{ISOToLocale(row.expeditionDate)}</>;
+      return <>{jsToLocaleStringMinusOneDay(row.expeditionDate)}</>;
     },
   },
   {

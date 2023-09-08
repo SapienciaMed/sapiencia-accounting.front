@@ -4,8 +4,8 @@ export const jsDateToSQL = (jsDate: Date) => {
   return DateTime.fromJSDate(jsDate).toSQL();
 };
 
-export const ISOToLocale = (data: string) => {
-  return DateTime.fromISO(data).toLocaleString();
+export const jsToLocaleStringMinusOneDay = (jsDate: string) => {
+  return DateTime.fromISO(jsDate).plus({ day: 1 }).toFormat("dd/MM/yyyy");
 };
 
 export const formaterNumberToCurrency = (value: number) => {

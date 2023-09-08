@@ -10,7 +10,10 @@ import { ITableAction } from "../../../common/interfaces/table.interfaces";
 import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { AppContext } from "../../../common/contexts/app.context";
-// import { FaFilePdf } from "react-icons/fa"; 
+import { FaFilePdf } from "react-icons/fa"; 
+import * as Icons from "react-icons/fa";
+import { IconManifest } from "react-icons/lib";
+
 
 export const useConsultAccountStatement = () => {
   const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
@@ -58,7 +61,7 @@ export const useConsultAccountStatement = () => {
       },
     },
   //   {
-  //   customIcon: () => <FaFilePdf />,
+  //   customIcon: () => <Icons. />,
   //   customName: "Pdf",
   //   onClick: (row) => {
   //     navigate(`/contabilidad/cuenta-de-cobro/pdf/${row.id}`);
