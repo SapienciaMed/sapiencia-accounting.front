@@ -1,4 +1,7 @@
-import { PAYMENT_TYPE, STATE_TYPE } from "../../common/interfaces/accountStatement.interface";
+import {
+  PAYMENT_TYPE,
+  STATE_TYPE,
+} from "../../common/interfaces/accountStatement.interface";
 
 export const contractsData = [
   {
@@ -51,17 +54,3 @@ export const paymentTypeData = [
     name: "A 90 días",
   },
 ];
-  export const stateTracing = [
-    {
-      value: STATE_TYPE.ANULADA,
-      name: "Anulada",
-    },
-    {
-      value: STATE_TYPE.PAGADA,
-      name: "Pagada",
-    },
-    {
-      value: STATE_TYPE.VENCIDA,
-      name: "Vencida",
-    },
-  ];

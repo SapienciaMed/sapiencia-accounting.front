@@ -1,17 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { get, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-
 import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
-import { urlApiAccounting } from "../../../common/utils/base-url";
-
 interface IAccount {
-  accountNum: ""
+  accountNum: "";
 }
 
 export const useTracingAccountStatement = () => {
-  // const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
   const navigate = useNavigate();
   const [formWatch, setFormWatch] = useState<IAccount>({
     accountNum: "",
@@ -25,7 +21,6 @@ export const useTracingAccountStatement = () => {
     reset,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "onBlur" });
-
   const onSubmit = handleSubmit((e: IAccount) => {
     navigate(`/contabilidad/cuenta-de-cobro/seguimiento/${e.accountNum}`);
   });
@@ -49,7 +44,6 @@ export const useTracingAccountStatement = () => {
   }, [formWatch]);
 
   return {
-    // urlGetAccountStatement,
     onSubmit,
     register,
     control,

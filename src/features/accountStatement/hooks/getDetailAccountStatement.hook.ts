@@ -10,7 +10,7 @@ export const useGetDetailAccountStatement = () => {
   const { accountStatement } = useGetAccountStatementById();
   const { control, register, reset, setValue } =
     useForm<IAccountStatementForm>();
-
+  
   const handleClose = () => navigate(-1);
 
   useEffect(() => {

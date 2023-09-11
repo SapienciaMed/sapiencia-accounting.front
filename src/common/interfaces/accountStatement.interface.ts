@@ -83,7 +83,7 @@ export enum PAYMENT_TYPE {
 }
 
 export enum STATE_TYPE {
-  "ANULADA" = "1",
-  "PAGADA" = "2",
-  "VENCIDA" = "3",
+  "Anulada" = 1,
+  "Pagada" = 2,
+  "Vencida" = 3,
 }

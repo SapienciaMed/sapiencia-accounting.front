@@ -16,6 +16,7 @@ export const useGetAccountStatementById = () => {
       const endpoint = `/api/v1/account-statement/get-by-id/${id}`;
       const resp: ApiResponse<IGetAccountStatement> = await get(endpoint);
       setAccountStatement(resp.data);
+      
     } catch (err) {
       console.error(err);
     }
