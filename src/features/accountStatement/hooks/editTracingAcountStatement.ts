@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../common/contexts/app.context";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
+import { editAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { useGetAccountStatementByAccountNum } from "./getAccountStatementByAccountNum";
-import { editAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 
 export const useEditAccountStatementTracking = () => {
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ export const useEditAccountStatementTracking = () => {
     handleSubmit,
     register,
     reset,
+    watch,
     formState: { errors },
   } = useForm({ resolver, mode: "all" });
 
@@ -39,7 +40,8 @@ export const useEditAccountStatementTracking = () => {
       console.error(err);
       setMessage({
         title: "Error en el seguimiento",
-        description: "Ha ocurrido un error. Por favor, inténtalo nuevamente más tarde.",
+        description:
+          "Ha ocurrido un error. Por favor, inténtalo nuevamente más tarde.",
         show: true,
         okTitle: "Cerrar",
         onOk: () => setMessage({ show: true }),
@@ -51,8 +53,8 @@ export const useEditAccountStatementTracking = () => {
   const onSubmit = async (data) => {
     const { observation, statusId } = data;
     const requestBody = {
-      observation,  
-      statusId,    
+      observation,
+      statusId,
     };
 
     updateAccountStatementTracking(requestBody);
@@ -70,6 +72,7 @@ export const useEditAccountStatementTracking = () => {
     errors,
     handleCancel,
     handleSubmit,
+    watch,
     onSubmit: handleSubmit(onSubmit),
   };
 };

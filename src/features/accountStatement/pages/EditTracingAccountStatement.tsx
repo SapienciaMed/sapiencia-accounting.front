@@ -7,28 +7,24 @@ import {
 } from "../../../common/components/Form";
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { InputNumberComponent } from "../../../common/components/Form/input-number.component";
-import { paymentTypeData } from "../data";
 import {
   IGetAccountStatement,
   STATE_TYPE,
 } from "../../../common/interfaces/accountStatement.interface";
-import { useGetAccountStatementByAccountNum } from "../hooks/getAccountStatementByAccountNum";
-import { useForm } from "react-hook-form";
-import { useGetStatementStatus } from "../hooks/getStatementStatus.hook";
+import { paymentTypeData } from "../data";
 import { useEditAccountStatementTracking } from "../hooks/editTracingAcountStatement";
+import { useGetAccountStatementByAccountNum } from "../hooks/getAccountStatementByAccountNum";
+import { useGetStatementStatus } from "../hooks/getStatementStatus.hook";
 
 const DetailAccountStatement = () => {
-  const { control, register, errors, onSubmit, handleCancel } =
+  const { control, register, errors, onSubmit, handleCancel, watch } =
     useEditAccountStatementTracking();
-  const {
-    watch,
-    formState: {},
-  } = useForm({ mode: "all" });
   const { accountStatement } = useGetAccountStatementByAccountNum();
   useState<IGetAccountStatement>(null);
-  const [statusId] = watch(["statusId"]);
+  const statusId = watch("statusId");
   const { statementstatus } = useGetStatementStatus();
   console.log(typeof statusId, statusId);
+  console.log(statusId === STATE_TYPE.Pagada);
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
