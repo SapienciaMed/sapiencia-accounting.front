@@ -195,7 +195,7 @@
   }
 
   &.disabled-black:disabled {
-    color: $input-color-border  !important;
+    color: $input-color-border !important;
     opacity: 1;
   }
 }
@@ -220,7 +220,7 @@
   }
 
   &.disabled-black:disabled {
-    color: $input-color-border  !important;
+    color: $input-color-border !important;
     opacity: 1;
   }
 }
@@ -350,5 +350,24 @@
   &.invalid {
     @include generate-button(30px, #fff, $input-color-border, none);
     cursor: not-allowed;
+  }
+}
+
+.button-download {
+  @include generate-button(100px, #533893, transparent, 1px solid #533893);
+    margin: 0.5em;
+  &.large {
+    width: 9.5em;
+    height: 2.5em;
+    font-size: 16px;
+  }
+}
+.container-buttonText{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  span{
+    font-weight: 600;
   }
 }

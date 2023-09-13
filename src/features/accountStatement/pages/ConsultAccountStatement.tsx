@@ -15,6 +15,7 @@ const ConsultAccountStatement = () => {
     handleClean,
     handleChange,
     submitDisabled,
+    downloadCollection,
   } = useConsultAccountStatement();
 
   return (
@@ -31,6 +32,7 @@ const ConsultAccountStatement = () => {
       handleClean={handleClean}
       handleChange={handleChange}
       submitDisabled={submitDisabled}
+      downloadCollection= {downloadCollection}
     />
   );
 };

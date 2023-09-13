@@ -25,7 +25,6 @@ export const useConsultAccountStatement = () => {
   const resultRespons = width < 720 ? 1 : 0;
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(filtersAccountStatementSchema);
-  const { validateActionAccess } = useContext(AppContext);
   const {
     control,
     handleSubmit,
@@ -61,6 +60,11 @@ export const useConsultAccountStatement = () => {
       },
     },
   ];
+
+  const downloadCollection = () => {
+    console.log("hola soy excel");
+    
+  }
 
   const handleClean = () => {
     reset();
@@ -102,5 +106,6 @@ export const useConsultAccountStatement = () => {
     handleClean,
     handleChange,
     submitDisabled,
+    downloadCollection,
   };
 };
