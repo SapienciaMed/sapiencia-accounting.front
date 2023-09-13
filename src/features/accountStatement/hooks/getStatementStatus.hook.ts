@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import { ApiResponse } from "../../../common/utils/api-response";
 import { urlApiAccounting } from "../../../common/utils/base-url";
@@ -31,11 +31,6 @@ export const useGetStatementStatus = () => {
   useEffect(() => {
     getStatementstatus();
   }, []);
-
-  useEffect(() => {
-    console.log(statementstatus);
-  }, [statementstatus]);
-
 
   return { statementstatus };
 };

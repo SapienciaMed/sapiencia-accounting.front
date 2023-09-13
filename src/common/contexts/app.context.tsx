@@ -1,13 +1,14 @@
 import {
-  useState,
+  Dispatch,
+  ReactElement,
+  SetStateAction,
   createContext,
   useMemo,
-  ReactElement,
-  Dispatch,
-  SetStateAction,
+  useState,
 } from "react";
-import { IMessage } from "../interfaces/global.interface";
+import { IGetAccountStatement } from "../interfaces/accountStatement.interface";
 import { IAuthorization } from "../interfaces/auth.interfaces";
+import { IMessage } from "../interfaces/global.interface";
 
 interface IAppContext {
   authorization: IAuthorization;
@@ -15,6 +16,8 @@ interface IAppContext {
   message: IMessage;
   setMessage: Dispatch<SetStateAction<IMessage>>;
   validateActionAccess: (indicator: string) => boolean;
+  currentAccountStatement: IGetAccountStatement;
+  setCurrentAccountStatement: Dispatch<SetStateAction<IGetAccountStatement>>;
 }
 interface IProps {
   children: ReactElement | ReactElement[];
@@ -26,6 +29,8 @@ export const AppContext = createContext<IAppContext>({
   message: {} as IMessage,
   setMessage: () => {},
   validateActionAccess: () => true,
+  currentAccountStatement: {} as IGetAccountStatement,
+  setCurrentAccountStatement: () => {},
 });
 
 export function AppContextProvider({ children }: IProps) {
@@ -34,6 +39,8 @@ export function AppContextProvider({ children }: IProps) {
   const [authorization, setAuthorization] = useState<IAuthorization>(
     {} as IAuthorization
   );
+  const [currentAccountStatement, setCurrentAccountStatement] =
+    useState<IGetAccountStatement>(null);
 
   // Metodo que verifica si el usuario posee permisos sobre un accion
   function validateActionAccess(indicator: string): boolean {
@@ -47,8 +54,10 @@ export function AppContextProvider({ children }: IProps) {
       message,
       setMessage,
       validateActionAccess,
+      currentAccountStatement,
+      setCurrentAccountStatement,
     };
-  }, [message, authorization]);
+  }, [message, authorization, currentAccountStatement]);
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 }

@@ -66,6 +66,14 @@ export interface IGetAccountStatement {
   createdAt: string;
   updatedAt: string;
   contract: IContract;
+  tracking: ITracking;
+}
+
+interface ITracking {
+  id: number;
+  observation: string;
+  trackingDate: string;
+  statusId: string;
 }
 
 export interface IFilterAccountStatement {

@@ -1,22 +1,24 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { get, useForm } from "react-hook-form";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
-import { useGetAccountStatementByAccountNum } from "./getAccountStatementByAccountNum";
-import ModalMessageComponent from "../../../common/components/modal-message.component";
+import { EResponseCodes } from "../../../common/constants/api.enum";
 import { AppContext } from "../../../common/contexts/app.context";
+import useCrudService from "../../../common/hooks/crud-service.hook";
+import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
+import { IGetAccountStatement } from "../../../common/interfaces/accountStatement.interface";
+import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
+import { urlApiAccounting } from "../../../common/utils/base-url";
 
-interface IAccount {
-  accountNum: "";
-}
+type IAccount = {
+  accountNum: string;
+};
 
 export const useTracingAccountStatement = () => {
   const navigate = useNavigate();
   const [formWatch, setFormWatch] = useState<IAccount>({
     accountNum: "",
   });
-  const { setMessage } = useContext(AppContext);
+  const { setMessage, setCurrentAccountStatement } = useContext(AppContext);
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(filtersAccountStatementSchema);
   const {
@@ -26,26 +28,38 @@ export const useTracingAccountStatement = () => {
     reset,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "onBlur" });
-  const { accountStatement } = useGetAccountStatementByAccountNum();
+  const { get } = useCrudService(urlApiAccounting);
 
-  const onSubmit = handleSubmit((e: IAccount) => {
-    if (accountStatement && Object.keys(accountStatement).length > 0) {
-      navigate(`/contabilidad/cuenta-de-cobro/seguimiento/${e.accountNum}`);
-    } else {
-      setMessage({
-        title: "Error",
-        show: true,
-        description: "No se encuentra el número de documento de cobro.",
-        okTitle: "Aceptar",
-        background: true,
-      });
+  const getAccountStatementByAccountNum = async (accountNum: string) => {
+    const endpoint = `/api/v1/account-statement/${accountNum}/get-by-account-number`;
+    return await get<IGetAccountStatement>(endpoint);
+  };
+
+  const onSubmit = handleSubmit(async (ev: IAccount) => {
+    try {
+      const { accountNum } = ev;
+      const resp = await getAccountStatementByAccountNum(accountNum);
+      if (resp.operation.code === EResponseCodes.FAIL) {
+        setMessage({
+          title: "Error",
+          show: true,
+          description: resp.operation.message,
+          okTitle: "Aceptar",
+          background: true,
+          onOk: () => setMessage({ show: false }),
+        });
+        return handleClean();
+      }
+      setCurrentAccountStatement(resp.data);
+      navigate(`/contabilidad/cuenta-de-cobro/seguimiento/${accountNum}`);
+    } catch (err) {
+      console.log(err);
     }
   });
- console.log(accountStatement);
- 
+
   const handleClean = () => {
     reset();
-    setSubmitDisabled(true);
+    setFormWatch({ accountNum: "" });
   };
   const handleChange = ({ target }) => {
     const { name, value } = target;

@@ -1,7 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
+import { useWidth } from "../../../common/hooks/use-width";
 import {
   IAccountStatement,
   IFilterAccountStatement,
@@ -9,8 +10,6 @@ import {
 import { ITableAction } from "../../../common/interfaces/table.interfaces";
 import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { AppContext } from "../../../common/contexts/app.context";
-import { useWidth } from "../../../common/hooks/use-width";
 
 export const useConsultAccountStatement = () => {
   const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
@@ -55,7 +54,7 @@ export const useConsultAccountStatement = () => {
     {
       icon: "Pdf",
       onClick: (row) => {
-        const pdfUrl = `https://sapiencia-accounting-api-ukyunq2uxa-uc.a.run.app/api/v1/account-statement/${row.id}/generate-account-statement-pdf?responsive=${resultRespons}`;
+        const pdfUrl = `${urlApiAccounting}/api/v1/account-statement/${row.id}/generate-account-statement-pdf?responsive=${resultRespons}`;
         window.open(pdfUrl, "_blank");
       },
     },
@@ -63,8 +62,7 @@ export const useConsultAccountStatement = () => {
 
   const downloadCollection = () => {
     console.log("hola soy excel");
-    
-  }
+  };
 
   const handleClean = () => {
     reset();

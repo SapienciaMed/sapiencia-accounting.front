@@ -13,18 +13,21 @@ import {
 } from "../../../common/interfaces/accountStatement.interface";
 import { paymentTypeData } from "../data";
 import { useEditAccountStatementTracking } from "../hooks/editTracingAcountStatement";
-import { useGetAccountStatementByAccountNum } from "../hooks/getAccountStatementByAccountNum";
 import { useGetStatementStatus } from "../hooks/getStatementStatus.hook";
 
 const DetailAccountStatement = () => {
-  const { control, register, errors, onSubmit, handleCancel, watch } =
-    useEditAccountStatementTracking();
-  const { accountStatement } = useGetAccountStatementByAccountNum();
+  const {
+    control,
+    register,
+    errors,
+    onSubmit,
+    handleCancel,
+    watch,
+    currentAccountStatement,
+  } = useEditAccountStatementTracking();
   useState<IGetAccountStatement>(null);
-  const statusId = watch("statusId");
+  const statusId = watch("tracking.statusId");
   const { statementstatus } = useGetStatementStatus();
-  console.log(typeof statusId, statusId);
-  console.log(statusId === STATE_TYPE.Pagada);
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
@@ -32,168 +35,166 @@ const DetailAccountStatement = () => {
         className="form-signIn"
         action={onSubmit}
       >
-        {accountStatement && (
-          <div className=" container-sections-forms ml-20px mr-20px">
-            <div className="grid-form-3-container gap-25">
-              <span className="text-black large bold grid-span-3-columns">
-                Seguimiento cuenta de cobro
-              </span>
+        <div className=" container-sections-forms ml-20px mr-20px">
+          <div className="grid-form-3-container gap-25">
+            <span className="text-black large bold grid-span-3-columns">
+              Seguimiento cuenta de cobro
+            </span>
+            <InputComponent
+              idInput="accountNum"
+              label={<>No. Cuenta de cobro</>}
+              typeInput="text"
+              register={register}
+              className="input-basic medium"
+              classNameLabel="text-black big bold"
+              disabled
+            />
+            <InputComponent
+              idInput="contract.contractId"
+              label={<>Contrato</>}
+              register={register}
+              typeInput="text"
+              className="input-basic medium"
+              classNameLabel="text-black big bold"
+              disabled
+            />
+            <InputComponent
+              idInput="contract.business.nit"
+              label={<>NIT</>}
+              typeInput="text"
+              register={register}
+              className="input-basic medium"
+              classNameLabel="text-black big bold"
+              disabled
+            />
+            <div className="grid-span-3-columns">
               <InputComponent
-                idInput="accountNum"
-                label={<>No. Cuenta de cobro</>}
-                value={`${accountStatement?.accountNum}`}
+                idInput="contract.business.name"
+                label={<>Razón social / Nombre</>}
                 typeInput="text"
                 register={register}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
-                disabled
-              />
-              <InputComponent
-                idInput="contract.contractId"
-                label={<>Contrato</>}
-                value={`${accountStatement?.contract?.contractId}`}
-                register={register}
-                typeInput="text"
-                className="input-basic medium"
-                classNameLabel="text-black big bold"
-                disabled
-              />
-              <InputComponent
-                idInput="contract.business.nit"
-                label={<>NIT</>}
-                value={`${accountStatement?.contract?.business?.nit}`}
-                typeInput="text"
-                register={register}
-                className="input-basic medium"
-                classNameLabel="text-black big bold"
-                disabled
-              />
-              <div className="grid-span-3-columns">
-                <InputComponent
-                  idInput="contract.business.name"
-                  label={<>Razón social / Nombre</>}
-                  value={`${accountStatement?.contract?.business?.name}`}
-                  typeInput="text"
-                  register={register}
-                  className="input-basic medium"
-                  classNameLabel="text-black big bold"
-                  disabled
-                />
-              </div>
-            </div>
-            <div className="grid-form-4-container gap-25 mt-25px">
-              <SelectComponent
-                idInput="statusId"
-                control={control}
-                errors={errors}
-                data={statementstatus}
-                label={
-                  <>
-                    Estado <span>*</span>
-                  </>
-                }
-                className="select-basic medium"
-                classNameLabel="text-black big bold"
-                placeholder="Seleccione."
-              />
-              <div>
-                {statusId === STATE_TYPE.Pagada && (
-                  <DatePickerComponent
-                    idInput="PaymentDate"
-                    control={control}
-                    errors={errors}
-                    label={
-                      <>
-                        Fecha de pago <span>*</span>
-                      </>
-                    }
-                    classNameLabel="text-black big bold"
-                    className="dataPicker-basic medium"
-                    placeholder="DD/MM/YYYY"
-                    dateFormat="dd/mm/yy"
-                    maxDate={new Date()}
-                  />
-                )}
-                {statusId === STATE_TYPE.Anulada && (
-                  <DatePickerComponent
-                    idInput="annulmentDate"
-                    control={control}
-                    errors={errors}
-                    label={
-                      <>
-                        Fecha de anulacion <span>*</span>
-                      </>
-                    }
-                    classNameLabel="text-black big bold"
-                    className="dataPicker-basic medium"
-                    placeholder="DD/MM/YYYY"
-                    dateFormat="dd/mm/yy"
-                    maxDate={new Date()}
-                  />
-                )}
-              </div>
-            </div>
-
-            <div className="grid-span-3-columns gap-25 mt-25px">
-              <InputComponent
-                idInput="observation"
-                label={<>Observaciones</>}
-                typeInput="text"
-                register={register}
-                className="input-basic medium"
-                classNameLabel="text-black big bold"
-              />
-            </div>
-            <div className="grid-form-4-container gap-25 mt-25px">
-              <DatePickerComponent
-                idInput="expeditionDate"
-                control={control}
-                label={<>Fecha de expedición</>}
-                classNameLabel="text-black big bold"
-                className="dataPicker-basic  medium "
-                placeholder={`${accountStatement?.expeditionDate}`}
-                dateFormat="dd/mm/yy"
-                maxDate={new Date()}
-                disabled
-              />
-              <DatePickerComponent
-                idInput="expirationDate"
-                control={control}
-                label={<>Fecha de vencimiento</>}
-                classNameLabel="text-black big bold"
-                className="dataPicker-basic  medium "
-                placeholder={`${accountStatement?.expirationDate}`}
-                dateFormat="dd/mm/yy"
-                maxDate={new Date()}
-                disabled
-              />
-              <SelectComponent
-                idInput="paymentType"
-                control={control}
-                data={paymentTypeData}
-                label={<>Forma de pago</>}
-                className="select-basic medium"
-                classNameLabel="text-black big bold"
-                placeholder={accountStatement?.paymentType}
-                disabled
-              />
-              <InputNumberComponent
-                idInput="valuePay"
-                control={control}
-                label={<>Valor</>}
-                classNameLabel="text-black big bold"
-                className="inputNumber-basic medium"
-                mode="currency"
-                currency="COP"
-                locale="es-CO"
-                minFractionDigits={0}
-                maxFractionDigits={2}
-                placeholder={`${accountStatement?.valuePay}`}
                 disabled
               />
             </div>
           </div>
-        )}
+          <div className="grid-form-4-container gap-25 mt-25px">
+            <SelectComponent
+              idInput="tracking.statusId"
+              control={control}
+              errors={errors}
+              data={statementstatus}
+              label={
+                <>
+                  Estado <span>*</span>
+                </>
+              }
+              className="select-basic medium"
+              classNameLabel="text-black big bold"
+              placeholder="Seleccione."
+            />
+            <div>
+              {statusId === STATE_TYPE.Pagada && (
+                <DatePickerComponent
+                  idInput={`${
+                    currentAccountStatement.tracking.statusId === statusId
+                      ? "tracking.trackingDate"
+                      : "trackingDate"
+                  }`}
+                  control={control}
+                  errors={errors}
+                  label={
+                    <>
+                      Fecha de pago <span>*</span>
+                    </>
+                  }
+                  classNameLabel="text-black big bold"
+                  className="dataPicker-basic medium"
+                  placeholder="DD/MM/YYYY"
+                  dateFormat="dd/mm/yy"
+                  maxDate={new Date()}
+                />
+              )}
+              {statusId === STATE_TYPE.Anulada && (
+                <DatePickerComponent
+                  idInput={`${
+                    currentAccountStatement.tracking.statusId === statusId
+                      ? "tracking.trackingDate"
+                      : "trackingDate"
+                  }`}
+                  control={control}
+                  errors={errors}
+                  label={
+                    <>
+                      Fecha de anulacion <span>*</span>
+                    </>
+                  }
+                  classNameLabel="text-black big bold"
+                  className="dataPicker-basic medium"
+                  placeholder="DD/MM/YYYY"
+                  dateFormat="dd/mm/yy"
+                  maxDate={new Date()}
+                />
+              )}
+            </div>
+          </div>
+
+          <div className="grid-span-3-columns gap-25 mt-25px">
+            <InputComponent
+              idInput="tracking.observation"
+              label={<>Observaciones</>}
+              typeInput="text"
+              register={register}
+              className="input-basic medium"
+              classNameLabel="text-black big bold"
+            />
+          </div>
+          <div className="grid-form-4-container gap-25 mt-25px">
+            <DatePickerComponent
+              idInput="expeditionDate"
+              control={control}
+              label={<>Fecha de expedición</>}
+              classNameLabel="text-black big bold"
+              className="dataPicker-basic  medium "
+              dateFormat="dd/mm/yy"
+              maxDate={new Date()}
+              disabled
+            />
+            <DatePickerComponent
+              idInput="expirationDate"
+              control={control}
+              label={<>Fecha de vencimiento</>}
+              classNameLabel="text-black big bold"
+              className="dataPicker-basic  medium "
+              dateFormat="dd/mm/yy"
+              maxDate={new Date()}
+              disabled
+            />
+            <SelectComponent
+              idInput="paymentType"
+              control={control}
+              data={paymentTypeData}
+              label={<>Forma de pago</>}
+              className="select-basic medium"
+              classNameLabel="text-black big bold"
+              disabled
+            />
+            <InputNumberComponent
+              idInput="valuePay"
+              control={control}
+              label={<>Valor</>}
+              classNameLabel="text-black big bold"
+              className="inputNumber-basic medium"
+              mode="currency"
+              currency="COP"
+              locale="es-CO"
+              minFractionDigits={0}
+              maxFractionDigits={2}
+              disabled
+            />
+          </div>
+        </div>
         <div
           style={{
             height: "1px",
