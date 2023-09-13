@@ -5,7 +5,6 @@ import {
   InputComponent,
 } from "../../../../common/components/Form";
 
-
 const TracingAccountStatementForm = ({
   onSubmit,
   register,
@@ -45,7 +44,7 @@ const TracingAccountStatementForm = ({
       </div>
       <div className="button-save-container-display mr-24px">
         <ButtonComponent
-          value="Limpiar campos"
+          value="Limpiar campo"
           className="button-clean bold"
           type="button"
           action={handleClean}
