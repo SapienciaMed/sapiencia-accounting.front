@@ -24,7 +24,6 @@ import * as Icons from "react-icons/fa";
 import { EResponseCodes } from "../constants/api.enum";
 import { AppContext } from "../contexts/app.context";
 import useCrudService from "../hooks/crud-service.hook";
-import { useWidth } from "../hooks/use-width";
 import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { IPagingData } from "../utils/api-response";
 
@@ -37,6 +36,7 @@ interface IProps<T> {
   searchItems?: object;
   isShowModal: boolean;
   titleMessageModalNoResult?: string;
+  setPaginateData: ({}) => {};
 }
 
 interface IRef {
@@ -52,6 +52,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     titleMessageModalNoResult,
     isShowModal,
     emptyMessage = "No hay resultados.",
+    setPaginateData,
   } = props;
 
   // States
@@ -62,8 +63,15 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   const [page, setPage] = useState<number>(0);
   const [first, setFirst] = useState<number>(0);
   const [searchCriteria, setSearchCriteria] = useState<object>();
-  const { width } = useWidth();
+  // const { width } = useWidth();
   const { setMessage } = useContext(AppContext);
+
+  // ============================================
+  // REMOVE THIS BECAUSE IS ONLY PARTIAL SOLUTION
+  useEffect(() => {
+    setPaginateData({ page, perPage });
+  }, [page, perPage]);
+  // ============================================
 
   // Declaraciones
   const { post } = useCrudService(url);
@@ -187,7 +195,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
         leftContent={leftContent}
       />
 
-      {width > 830 ? (
+      {900 > 830 ? (
         <DataTable
           className="spc-table full-height"
           value={resultData?.array || []}
@@ -263,7 +271,7 @@ function getIconElement(icon: string, element: "name" | "src") {
       ) : (
         <Icons.FaLink className="button grid-button button-link" />
       );
-      case "Pdf":
+    case "Pdf":
       return element == "name" ? (
         "Pdf"
       ) : (

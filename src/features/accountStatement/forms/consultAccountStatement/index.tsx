@@ -7,10 +7,9 @@ import {
 } from "../../../../common/components/Form";
 import { DatePickerComponent } from "../../../../common/components/Form/input-date.component";
 import TableComponent from "../../../../common/components/table.component";
+import Svgs from "../../../../public/images/icons/svgs";
 import { contractsData } from "../../data";
 import { tableColumns } from ".//columns";
-import iconDownloadExcel from "../../../../public/images/icons/iconExcel.svg";
-import Svgs from "../../../../public/images/icons/svgs";
 
 const ConsultAccountStatementForm = ({
   urlGetAccountStatement,
@@ -25,6 +24,7 @@ const ConsultAccountStatementForm = ({
   handleClean,
   handleChange,
   submitDisabled,
+  setPaginateData,
   downloadCollection,
 }) => (
   <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
@@ -102,6 +102,7 @@ const ConsultAccountStatementForm = ({
       <>
         <div className="container-sections-forms ml-20px mr-20px">
           <TableComponent
+            setPaginateData={setPaginateData}
             ref={tableComponentRef}
             url={urlGetAccountStatement}
             columns={tableColumns}
@@ -122,11 +123,11 @@ const ConsultAccountStatementForm = ({
           <ButtonComponent
             value={
               <>
-              <div className="container-buttonText">
-                <span>Descargar</span>
-                <Svgs svg="excel" width={23.593} height={28.505} />
-              </div>
-            </>
+                <div className="container-buttonText">
+                  <span>Descargar</span>
+                  <Svgs svg="excel" width={23.593} height={28.505} />
+                </div>
+              </>
             }
             className="button-download large "
             action={downloadCollection}

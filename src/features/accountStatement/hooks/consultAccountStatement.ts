@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { useWidth } from "../../../common/hooks/use-width";
 import {
@@ -13,15 +14,16 @@ import { urlApiAccounting } from "../../../common/utils/base-url";
 
 export const useConsultAccountStatement = () => {
   const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
+  const { width } = useWidth();
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
   const [tableView, setTableView] = useState<boolean>(false);
+  const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const [formWatch, setFormWatch] = useState({
     accountNum: "",
     nit: "",
   });
-  const { width } = useWidth();
-  const resultRespons = width < 720 ? 1 : 0;
+  const { post } = useCrudService(urlApiAccounting);
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(filtersAccountStatementSchema);
   const {
@@ -33,9 +35,12 @@ export const useConsultAccountStatement = () => {
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "onBlur" });
 
-  const [contractCode, expeditionDate] = watch([
+  const [contractCode, expeditionDate, accountNum, nit] = watch([
     "contractCode",
     "expeditionDate",
+    "accountNum",
+    "contractCode",
+    "nit",
   ]);
 
   const tableActions: ITableAction<IAccountStatement>[] = [
@@ -54,14 +59,22 @@ export const useConsultAccountStatement = () => {
     {
       icon: "Pdf",
       onClick: (row) => {
-        const pdfUrl = `${urlApiAccounting}/api/v1/account-statement/${row.id}/generate-account-statement-pdf?responsive=${resultRespons}`;
+        const pdfUrl = `${urlApiAccounting}/api/v1/account-statement/${
+          row.id
+        }/generate-account-statement-pdf?responsive=${width < 830}`;
         window.open(pdfUrl, "_blank");
       },
     },
   ];
 
-  const downloadCollection = () => {
-    console.log("hola soy excel");
+  const downloadCollection = async () => {
+    const { page, perPage } = paginateData;
+    const endpoint = `${urlApiAccounting}/api/v1/account-statement/generate-xlsx?page=${
+      page + 1
+    }&perPage=${perPage}&contractCode=${contractCode ?? ""}&${
+      expeditionDate ?? ""
+    }&${accountNum ?? ""}&${nit ?? ""}`;
+    window.open(endpoint, "_blank");
   };
 
   const handleClean = () => {
@@ -105,5 +118,6 @@ export const useConsultAccountStatement = () => {
     handleChange,
     submitDisabled,
     downloadCollection,
+    setPaginateData,
   };
 };

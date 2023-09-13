@@ -74,7 +74,24 @@ export const useEditAccountStatement = () => {
     });
   };
 
-  const handleCancel = () => navigate(-1);
+  const handleCancel = () => {
+    setMessage({
+      title: "Crear cuenta de cobro",
+      description: "¿Estás segur@ de cancelar los cambios?",
+      show: true,
+      okTitle: "Aceptar",
+      cancelTitle: "Cancelar",
+      background: true,
+      onOk: () => {
+        setMessage({ show: false });
+        navigate("/contabilidad/cuenta-de-cobro/consultar");
+      },
+      onCancel: () => {
+        setMessage({ show: false });
+      },
+      onClose: () => setMessage({ show: false }),
+    });
+  };
 
   useEffect(() => {
     reset(accountStatement);

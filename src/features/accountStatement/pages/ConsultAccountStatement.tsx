@@ -16,10 +16,12 @@ const ConsultAccountStatement = () => {
     handleChange,
     submitDisabled,
     downloadCollection,
+    setPaginateData,
   } = useConsultAccountStatement();
 
   return (
     <ConsultAccountStatementForm
+      setPaginateData={setPaginateData}
       urlGetAccountStatement={urlGetAccountStatement}
       tableComponentRef={tableComponentRef}
       tableView={tableView}
@@ -32,7 +34,7 @@ const ConsultAccountStatement = () => {
       handleClean={handleClean}
       handleChange={handleChange}
       submitDisabled={submitDisabled}
-      downloadCollection= {downloadCollection}
+      downloadCollection={downloadCollection}
     />
   );
 };
