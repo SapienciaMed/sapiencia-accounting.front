@@ -5,6 +5,6 @@
     "declarationDir": "dist",
   },
   "files": ["src/sapiencia-accounting.tsx"],
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/features/masterData/pages/.tsx", "src/features/masterData/hooks/manageCompanyName.ts"],
   "exclude": ["src/**/*.test*"]
 }

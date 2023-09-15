@@ -16,18 +16,18 @@ export interface IAccountStatement {
 }
 
 export interface IBusiness {
-  id?: number;
-  name: string;
-  nit: string;
-  address: string;
-  email: string;
-  municipalityCode: string;
-  sender: string;
-  chargeSender: string;
-  userModified?: string;
-  userCreate: string;
-  createdAt?: DateTime;
-  updatedAt?: DateTime;
+  id?: number; // RZO_CODIGO
+  name: string; // RZO_NOMBRE
+  nit: string; // RZO_NIT
+  address: string; // RZO_DIRECCION
+  email: string; // RZO_CORREO_ELECTRONICO
+  municipalityCode: string; // RZO_CODIGO_MUNICIPIO
+  sender: string; // RZO_REMISOR
+  chargeSender: string; // RZO_CARGO_REMISOR
+  userModified?: string; // RZO_USUARIO_MODIFICO
+  userCreate: string; // RZO_USUARIO_CREO
+  createdAt?: DateTime; // RZO_FECHA_CREO
+  updatedAt?: DateTime; // RZO_FECHA_MODIFIC
 }
 
 export interface IContract {

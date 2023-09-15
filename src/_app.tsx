@@ -8,6 +8,7 @@ import { AppContextProvider } from "./common/contexts/app.context";
 import useAppCominicator from "./common/hooks/app-communicator.hook";
 import AccountStatementRoutes from "./features/accountStatement/accountStatementRoutes";
 import "./styles/_app.scss";
+import MasterDataRoutes from "./features/masterData/MasterDataRoutes";
 
 function App() {
   const { publish } = useAppCominicator();
@@ -30,6 +31,10 @@ function App() {
               <Route
                 path="/contabilidad/cuenta-de-cobro/*"
                 element={<AccountStatementRoutes />}
+              />
+              <Route
+                path="/contabilidad/*"
+                element={<MasterDataRoutes />}
               />
             </Routes>
           </Suspense>

@@ -42,3 +42,39 @@ export const editAccountStatementSchema = yup.object({
     .max(500, "Solo se permiten 500 caracteres")
     .required("Completar información"),
 });
+
+export const manageCompanySchema = yup.object({
+  name: yup
+    .string()
+    .required("Completar información")
+    .max(300, "Solo se permiten 300 caracteres"),
+  nit: yup
+    .string()
+    .max(15, "Solo se permiten 15 caracteres")
+    .matches(/(^[0-9]+-{1}[0-9]{1})/, {
+      message: "NIT inválido",
+      excludeEmptyString: true,
+    }),
+  address: yup
+    .string()
+    .required("Completar información")
+    .max(100, "Solo se permiten 100 caracteres"),
+  email: yup
+    .string()
+    .email("Ingrese un correo electrónico válido")
+    .required("Completar información")
+    .max(50, "Solo se permiten 50 caracteres"),
+  municipalityCode: yup.string().required("Completar información"),
+  sender: yup
+    .string()
+    .required("Completar información")
+    .max(100, "Solo se permiten 100 caracteres"),
+  chargeSender: yup
+    .string()
+    .required("Completar información")
+    .max(100, "Solo se permiten 100 caracteres"),
+  phone: yup
+    .number()
+    .typeError("Debe ser un número")
+    .required("Completar información"),
+});
