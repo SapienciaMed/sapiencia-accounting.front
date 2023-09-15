@@ -5,7 +5,7 @@ import { ApiResponse } from "../../../common/utils/api-response";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 
 export const useGetLastConsecutive = () => {
-  const { get } = useCrudService( urlApiAccounting);
+  const { get } = useCrudService(urlApiAccounting);
   const [lastConsecutive, setLastConsecutive] = useState<string>(null);
   const [realoadConsecutive, setRealoadConsecutive] = useState(new Date());
 
@@ -17,7 +17,6 @@ export const useGetLastConsecutive = () => {
       setLastConsecutive(consecutiveId);
     } catch (err) {
       console.error(err);
-      getLastConsecutive();
     }
   };
 
