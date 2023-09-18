@@ -19,6 +19,7 @@ export interface IBusiness {
   id?: number; // RZO_CODIGO
   name: string; // RZO_NOMBRE
   nit: string; // RZO_NIT
+  phone: number; //RZO_PHONE
   address: string; // RZO_DIRECCION
   email: string; // RZO_CORREO_ELECTRONICO
   municipalityCode: string; // RZO_CODIGO_MUNICIPIO
