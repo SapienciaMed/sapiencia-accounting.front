@@ -23,16 +23,20 @@ const ManageCompanyNameMain = () => {
       >
         <div className="container-sections-forms ml-20px mr-20px">
           <div className="grid-form-3-container gap-25">
-            <div className="text-black large bold grid-span-2-columns">
+            <div className="text-black large bold grid-span-2-columns pb-14px">
               Gestionar razón social
             </div>
-            <Link to="/contabilidad/razon-social/crear" className="text-links">
-              Crear razón social
-              <div className="text-links ml-5px">
-                <Svgs svg="add" width={16} height={17} />
-              </div>
-            </Link>
-
+            <div className="button-save-container-display mr-33px">
+              <Link
+                to="/contabilidad/razon-social/crear"
+                className="text-links"
+              >
+                Crear razón social
+                <div className="text-links ml-5px">
+                  <Svgs svg="add" width={16} height={17} />
+                </div>
+              </Link>
+            </div>
             <span className="text-black biggest bold grid-span-3-columns">
               Consultar razón social
             </span>

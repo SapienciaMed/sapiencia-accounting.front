@@ -142,7 +142,13 @@ const CreateManageCompanyName = () => {
             </div>
           </div>
         </div>
-
+        <div
+          style={{
+            height: "1px",
+            margin: "0 20px",
+            backgroundColor: "#e0e0e0",
+          }}
+        ></div>
         <div className="button-save-container-display mr-24px">
           <ButtonComponent
             value="Cancelar"

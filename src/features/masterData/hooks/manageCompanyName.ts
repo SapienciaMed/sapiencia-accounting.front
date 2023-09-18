@@ -5,11 +5,9 @@ import { AppContext } from "../../../common/contexts/app.context";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { IBusiness } from "../../../common/interfaces/accountStatement.interface";
-import {
-  accountStatementSchema,
-  manageCompanySchema,
-} from "../../../common/schemas/accountStatement.schema";
+import { manageCompanySchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
+import { EResponseCodes } from "../../../common/constants/api.enum";
 
 export const useManageCompanyName = () => {
   const navigate = useNavigate();
@@ -20,35 +18,35 @@ export const useManageCompanyName = () => {
     control,
     handleSubmit,
     register,
-    watch,
-    setValue,
     reset,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
   const createManageCompanyName = async (data: IBusiness) => {
     try {
-      const endpoint = "/business";
-      await post(endpoint, data);
+      const body = { ...data, phone: String(data.phone) };
+      const endpoint = "/api/v1/business";
+      const resp = await post<null>(endpoint, body);
       reset();
+      if (resp.operation.code === EResponseCodes.FAIL) {
+        return setMessage({
+          title: "Error en la creación",
+          description: resp.operation.message,
+          show: true,
+          okTitle: "Cerrar",
+          background: true,
+        });
+      }
       setMessage({
-        title: "Razón social",
-        description: "¡Creada exitosamente!",
+        title: "¡Cambios guardados!",
+        description: "Razón social creado exitosamente",
         show: true,
         okTitle: "Cerrar",
         onOk: () => setMessage({ show: false }),
         background: true,
       });
     } catch (err) {
-      console.log(err);
-      setMessage({
-        title: "Razón social",
-        description: err.message,
-        show: true,
-        okTitle: "Cerrar",
-        onOk: () => setMessage({ show: false }),
-        background: true,
-      });
+      console.error(err);
     }
   };
 
@@ -70,6 +68,7 @@ export const useManageCompanyName = () => {
       background: true,
     });
   };
+
   const handleCancel = () => {
     setMessage({
       title: "Crear Razón social",
