@@ -51,6 +51,7 @@ export const manageCompanySchema = yup.object({
   nit: yup
     .string()
     .max(15, "Solo se permiten 15 caracteres")
+    .required("Completar información")
     .matches(/(^[0-9]+-{1}[0-9]{1})/, {
       message: "NIT inválido",
       excludeEmptyString: true,
