@@ -1,7 +1,4 @@
-import {
-  PAYMENT_TYPE,
-  STATE_TYPE,
-} from "../../common/interfaces/accountStatement.interface";
+import { PAYMENT_TYPE } from "../../common/interfaces/accountStatement.interface";
 
 export const contractsData = [
   {
@@ -22,17 +19,17 @@ export const businessData = [
   {
     id: "1",
     name: "Institución Universitaria Colegio Mayor de Antioquia",
-    nit: "890980134",
+    nit: "890980134-1",
   },
   {
     id: "2",
     name: "Instituto Tecnológico Metropolitano",
-    nit: "800214750",
+    nit: "800214750-2",
   },
   {
     id: "3",
     name: "DATOLABS S.A.S",
-    nit: "901131054",
+    nit: "901131054-9",
   },
 ];
 
