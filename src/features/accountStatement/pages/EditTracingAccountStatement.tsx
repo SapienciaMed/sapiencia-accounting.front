@@ -23,6 +23,7 @@ const DetailAccountStatement = () => {
     onSubmit,
     handleCancel,
     watch,
+    isValid,
     currentAccountStatement,
   } = useEditAccountStatementTracking();
   useState<IGetAccountStatement>(null);
@@ -211,8 +212,9 @@ const DetailAccountStatement = () => {
           />
           <ButtonComponent
             value="Guardar"
-            className="button-save big"
             type="submit"
+            disabled={!isValid}
+            className={`button-save ${!isValid ? "disabled-black" : ""} big`}
           />
         </div>
       </FormComponent>

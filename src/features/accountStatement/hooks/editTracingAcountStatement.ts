@@ -31,7 +31,7 @@ export const useEditAccountStatementTracking = () => {
     register,
     reset,
     watch,
-    formState: { errors },
+    formState: { isValid, errors },
   } = useForm({ resolver, mode: "all" });
 
   const updateAccountStatementTracking = async (body: IUpdateTracking) => {
@@ -113,6 +113,7 @@ export const useEditAccountStatementTracking = () => {
     handleCancel,
     handleSubmit,
     watch,
+    isValid,
     currentAccountStatement,
     onSubmit: handleSubmit(onSubmit),
   };

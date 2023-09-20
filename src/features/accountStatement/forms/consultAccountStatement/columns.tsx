@@ -18,7 +18,6 @@ export const tableColumns: ITableElement<IGetAccountStatement>[] = [
     fieldName: "expeditionDate",
     header: "Fecha expedición",
     renderCell: (row) => {
-      // return <>{jsToLocaleStringMinusOneDay(row.expeditionDate)}</>;
       return <>{row.expeditionDate}</>;
     },
   },

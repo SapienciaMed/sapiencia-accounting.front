@@ -41,6 +41,12 @@ export const editAccountStatementSchema = yup.object({
     .min(1)
     .max(500, "Solo se permiten 500 caracteres")
     .required("Completar información"),
+  tracking: yup.object({
+    statusId: yup
+      .number()
+      .typeError("Debe ser un número")
+      .required("Completar información"),
+  }),
 });
 
 export const manageCompanySchema = yup.object({
