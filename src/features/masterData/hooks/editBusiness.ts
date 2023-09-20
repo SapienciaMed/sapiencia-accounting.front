@@ -1,69 +1,72 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+
 import { AppContext } from "../../../common/contexts/app.context";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { IBusiness } from "../../../common/interfaces/accountStatement.interface";
 import { manageCompanySchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { EResponseCodes } from "../../../common/constants/api.enum";
+import { useGetBusinessById } from "./getBusinessById";
 
-export const useManageCompanyName = () => {
+export const useEditBusiness = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
-  const { post } = useCrudService(urlApiAccounting);
+  const { id, businessId } = useGetBusinessById();
+  const { put } = useCrudService(urlApiAccounting);
   const resolver = useYupValidationResolver(manageCompanySchema);
   const {
     control,
     handleSubmit,
     register,
+    watch,
     reset,
-    formState: { errors, isValid },
+    setValue,
+    formState: { errors },
   } = useForm({ resolver, mode: "all" });
 
-  const createManageCompanyName = async (data: IBusiness) => {
+  const updateBusiness = async (data) => {
     try {
-      const body = { ...data, phone: String(data.phone) };
-      const endpoint = "/api/v1/business";
-      const resp = await post<null>(endpoint, body);
-      if (resp.operation.code === EResponseCodes.FAIL) {
-        return setMessage({
-          title: "Error en la creación",
-          description: resp.operation.message,
-          show: true,
-          okTitle: "Cerrar",
-          background: true,
-        });
-      }
+      const endpoint = `/api/v1/business/${id}/update`;
+      await put(endpoint, data);
       setMessage({
         title: "¡Cambios guardados!",
-        description: "Razón social creado exitosamente",
+        description: "Cambios guardados exitosamente",
         show: true,
         okTitle: "Cerrar",
         onOk: () => {
           setMessage({ show: false });
-          navigate(-1);
+          navigate("/contabilidad/razon-social");
         },
       });
     } catch (err) {
-      console.error(err);
+      console.log(err);
+      setMessage({
+        title: "Error razón social",
+        description: "Error, por favor intente más tarde",
+        show: true,
+        okTitle: "Cerrar",
+        onOk: () => setMessage({ show: false }),
+        background: true,
+      });
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    const {} = data;
     const body = {
       ...data,
+      phone: String(data.phone),
     };
     setMessage({
-      title: "Crear Razón social",
-      description: "¿Estás segur@ de crear razón social?",
+      title: "Guardar cambios",
+      description: "Estás segur@ de guardar los cambios?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
       onOk: () => {
         setMessage({ show: false });
-        createManageCompanyName(body);
+        updateBusiness(body);
       },
       onClose: () => setMessage({ show: false }),
       background: true,
@@ -72,7 +75,7 @@ export const useManageCompanyName = () => {
 
   const handleCancel = () => {
     setMessage({
-      title: "Crear Razón social",
+      title: "Editar razón social",
       description: "¿Estás segur@ de cancelar los cambios?",
       show: true,
       okTitle: "Aceptar",
@@ -88,13 +91,28 @@ export const useManageCompanyName = () => {
       onClose: () => setMessage({ show: false }),
     });
   };
+  useEffect(() => {
+    reset(businessId);
+  }, [businessId]);
+
+  useEffect(() => {
+    setValue("nit", businessId?.nit ?? "");
+    setValue("name", businessId?.name ?? "");
+    setValue("municipalityCode", businessId?.municipalityCode ?? "");
+    setValue("address", businessId?.address ?? "");
+    setValue("phone", businessId?.phone ?? "");
+    setValue("email", businessId?.email ?? "");
+    setValue("sender", businessId?.sender ?? "");
+    setValue("chargeSender", businessId?.chargeSender ?? "");
+  }, []);
 
   return {
     control,
-    handleSubmit: handleSubmit(onSubmit),
     register,
     errors,
     handleCancel,
-    isValid,
+    handleSubmit,
+    watch,
+    onSubmit: handleSubmit(onSubmit),
   };
 };

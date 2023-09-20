@@ -54,8 +54,11 @@ export const useEditAccountStatementTracking = () => {
         description: "Cambios guardados exitosamente",
         show: true,
         okTitle: "Cerrar",
-        onOk: () => setMessage({ show: false }),
         background: true,
+        onOk: () => {
+          setMessage({ show: false });
+          navigate(-1);
+        },
       });
     } catch (err) {
       console.error(err);
@@ -71,7 +74,24 @@ export const useEditAccountStatementTracking = () => {
     updateAccountStatementTracking(body);
   };
 
-  const handleCancel = () => navigate(-1);
+  const handleCancel = () => {
+    setMessage({
+      title: "Editar seguimiento cuenta de cobro",
+      description: "¿Estás segur@ de cancelar los cambios?",
+      show: true,
+      okTitle: "Aceptar",
+      cancelTitle: "Cancelar",
+      background: true,
+      onOk: () => {
+        setMessage({ show: false });
+        navigate(-1);
+      },
+      onCancel: () => {
+        setMessage({ show: false });
+      },
+      onClose: () => setMessage({ show: false }),
+    });
+  };
 
   useEffect(() => {
     if (!currentAccountStatement) {

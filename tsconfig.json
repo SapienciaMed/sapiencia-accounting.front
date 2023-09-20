@@ -4,7 +4,7 @@
     "jsx": "react-jsx",
     "declarationDir": "dist",
   },
-  "files": ["src/sapiencia-accounting.tsx"],
+  "files": ["src/sapiencia-accounting.tsx", "./src/features/masterData/pages/ConsultBusiness.1.tsx"],
   "include": ["src/**/*", "src/features/masterData/pages/.tsx", "src/features/masterData/hooks/manageCompanyName.ts"],
   "exclude": ["src/**/*.test*"]
 }

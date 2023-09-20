@@ -31,6 +31,18 @@ export interface IBusiness {
   updatedAt?: DateTime; // RZO_FECHA_MODIFIC
 }
 
+export interface IGetBusiness {
+  id?: number;
+  nit: string;
+  name: string;
+  municipalityCode: string | number;
+  address: string;
+  phone: number;
+  email: string;
+  sender: string;
+  chargeSender: string;
+}
+
 export interface IContract {
   id: number;
   contractId: string;
