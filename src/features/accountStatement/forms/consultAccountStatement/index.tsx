@@ -9,7 +9,7 @@ import { DatePickerComponent } from "../../../../common/components/Form/input-da
 import TableComponent from "../../../../common/components/table.component";
 import Svgs from "../../../../public/images/icons/svgs";
 import { contractsData } from "../../data";
-import { tableColumns } from ".//columns";
+import { tableColumns } from "./columns";
 
 const ConsultAccountStatementForm = ({
   urlGetAccountStatement,
