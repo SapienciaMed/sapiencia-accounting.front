@@ -19,6 +19,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useState,
+  Dispatch,
 } from "react";
 import * as Icons from "react-icons/fa";
 import { EResponseCodes } from "../constants/api.enum";
@@ -36,7 +37,7 @@ interface IProps<T> {
   searchItems?: object;
   isShowModal: boolean;
   titleMessageModalNoResult?: string;
-  setPaginateData: ({}) => {};
+  setPaginateData?: ({}) => {};
 }
 
 interface IRef {

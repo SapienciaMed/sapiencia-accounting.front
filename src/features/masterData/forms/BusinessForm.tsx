@@ -1,25 +1,35 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   ButtonComponent,
   FormComponent,
-  InputComponent,
   SelectComponent,
 } from "../../../common/components/Form";
-import { contractsData, paymentTypeData } from "../data";
 import { Link } from "react-router-dom";
 import Svgs from "../../../public/images/icons/svgs";
-import { useManageCompanyName } from "../hooks/manageCompanyName";
-// import { useAccountStatement } from "../hooks/accountStatement.hook";
+import TableComponent from "../../../common/components/table.component";
+import { tableColumns } from "./columns";
+import { useConsultBusiness } from "../hooks/consultBusiness";
 
-const ManageCompanyNameMain = () => {
-  const { control, handleSubmit, register, errors, isValid } =
-    useManageCompanyName();
+const BusinessForm = ({
+  urlGetConsultBusiness,
+  tableComponentRef,
+  tableView,
+  onSubmit,
+  tableActions,
+  control,
+  errors,
+  isValid,
+  handleClean,
+  submitDisabled,
+  setPaginateData,
+  business,
+}) => {
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
-        id="ManageCompanyNameMainForm"
+        id="BusinessForm"
         className="form-signIn"
-        action={handleSubmit}
+        action={onSubmit}
       >
         <div className="container-sections-forms ml-20px mr-20px">
           <div className="grid-form-3-container gap-25">
@@ -42,10 +52,10 @@ const ManageCompanyNameMain = () => {
             </span>
             <div className="grid-span-2-columns">
               <SelectComponent
-                idInput="contractCode"
+                idInput="id"
                 control={control}
                 errors={errors}
-                data={contractsData}
+                data={business}
                 label={<>NIT - Razón social /Nombre</>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
@@ -54,25 +64,56 @@ const ManageCompanyNameMain = () => {
               />
             </div>
           </div>
-
           <div className="button-save-container-display mr-24px">
             <ButtonComponent
               value="Limpiar campos"
               className="button-clean bold"
               type="button"
-              // action={handleClean}
+              action={handleClean}
             />
             <ButtonComponent
               value="Buscar"
+              className={`button-save ${
+                !isValid || submitDisabled ? "disabled-black" : ""
+              } big`}
               type="submit"
-              disabled={!isValid}
-              className={`button-save ${!isValid ? "disabled-black" : ""} big`}
+              disabled={!isValid || submitDisabled}
             />
           </div>
         </div>
       </FormComponent>
+      {tableView && (
+        <>
+          <div className="container-sections-forms ml-20px mr-20px">
+            <TableComponent
+              setPaginateData={setPaginateData}
+              ref={tableComponentRef}
+              url={urlGetConsultBusiness}
+              columns={tableColumns}
+              actions={tableActions}
+              isShowModal={true}
+              emptyMessage="No se generó resultado en la búsqueda"
+              titleMessageModalNoResult="Resultado de búsqueda"
+            />
+          </div>
+          <div
+            style={{
+              height: "1px",
+              margin: "0 20px",
+              backgroundColor: "#e0e0e0",
+            }}
+          ></div>
+          <div className="button-save-container-display mr-24px">
+            <ButtonComponent
+              value="Cerrar"
+              className="button-save big"
+              action={handleClean}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
-export default memo(ManageCompanyNameMain);
+export default memo(BusinessForm);
