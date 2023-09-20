@@ -1,42 +1,42 @@
+import { memo } from "react";
 import ConsultAccountStatementForm from "../forms/consultAccountStatement";
 import { useConsultAccountStatement } from "../hooks/consultAccountStatement";
 
 const ConsultAccountStatement = () => {
   const {
-    urlGetAccountStatement,
-    tableComponentRef,
-    tableView,
-    onSubmit,
-    tableActions,
-    register,
-    control,
     errors,
+    control,
     isValid,
+    onSubmit,
+    register,
+    tableView,
     handleClean,
     handleChange,
+    tableActions,
     submitDisabled,
-    downloadCollection,
     setPaginateData,
+    tableComponentRef,
+    downloadCollection,
+    urlGetAccountStatement,
   } = useConsultAccountStatement();
-
   return (
     <ConsultAccountStatementForm
-      setPaginateData={setPaginateData}
-      urlGetAccountStatement={urlGetAccountStatement}
-      tableComponentRef={tableComponentRef}
-      tableView={tableView}
-      onSubmit={onSubmit}
-      tableActions={tableActions}
-      register={register}
-      control={control}
       errors={errors}
+      control={control}
       isValid={isValid}
+      onSubmit={onSubmit}
+      register={register}
+      tableView={tableView}
       handleClean={handleClean}
+      tableActions={tableActions}
       handleChange={handleChange}
       submitDisabled={submitDisabled}
+      setPaginateData={setPaginateData}
+      tableComponentRef={tableComponentRef}
       downloadCollection={downloadCollection}
+      urlGetAccountStatement={urlGetAccountStatement}
     />
   );
 };
 
-export default ConsultAccountStatement;
+export default memo(ConsultAccountStatement);

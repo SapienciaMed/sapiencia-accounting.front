@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { useWidth } from "../../../common/hooks/use-width";
 import {
@@ -23,7 +22,6 @@ export const useConsultAccountStatement = () => {
     accountNum: "",
     nit: "",
   });
-  const { post } = useCrudService(urlApiAccounting);
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(filtersAccountStatementSchema);
   const {
@@ -79,6 +77,7 @@ export const useConsultAccountStatement = () => {
 
   const handleClean = () => {
     reset();
+    setSubmitDisabled(true);
     tableComponentRef.current?.emptyData();
     setTableView(false);
   };
@@ -105,19 +104,19 @@ export const useConsultAccountStatement = () => {
   }, [contractCode, expeditionDate, formWatch]);
 
   return {
-    urlGetAccountStatement,
-    tableComponentRef,
-    tableView,
-    onSubmit,
-    register,
-    control,
     errors,
+    control,
     isValid,
-    tableActions,
+    register,
+    onSubmit,
+    tableView,
     handleClean,
     handleChange,
+    tableActions,
     submitDisabled,
-    downloadCollection,
     setPaginateData,
+    tableComponentRef,
+    downloadCollection,
+    urlGetAccountStatement,
   };
 };
