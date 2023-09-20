@@ -8,6 +8,7 @@ import useYupValidationResolver from "../../../common/hooks/form-validator.hook"
 import { IGetAccountStatement } from "../../../common/interfaces/accountStatement.interface";
 import { editAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
+import { useGetStatementStatus } from "./getStatementStatus.hook";
 
 type IUpdateTracking = {
   statusId: string;
@@ -33,6 +34,8 @@ export const useEditAccountStatementTracking = () => {
     watch,
     formState: { isValid, errors },
   } = useForm({ resolver, mode: "all" });
+  const statusId = watch("tracking.statusId");
+  const { statementstatus } = useGetStatementStatus();
 
   const updateAccountStatementTracking = async (body: IUpdateTracking) => {
     try {
@@ -107,13 +110,14 @@ export const useEditAccountStatementTracking = () => {
   }, []);
 
   return {
-    control,
-    register,
     errors,
+    control,
+    isValid,
+    register,
+    statusId,
     handleCancel,
     handleSubmit,
-    watch,
-    isValid,
+    statementstatus,
     currentAccountStatement,
     onSubmit: handleSubmit(onSubmit),
   };

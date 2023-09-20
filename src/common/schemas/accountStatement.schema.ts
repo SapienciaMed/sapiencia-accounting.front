@@ -81,7 +81,8 @@ export const manageCompanySchema = yup.object({
     .required("Completar información")
     .max(100, "Solo se permiten 100 caracteres"),
   phone: yup
-    .number()
+    .string()
+    .length(10, "El campo debe tener 10 dígitos")
     .typeError("Debe ser un número")
     .required("Completar información"),
 });

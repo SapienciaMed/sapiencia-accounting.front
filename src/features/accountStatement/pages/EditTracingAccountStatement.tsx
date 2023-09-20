@@ -13,22 +13,20 @@ import {
 } from "../../../common/interfaces/accountStatement.interface";
 import { paymentTypeData } from "../data";
 import { useEditAccountStatementTracking } from "../hooks/editTracingAcountStatement";
-import { useGetStatementStatus } from "../hooks/getStatementStatus.hook";
 
 const DetailAccountStatement = () => {
   const {
     control,
-    register,
     errors,
-    onSubmit,
-    handleCancel,
-    watch,
     isValid,
+    register,
+    onSubmit,
+    statusId,
+    handleCancel,
+    statementstatus,
     currentAccountStatement,
   } = useEditAccountStatementTracking();
   useState<IGetAccountStatement>(null);
-  const statusId = watch("tracking.statusId");
-  const { statementstatus } = useGetStatementStatus();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent

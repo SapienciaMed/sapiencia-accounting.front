@@ -5,8 +5,8 @@ import {
   InputComponent,
   SelectComponent,
 } from "../../../common/components/Form";
-import { useManageCompanyName } from "../hooks/manageCompanyName";
 import { useGetMunicipality } from "../hooks/getMunicipality";
+import { useManageCompanyName } from "../hooks/manageCompanyName";
 
 const CreateManageCompanyName = () => {
   const { control, handleSubmit, register, errors, handleCancel, isValid } =
@@ -89,7 +89,8 @@ const CreateManageCompanyName = () => {
                   Teléfono <span>*</span>
                 </>
               }
-              typeInput="text"
+              typeInput="number"
+              max={10}
               register={register}
               errors={errors}
               className="input-basic medium"
