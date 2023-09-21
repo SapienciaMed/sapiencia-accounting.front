@@ -3,14 +3,13 @@ import {
   ButtonComponent,
   FormComponent,
   SelectComponent,
-} from "../../../common/components/Form";
+} from "../../../../common/components/Form";
 import { Link } from "react-router-dom";
-import Svgs from "../../../public/images/icons/svgs";
-import TableComponent from "../../../common/components/table.component";
-import { tableColumns } from "./columns";
-import { useConsultBusiness } from "../hooks/consultBusiness";
+import Svgs from "../../../../public/images/icons/svgs";
+import TableComponent from "../../../../common/components/table.component";
+// import { tableColumns } from "./columns";
 
-const BusinessForm = ({
+const ManageContractForm = ({
   urlGetConsultBusiness,
   tableComponentRef,
   tableView,
@@ -34,23 +33,31 @@ const BusinessForm = ({
         <div className="container-sections-forms ml-20px mr-20px">
           <div className="grid-form-3-container gap-25">
             <div className="text-black large bold grid-span-2-columns pb-14px">
-              Gestionar razón social
+              Gestionar contrato
             </div>
             <div className="button-save-container-display mr-33px">
-              <Link
-                to="/contabilidad/razon-social/crear"
-                className="text-links"
-              >
-                Crear razón social
+              <Link to="/contabilidad/contrato/crear" className="text-links">
+                Crear contrato
                 <div className="text-links ml-5px">
                   <Svgs svg="add" width={16} height={17} />
                 </div>
               </Link>
             </div>
             <span className="text-black biggest bold grid-span-3-columns">
-              Consultar razón social
+              Consultar contrato
             </span>
-            <div className="grid-span-2-columns">
+            <div className="grid-form-3-container ">
+              <SelectComponent
+                idInput="id"
+                control={control}
+                errors={errors}
+                data={business}
+                label={<>contrato</>}
+                className="select-basic medium"
+                classNameLabel="text-black big bold"
+                placeholder="Seleccionar"
+                filter
+              />
               <SelectComponent
                 idInput="id"
                 control={control}
@@ -82,7 +89,7 @@ const BusinessForm = ({
           </div>
         </div>
       </FormComponent>
-      {tableView && (
+      {/* {tableView && (
         <>
           <div className="container-sections-forms ml-20px mr-20px">
             <TableComponent
@@ -111,9 +118,9 @@ const BusinessForm = ({
             />
           </div>
         </>
-      )}
+      )} */}
     </div>
   );
 };
 
-export default memo(BusinessForm);
+export default memo(ManageContractForm);

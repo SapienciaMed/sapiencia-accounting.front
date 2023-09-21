@@ -1,5 +1,5 @@
-import { IBusiness } from "../../../common/interfaces/accountStatement.interface";
-import { ITableElement } from "../../../common/interfaces/table.interfaces";
+import { IBusiness } from "../../../../common/interfaces/accountStatement.interface";
+import { ITableElement } from "../../../../common/interfaces/table.interfaces";
 
 export const tableColumns: ITableElement<IBusiness>[] = [
   {

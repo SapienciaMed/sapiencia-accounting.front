@@ -1,6 +1,6 @@
-import BusinessForm from "../forms/BusinessForm";
-import { useConsultBusiness } from "../hooks/consultBusiness";
-import { useGetBusiness } from "../hooks/getBusinessName";
+import BusinessForm from "../../forms/businessForm/BusinessForm";
+import { useConsultBusiness } from "../../hooks/businessHooks/consultBusiness";
+import { useGetBusiness } from "../../hooks/businessHooks/getBusinessName";
 
 const ConsultBusiness = () => {
   const {

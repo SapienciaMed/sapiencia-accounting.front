@@ -1,8 +1,10 @@
 import { memo } from "react";
 import { Route, Routes } from "react-router-dom";
-import CreateManageCompanyName from "./pages/CreateManageCompanyName";
-import ConsultBusiness from "./pages/ConsultBusiness";
-import DetailBusiness from "./pages/EditBusiness";
+import CreateManageCompanyName from "./pages/businnesPages/CreateManageCompanyName";
+import ConsultBusiness from "./pages/businnesPages/ConsultBusiness";
+import DetailBusiness from "./pages/businnesPages/EditBusiness";
+import ConsultManageContract from "./pages/manageContractPages/ConsultManageContract";
+import CreateManageContract from "./pages/manageContractPages/CreateManageContract";
 
 const MasterDataRoutes = () => {
   // const CreateAccountStatement = lazy(
@@ -19,11 +21,12 @@ const MasterDataRoutes = () => {
   // );
   return (
     <Routes>
-      {/* <Route path="/razon-social" element={<ConsultBusiness />} /> */}
-
       <Route path="/razon-social" element={<ConsultBusiness />} />
       <Route path="/razon-social/crear" element={<CreateManageCompanyName />} />
       <Route path="/razon-social/editar/:id" element={<DetailBusiness />} />
+
+      <Route path="/contrato" element={<ConsultManageContract />} />
+      <Route path="/contrato/crear" element={<CreateManageContract />} />
     </Routes>
   );
 };

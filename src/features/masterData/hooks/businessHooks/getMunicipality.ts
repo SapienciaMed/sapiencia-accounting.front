@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import useCrudService from "../../../common/hooks/crud-service.hook";
-import { ApiResponse } from "../../../common/utils/api-response";
-import { urlApiCore } from "../../../common/utils/base-url";
+import useCrudService from "../../../../common/hooks/crud-service.hook";
+import { ApiResponse } from "../../../../common/utils/api-response";
+import { urlApiCore } from "../../../../common/utils/base-url";
 
 interface IMunicipalityRes {
   id: number;
