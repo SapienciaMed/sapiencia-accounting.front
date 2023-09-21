@@ -2,11 +2,11 @@ import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { AppContext } from "../../../common/contexts/app.context";
-import useCrudService from "../../../common/hooks/crud-service.hook";
-import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { manageCompanySchema } from "../../../common/schemas/accountStatement.schema";
-import { urlApiAccounting } from "../../../common/utils/base-url";
+import { AppContext } from "../../../../common/contexts/app.context";
+import useCrudService from "../../../../common/hooks/crud-service.hook";
+import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
+import { manageCompanySchema } from "../../../../common/schemas/accountStatement.schema";
+import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { useGetBusinessById } from "./getBusinessById";
 
 export const useEditBusiness = () => {

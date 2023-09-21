@@ -1,25 +1,23 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import {
   ButtonComponent,
   FormComponent,
   InputComponent,
   SelectComponent,
-} from "../../../common/components/Form";
-import { useGetMunicipality } from "../hooks/getMunicipality";
-import { useEditBusiness } from "../hooks/editBusiness";
-import { IGetBusiness } from "../../../common/interfaces/accountStatement.interface";
+} from "../../../../common/components/Form";
+import { useGetMunicipality } from "../../hooks/businessHooks/getMunicipality";
+import { useManageCompanyName } from "../../hooks/businessHooks/manageCompanyName";
 
-const DetailBusiness = () => {
-  const { control, register, errors, onSubmit, handleCancel, watch } =
-    useEditBusiness();
-  useState<IGetBusiness>(null);
+const CreateManageCompanyName = () => {
+  const { control, handleSubmit, register, errors, handleCancel, isValid } =
+    useManageCompanyName();
   const { municipality } = useGetMunicipality();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
-        id="EditManageCompanyNameForm"
+        id="CreateManageCompanyNameForm"
         className="form-signIn"
-        action={onSubmit}
+        action={handleSubmit}
       >
         <div className="container-sections-forms ml-20px mr-20px">
           <div className="grid-form-3-container gap-25">
@@ -91,7 +89,7 @@ const DetailBusiness = () => {
                   Teléfono <span>*</span>
                 </>
               }
-              typeInput="text"
+              typeInput="number"
               register={register}
               errors={errors}
               className="input-basic medium"
@@ -160,8 +158,11 @@ const DetailBusiness = () => {
           />
           <ButtonComponent
             value="Guardar"
-            className="button-save big"
             type="submit"
+            disabled={!isValid || Object.keys(errors).length > 0}
+            className={`button-save ${
+              !isValid || Object.keys(errors).length > 0 ? "disabled-black" : ""
+            } big`}
           />
         </div>
       </FormComponent>
@@ -169,4 +170,4 @@ const DetailBusiness = () => {
   );
 };
 
-export default memo(DetailBusiness);
+export default memo(CreateManageCompanyName);

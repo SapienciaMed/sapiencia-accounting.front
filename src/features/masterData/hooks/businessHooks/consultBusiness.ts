@@ -1,16 +1,16 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
+import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
 import {
   IBusiness,
   IContract,
-} from "../../../common/interfaces/accountStatement.interface";
-import { ITableAction } from "../../../common/interfaces/table.interfaces";
-import { urlApiAccounting } from "../../../common/utils/base-url";
-import { AppContext } from "../../../common/contexts/app.context";
-import useCrudService from "../../../common/hooks/crud-service.hook";
-import { consultBusinessSchema } from "../../../common/schemas/consultBusinessSchema";
+} from "../../../../common/interfaces/accountStatement.interface";
+import { ITableAction } from "../../../../common/interfaces/table.interfaces";
+import { urlApiAccounting } from "../../../../common/utils/base-url";
+import { AppContext } from "../../../../common/contexts/app.context";
+import useCrudService from "../../../../common/hooks/crud-service.hook";
+import { consultBusinessSchema } from "../../../../common/schemas/consultBusinessSchema";
 import { useGetBusiness } from "./getBusinessName";
 
 export const useConsultBusiness = () => {
