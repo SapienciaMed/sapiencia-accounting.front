@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
-import {
-  IBusinessInfoSelect,
-  IGetBusiness,
-} from "../../../../common/interfaces/accountStatement.interface";
+import { IBusinessInfoSelect } from "../../../../common/interfaces/accountStatement.interface";
 import { ApiResponse } from "../../../../common/utils/api-response";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 

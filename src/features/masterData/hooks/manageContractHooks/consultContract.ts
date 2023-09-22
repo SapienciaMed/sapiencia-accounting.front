@@ -10,12 +10,8 @@ import { ITableAction } from "../../../../common/interfaces/table.interfaces";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
-import {
-  consultBusinessSchema,
-  consultContractSchema,
-} from "../../../../common/schemas/consultBusinessSchema";
+import { consultContractSchema } from "../../../../common/schemas/consultBusinessSchema";
 import { useGetBusiness } from "../businessHooks/getBusinessName";
-// import { useGetBusiness } from "./getContract";
 
 export const useConsultBusiness = () => {
   const navigate = useNavigate();

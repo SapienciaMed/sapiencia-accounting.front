@@ -68,9 +68,13 @@ export const manageCompanySchema = yup.object({
     .max(100, "Solo se permiten 100 caracteres"),
   email: yup
     .string()
+    .matches(/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/i, {
+      message: "Formato de correo electrónico inválido",
+    })
     .email("Ingrese un correo electrónico válido")
     .required("Completar información")
     .max(50, "Solo se permiten 50 caracteres"),
+
   municipalityCode: yup.string().required("Completar información"),
   sender: yup
     .string()

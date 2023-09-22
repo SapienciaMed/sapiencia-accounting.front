@@ -6,15 +6,10 @@ import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
 import {
-  IBusiness,
   IBusinessInfoSelect,
   IContract,
-  IManageContract,
 } from "../../../../common/interfaces/accountStatement.interface";
-import {
-  createContractSchema,
-  manageCompanySchema,
-} from "../../../../common/schemas/accountStatement.schema";
+import { createContractSchema } from "../../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { EResponseCodes } from "../../../../common/constants/api.enum";
 import { useGetBusinessInfo } from "./getbusinessInfo";

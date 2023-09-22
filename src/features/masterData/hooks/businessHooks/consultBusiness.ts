@@ -76,14 +76,14 @@ export const useConsultBusiness = () => {
       const endpoint = `/api/v1/business/${row.id}/delete`;
       await deleted(endpoint);
       setReload(new Date());
+      handleClean();
       setMessage({
         title: "Razón social!",
         description: "Razón social eliminada exitosamente",
         show: true,
         okTitle: "Cerrar",
-        onOk: () => {
-          setMessage({ show: false }), handleClean();
-        },
+        onOk: () => setMessage({ show: false }),
+        background: true,
       });
     } catch (err) {
       console.log(err);

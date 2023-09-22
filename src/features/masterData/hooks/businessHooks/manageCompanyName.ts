@@ -18,7 +18,6 @@ export const useManageCompanyName = () => {
     control,
     handleSubmit,
     register,
-    reset,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
@@ -27,12 +26,31 @@ export const useManageCompanyName = () => {
       const body = { ...data, phone: String(data.phone) };
       const endpoint = "/api/v1/business";
       const resp = await post<null>(endpoint, body);
+
       if (resp.operation.code === EResponseCodes.FAIL) {
+        const mapApiErrorMessage = (apiErrorMessage) => {
+          if (
+            apiErrorMessage ===
+            `Valor duplicado, Duplicate entry '${data.nit}' for key 'rzo_razones_sociales_rzo_nit_unique'`
+          ) {
+            return "El nit ingresado  ya existe";
+          } else if (apiErrorMessage === "Error 2") {
+            return "Mensaje de error personalizado 2";
+          } else {
+            return "Ha ocurrido un error inesperado";
+          }
+        };
+
+        const customErrorMessage = mapApiErrorMessage(resp.operation.message);
+
         return setMessage({
           title: "Error en la creación",
-          description: resp.operation.message,
+          description: customErrorMessage,
           show: true,
           okTitle: "Cerrar",
+          onOk: () => {
+            setMessage({ show: false });
+          },
           background: true,
         });
       }
@@ -45,6 +63,7 @@ export const useManageCompanyName = () => {
           setMessage({ show: false });
           navigate(-1);
         },
+        background: true,
       });
     } catch (err) {
       console.error(err);
@@ -56,7 +75,7 @@ export const useManageCompanyName = () => {
       ...data,
     };
     setMessage({
-      title: "Crear Razón social",
+      title: "Crear razón social",
       description: "¿Estás segur@ de crear razón social?",
       show: true,
       okTitle: "Aceptar",
@@ -72,7 +91,7 @@ export const useManageCompanyName = () => {
 
   const handleCancel = () => {
     setMessage({
-      title: "Crear Razón social",
+      title: "Crear razón social",
       description: "¿Estás segur@ de cancelar los cambios?",
       show: true,
       okTitle: "Aceptar",

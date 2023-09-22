@@ -24,7 +24,6 @@ const MasterDataRoutes = () => {
       <Route path="/razon-social" element={<ConsultBusiness />} />
       <Route path="/razon-social/crear" element={<CreateManageCompanyName />} />
       <Route path="/razon-social/editar/:id" element={<DetailBusiness />} />
-
       <Route path="/contrato" element={<ConsultManageContract />} />
       <Route path="/contrato/crear" element={<CreateManageContract />} />
     </Routes>

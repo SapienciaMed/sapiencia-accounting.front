@@ -1,4 +1,3 @@
-import BusinessForm from "../../forms/businessForm/BusinessForm";
 import ManageContractForm from "../../forms/manageContractForm/ManageContractForm";
 import { useConsultBusiness } from "../../hooks/businessHooks/consultBusiness";
 
