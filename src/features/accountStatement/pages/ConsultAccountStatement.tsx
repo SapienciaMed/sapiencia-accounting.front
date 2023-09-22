@@ -10,6 +10,7 @@ const ConsultAccountStatement = () => {
     onSubmit,
     register,
     tableView,
+    contractData,
     handleClean,
     handleChange,
     tableActions,
@@ -25,6 +26,7 @@ const ConsultAccountStatement = () => {
       control={control}
       isValid={isValid}
       onSubmit={onSubmit}
+      contractData={contractData}
       register={register}
       tableView={tableView}
       handleClean={handleClean}

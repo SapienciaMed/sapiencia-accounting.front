@@ -8,7 +8,6 @@ import {
 import { DatePickerComponent } from "../../../../common/components/Form/input-date.component";
 import TableComponent from "../../../../common/components/table.component";
 import Svgs from "../../../../public/images/icons/svgs";
-import { contractsData } from "../../data";
 import { tableColumns } from "./columns";
 
 const ConsultAccountStatementForm = ({
@@ -19,6 +18,7 @@ const ConsultAccountStatementForm = ({
   tableActions,
   register,
   control,
+  contractData,
   errors,
   isValid,
   handleClean,
@@ -52,7 +52,7 @@ const ConsultAccountStatementForm = ({
             idInput="contractCode"
             control={control}
             errors={errors}
-            data={contractsData}
+            data={contractData}
             label={<>Contrato</>}
             className="select-basic medium"
             classNameLabel="text-black big bold"

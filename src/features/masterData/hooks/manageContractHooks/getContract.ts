@@ -16,24 +16,24 @@ interface INitRazonSocialNombre {
   municipality: string;
 }
 
-export const useGetBusiness = () => {
+export const useGetContract = () => {
   const { get } = useCrudService(urlApiAccounting);
   const [reload, setReload] = useState(new Date());
-  const [business, setBusiness] = useState<any>(null);
+  const [contract, setContract] = useState<any>(null);
 
-  const getBusiness = async () => {
+  const getContract = async () => {
     try {
-      const endpoint = "/api/v1/business/get-all-business-info";
+      const endpoint = "/api/v1/contract/get-info-select";
       const resp: ApiResponse<INitRazonSocialNombre[]> = await get(endpoint);
-      setBusiness(resp.data);
+      setContract(resp.data);
     } catch (err) {
       console.error(err);
       console.log("Error response:", err.response);
     }
   };
   useEffect(() => {
-    getBusiness();
+    getContract();
   }, [reload]);
 
-  return { business, setReload };
+  return { contract, setReload };
 };

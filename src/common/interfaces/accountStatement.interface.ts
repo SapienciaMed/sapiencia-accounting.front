@@ -31,6 +31,16 @@ export interface IBusiness {
   updatedAt?: DateTime; // RZO_FECHA_MODIFIC
 }
 
+export interface IManageContract {
+  id?: number; // CTR_CODIGO
+  contractNumber: string; // CTR_NUMERO_CONTRATO
+  codRzo: number; // CTR_CODIGO_RAZÓN_SOCIAL
+  userModified: string; //CTR_NÚMERO_DOCUMENTO_ÚLTIMO_USUARIO_MODIFICACIÓN
+  dateModified?: DateTime; // CTR_FECHA_HORA_ÚLTIMA_MODIFICACIÓN
+  userCreated: string; // CTR_DOCUMENTO_USUARIO_CREÓ_EL_REGISTRO
+  dateCreated?: DateTime; // CTR_FECHA_HORA_CREACIÓN_REGISTRO
+}
+
 export interface IGetBusiness {
   id?: number;
   nit: string;
@@ -41,7 +51,14 @@ export interface IGetBusiness {
   email: string;
   sender: string;
   chargeSender: string;
+  contract?: string;
 }
+
+export type IBusinessInfoSelect = {
+  name: string;
+  value: number;
+  data: IBusiness;
+};
 
 export interface IContract {
   id: number;

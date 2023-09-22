@@ -16,10 +16,12 @@ const ConsultManageContract = () => {
     submitDisabled,
     setPaginateData,
     business,
+    contract,
   } = useConsultBusiness();
   return (
     <ManageContractForm
       business={business}
+      contract={contract}
       setPaginateData={setPaginateData}
       urlGetConsultBusiness={urlGetConsultBusiness}
       tableComponentRef={tableComponentRef}

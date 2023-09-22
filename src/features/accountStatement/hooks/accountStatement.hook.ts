@@ -15,11 +15,13 @@ import { urlApiAccounting } from "../../../common/utils/base-url";
 import { jsDateToSQL } from "../../../common/utils/helpers";
 import { businessData } from "../data";
 import { useGetLastConsecutive } from "./getLastConsecutive.hook";
+import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
 
 export const useAccountStatement = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { lastConsecutive, setRealoadConsecutive } = useGetLastConsecutive();
+  const { contract: contractData, setReload } = useGetContract();
   const { post } = useCrudService(urlApiAccounting);
   const resolver = useYupValidationResolver(accountStatementSchema);
   const {
@@ -150,6 +152,15 @@ export const useAccountStatement = () => {
     setValue("id", lastConsecutive);
   }, [lastConsecutive]);
 
+  useEffect(() => {
+    if (!contractData) return;
+    const contractFound = contractData.find(
+      ({ value }) => value === contractValue
+    );
+    setValue("nit", contractFound.data.nit);
+    setValue("business", contractFound.data.name);
+  }, [contractValue]);
+
   return {
     lastConsecutive,
     control,
@@ -158,5 +169,6 @@ export const useAccountStatement = () => {
     errors,
     handleCancel,
     isValid,
+    contractData,
   };
 };

@@ -10,6 +10,7 @@ import {
 import { ITableAction } from "../../../common/interfaces/table.interfaces";
 import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
+import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
 
 export const useConsultAccountStatement = () => {
   const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
@@ -17,6 +18,7 @@ export const useConsultAccountStatement = () => {
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
   const [tableView, setTableView] = useState<boolean>(false);
+  const { contract: contractData, setReload } = useGetContract();
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const [formWatch, setFormWatch] = useState({
     accountNum: "",
@@ -110,6 +112,7 @@ export const useConsultAccountStatement = () => {
     register,
     onSubmit,
     tableView,
+    contractData,
     handleClean,
     handleChange,
     tableActions,

@@ -10,14 +10,16 @@ import { ITableAction } from "../../../../common/interfaces/table.interfaces";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
-import { consultBusinessSchema } from "../../../../common/schemas/consultBusinessSchema";
-import { useGetBusiness } from "./getBusinessName";
-import { useGetContract } from "../manageContractHooks/getContract";
+import {
+  consultBusinessSchema,
+  consultContractSchema,
+} from "../../../../common/schemas/consultBusinessSchema";
+import { useGetBusiness } from "../businessHooks/getBusinessName";
+// import { useGetBusiness } from "./getContract";
 
 export const useConsultBusiness = () => {
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
-  const { contract } = useGetContract();
   const { business, setReload } = useGetBusiness();
   const [tableView, setTableView] = useState<boolean>(false);
   const [formWatch, setFormWatch] = useState({
@@ -26,7 +28,7 @@ export const useConsultBusiness = () => {
   const { deleted } = useCrudService(urlApiAccounting);
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
-  const resolver = useYupValidationResolver(consultBusinessSchema);
+  const resolver = useYupValidationResolver(consultContractSchema);
   const {
     control,
     handleSubmit,
@@ -38,7 +40,7 @@ export const useConsultBusiness = () => {
   const idValue = watch("id");
   const { setMessage } = useContext(AppContext);
 
-  const urlGetConsultBusiness = `${urlApiAccounting}/api/v1/business/get-paginated`;
+  const urlGetConsultBusiness = `${urlApiAccounting}/api/v1/contract/get-paginated`;
 
   const tableActions: ITableAction<IBusiness>[] = [
     {
@@ -106,7 +108,11 @@ export const useConsultBusiness = () => {
 
   const onSubmit = handleSubmit((filters: IContract) => {
     setTableView(true);
-    tableComponentRef.current?.loadData(filters);
+    const { id, businessCode } = filters;
+    tableComponentRef.current?.loadData({
+      id: String(id),
+      businessCode: String(businessCode),
+    });
   });
 
   const handleChange = (event) => {
@@ -142,7 +148,6 @@ export const useConsultBusiness = () => {
     errors,
     isValid,
     business,
-    contract,
     tableActions,
     handleClean,
     handleChange,

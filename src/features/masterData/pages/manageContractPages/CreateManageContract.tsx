@@ -1,17 +1,23 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import {
   ButtonComponent,
   FormComponent,
   InputComponent,
   SelectComponent,
 } from "../../../../common/components/Form";
-import { useGetMunicipality } from "../../hooks/businessHooks/getMunicipality";
-import { useManageCompanyName } from "../../hooks/businessHooks/manageCompanyName";
+import { useManageContract } from "../../hooks/manageContractHooks/CreateManageContract";
 
 const CreateManageContract = () => {
-  const { control, handleSubmit, register, errors, handleCancel, isValid } =
-    useManageCompanyName();
-  const { municipality } = useGetMunicipality();
+  const {
+    control,
+    handleSubmit,
+    register,
+    errors,
+    handleCancel,
+    isValid,
+    businessData,
+  } = useManageContract();
+
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
@@ -25,10 +31,10 @@ const CreateManageContract = () => {
               Crear contrato
             </span>
             <InputComponent
-              idInput="contrato"
+              idInput="contractId"
               label={
                 <>
-                  contrato <span>*</span>
+                  Contrato <span>*</span>
                 </>
               }
               typeInput="text"
@@ -39,37 +45,35 @@ const CreateManageContract = () => {
             />
             <div className="grid-span-2-columns">
               <SelectComponent
-                idInput="id"
+                idInput="value"
                 control={control}
                 errors={errors}
-                // data={business}
                 label={<>NIT - Razón social /Nombre</>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccionar"
+                data={businessData}
                 filter
               />
             </div>
           </div>
           <div className="grid-form-4-container gap-25 mt-25px">
-            <SelectComponent
-              idInput="municipalityCode"
-              control={control}
-              errors={errors}
-              data={municipality}
+            <InputComponent
+              idInput="data.municipality"
               label={
                 <>
                   Ciudad <span>*</span>
                 </>
               }
-              className="select-basic medium"
+              typeInput="text"
+              register={register}
+              errors={errors}
+              className="input-basic medium"
               classNameLabel="text-black big bold"
-              placeholder="Seleccione."
-              filter
               disabled
             />
             <InputComponent
-              idInput="address"
+              idInput="data.address"
               label={
                 <>
                   Dirección <span>*</span>
@@ -83,7 +87,7 @@ const CreateManageContract = () => {
               disabled
             />
             <InputComponent
-              idInput="phone"
+              idInput="data.phone"
               label={
                 <>
                   Teléfono <span>*</span>
@@ -97,7 +101,7 @@ const CreateManageContract = () => {
               disabled
             />
             <InputComponent
-              idInput="email"
+              idInput="data.email"
               label={
                 <>
                   Correo electrónico <span>*</span>
@@ -114,7 +118,7 @@ const CreateManageContract = () => {
           <div className="gap-25 mt-25px grid-form-3-container">
             <div className="grid-span-2-columns">
               <InputComponent
-                idInput="sender"
+                idInput="data.sender"
                 label={
                   <>
                     Persona a la que se remite la cuenta <span>*</span>
@@ -130,7 +134,7 @@ const CreateManageContract = () => {
             </div>
             <div>
               <InputComponent
-                idInput="chargeSender"
+                idInput="data.chargeSender"
                 label={
                   <>
                     Cargo <span>*</span>
@@ -148,7 +152,7 @@ const CreateManageContract = () => {
           <div className="gap-25 mt-25px grid-form-2-container">
             <div>
               <InputComponent
-                idInput="1"
+                idInput="debitAccount"
                 label={
                   <>
                     Cuenta contable débito <span>*</span>
@@ -163,7 +167,7 @@ const CreateManageContract = () => {
             </div>
             <div>
               <InputComponent
-                idInput="2"
+                idInput="creditAccount"
                 label={
                   <>
                     Cuenta contable crédito <span>*</span>

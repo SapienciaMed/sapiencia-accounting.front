@@ -7,7 +7,7 @@ import {
 import { Link } from "react-router-dom";
 import Svgs from "../../../../public/images/icons/svgs";
 import TableComponent from "../../../../common/components/table.component";
-// import { tableColumns } from "./columns";
+import { tableColumns } from "../businessForm/columns";
 
 const ManageContractForm = ({
   urlGetConsultBusiness,
@@ -22,6 +22,7 @@ const ManageContractForm = ({
   submitDisabled,
   setPaginateData,
   business,
+  contract,
 }) => {
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
@@ -46,20 +47,24 @@ const ManageContractForm = ({
             <span className="text-black biggest bold grid-span-3-columns">
               Consultar contrato
             </span>
-            <div className="grid-form-3-container ">
+          </div>
+          <div className="grid-form-3-container gap-25 mt-24px">
+            <div className="">
               <SelectComponent
                 idInput="id"
                 control={control}
                 errors={errors}
-                data={business}
-                label={<>contrato</>}
+                data={contract}
+                label={<>Contrato</>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccionar"
                 filter
               />
+            </div>
+            <div className="grid-span-2-columns">
               <SelectComponent
-                idInput="id"
+                idInput="businessCode"
                 control={control}
                 errors={errors}
                 data={business}
@@ -89,7 +94,7 @@ const ManageContractForm = ({
           </div>
         </div>
       </FormComponent>
-      {/* {tableView && (
+      {tableView && (
         <>
           <div className="container-sections-forms ml-20px mr-20px">
             <TableComponent
@@ -118,7 +123,7 @@ const ManageContractForm = ({
             />
           </div>
         </>
-      )} */}
+      )}
     </div>
   );
 };
