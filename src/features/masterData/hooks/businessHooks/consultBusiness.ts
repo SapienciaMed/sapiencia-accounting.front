@@ -13,6 +13,7 @@ import useCrudService from "../../../../common/hooks/crud-service.hook";
 import { consultBusinessSchema } from "../../../../common/schemas/consultBusinessSchema";
 import { useGetBusiness } from "./getBusinessName";
 import { useGetContract } from "../manageContractHooks/getContract";
+import { EResponseCodes } from "../../../../common/constants/api.enum";
 
 export const useConsultBusiness = () => {
   const navigate = useNavigate();
@@ -74,27 +75,31 @@ export const useConsultBusiness = () => {
   const deleteBusiness = async (row) => {
     try {
       const endpoint = `/api/v1/business/${row.id}/delete`;
-      await deleted(endpoint);
       setReload(new Date());
+      const resp = await deleted<null>(endpoint);
       handleClean();
       setMessage({
         title: "Razón social!",
-        description: "Razón social eliminada exitosamente",
+        description: `Razón social ${row.name} eliminado exitosamente.`,
         show: true,
         okTitle: "Cerrar",
         onOk: () => setMessage({ show: false }),
         background: true,
       });
+      if (resp.operation.code === EResponseCodes.FAIL) {
+        return setMessage({
+          title: "Razón social en uso",
+          description: resp.operation.message,
+          show: true,
+          okTitle: "Cerrar",
+          onOk: () => {
+            setMessage({ show: false });
+          },
+          background: true,
+        });
+      }
     } catch (err) {
       console.log(err);
-      setMessage({
-        title: "Error razón social",
-        description: "Error, por favor intente más tarde",
-        show: true,
-        okTitle: "Cerrar",
-        onOk: () => setMessage({ show: false }),
-        background: true,
-      });
     }
   };
 

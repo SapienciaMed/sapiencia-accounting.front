@@ -17,7 +17,11 @@ function ModalMessageComponent(): React.JSX.Element {
   );
 
   return (
-    <div className={`modal ${message.background ? "modal-bg" : ""} ${message.show ? "is-open" : "modal-close"}`}>
+    <div
+      className={`modal ${message.background ? "modal-bg" : ""} ${
+        message.show ? "is-open" : "modal-close"
+      }`}
+    >
       <div ref={modal} className="modal-container">
         <div className="modal-header">
           <button
@@ -36,7 +40,9 @@ function ModalMessageComponent(): React.JSX.Element {
           {typeof message.description != "string" ? (
             message?.description
           ) : (
-            <p className="text-black large">{message.description}</p>
+            <p className="text-black large text-center">
+              {message.description}
+            </p>
           )}
         </div>
         <div className="modal-footer">

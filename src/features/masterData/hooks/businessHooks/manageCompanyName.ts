@@ -28,24 +28,9 @@ export const useManageCompanyName = () => {
       const resp = await post<null>(endpoint, body);
 
       if (resp.operation.code === EResponseCodes.FAIL) {
-        const mapApiErrorMessage = (apiErrorMessage) => {
-          if (
-            apiErrorMessage ===
-            `Valor duplicado, Duplicate entry '${data.nit}' for key 'rzo_razones_sociales_rzo_nit_unique'`
-          ) {
-            return "El nit ingresado  ya existe";
-          } else if (apiErrorMessage === "Error 2") {
-            return "Mensaje de error personalizado 2";
-          } else {
-            return "Ha ocurrido un error inesperado";
-          }
-        };
-
-        const customErrorMessage = mapApiErrorMessage(resp.operation.message);
-
         return setMessage({
-          title: "Error en la creación",
-          description: customErrorMessage,
+          title: "Creación razón social",
+          description: resp.operation.message,
           show: true,
           okTitle: "Cerrar",
           onOk: () => {
@@ -55,13 +40,13 @@ export const useManageCompanyName = () => {
         });
       }
       setMessage({
-        title: "¡Cambios guardados!",
-        description: "Razón social creado exitosamente",
+        title: "¡Razón social!",
+        description: "¡Creada exitosamente!",
         show: true,
         okTitle: "Cerrar",
         onOk: () => {
           setMessage({ show: false });
-          navigate(-1);
+          // navigate(); rev
         },
         background: true,
       });
@@ -76,7 +61,7 @@ export const useManageCompanyName = () => {
     };
     setMessage({
       title: "Crear razón social",
-      description: "¿Estás segur@ de crear razón social?",
+      description: "¿Esta segur@ de crear la razón social?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -91,7 +76,7 @@ export const useManageCompanyName = () => {
 
   const handleCancel = () => {
     setMessage({
-      title: "Crear razón social",
+      title: "Cancelar razón social",
       description: "¿Estás segur@ de cancelar los cambios?",
       show: true,
       okTitle: "Aceptar",

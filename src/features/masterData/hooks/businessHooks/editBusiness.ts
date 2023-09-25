@@ -30,14 +30,15 @@ export const useEditBusiness = () => {
       const endpoint = `/api/v1/business/${id}/update`;
       await put(endpoint, data);
       setMessage({
-        title: "¡Cambios guardados!",
-        description: "Cambios guardados exitosamente",
+        title: "Razón social",
+        description: "¡Editada exitosamente!",
         show: true,
         okTitle: "Cerrar",
         onOk: () => {
           setMessage({ show: false });
-          navigate("/contabilidad/razon-social");
+          navigate(-1);
         },
+        background: true,
       });
     } catch (err) {
       console.log(err);
@@ -59,8 +60,8 @@ export const useEditBusiness = () => {
       phone: String(data.phone),
     };
     setMessage({
-      title: "Guardar cambios",
-      description: "Estás segur@ de guardar los cambios?",
+      title: "Edición  razón social",
+      description: "¿Esta segur@ de editar la razón social?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -75,8 +76,8 @@ export const useEditBusiness = () => {
 
   const handleCancel = () => {
     setMessage({
-      title: "Editar razón social",
-      description: "¿Estás segur@ de cancelar los cambios?",
+      title: "Cancelar edición razón social",
+      description: "¿Esta segur@ de cancelar la edición de la razón social?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
