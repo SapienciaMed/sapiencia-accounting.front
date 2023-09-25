@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../../common/contexts/app.context";
@@ -46,7 +46,7 @@ export const useManageCompanyName = () => {
         okTitle: "Cerrar",
         onOk: () => {
           setMessage({ show: false });
-          // navigate(); rev
+          navigate(0);
         },
         background: true,
       });
@@ -54,7 +54,6 @@ export const useManageCompanyName = () => {
       console.error(err);
     }
   };
-
   const onSubmit = (data) => {
     const body = {
       ...data,
@@ -77,7 +76,7 @@ export const useManageCompanyName = () => {
   const handleCancel = () => {
     setMessage({
       title: "Cancelar razón social",
-      description: "¿Estás segur@ de cancelar los cambios?",
+      description: "¿Esta segur@ de cancelar la creación de la razón social?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",

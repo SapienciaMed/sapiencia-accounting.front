@@ -100,10 +100,10 @@ export const createContractSchema = yup.object({
   value: yup.number().required("Completar información"),
   debitAccount: yup
     .string()
-    .max(15, "Solo se permiten 15 caracteres")
+    .max(20, "Solo se permiten 20 caracteres")
     .required("Completar información"),
   creditAccount: yup
     .string()
-    .max(15, "Solo se permiten 15 caracteres")
+    .max(20, "Solo se permiten 20 caracteres")
     .required("Completar información"),
 });

@@ -46,14 +46,15 @@ export const useManageContract = () => {
         });
       }
       setMessage({
-        title: "¡Cambios guardados!",
-        description: "Razón social creado exitosamente",
+        title: "¡Contrato!",
+        description: " ¡Creado exitosamente!",
         show: true,
         okTitle: "Cerrar",
         onOk: () => {
           setMessage({ show: false });
           navigate(-1);
         },
+        background: true,
       });
     } catch (err) {
       console.error(err);
@@ -62,8 +63,8 @@ export const useManageContract = () => {
 
   const onSubmit = (data) => {
     setMessage({
-      title: "Crear Razón social",
-      description: "¿Estás segur@ de crear razón social?",
+      title: "Creación contrato",
+      description: "¿Esta segur@ de crear el contrato?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -78,8 +79,8 @@ export const useManageContract = () => {
 
   const handleCancel = () => {
     setMessage({
-      title: "Crear Razón social",
-      description: "¿Estás segur@ de cancelar los cambios?",
+      title: "Cancelar contrato",
+      description: "¿Esta segur@ de cancelar la creación del contrato?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
