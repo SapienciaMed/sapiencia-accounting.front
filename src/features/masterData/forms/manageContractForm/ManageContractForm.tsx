@@ -7,10 +7,10 @@ import {
 import { Link } from "react-router-dom";
 import Svgs from "../../../../public/images/icons/svgs";
 import TableComponent from "../../../../common/components/table.component";
-import { tableColumns } from "../businessForm/columns";
+import { tableColumns } from "./columns";
 
 const ManageContractForm = ({
-  urlGetConsultBusiness,
+  urlGetConsultContract,
   tableComponentRef,
   tableView,
   onSubmit,
@@ -100,7 +100,7 @@ const ManageContractForm = ({
             <TableComponent
               setPaginateData={setPaginateData}
               ref={tableComponentRef}
-              url={urlGetConsultBusiness}
+              url={urlGetConsultContract}
               columns={tableColumns}
               actions={tableActions}
               isShowModal={true}

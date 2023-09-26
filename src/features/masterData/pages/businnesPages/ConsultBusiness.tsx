@@ -12,8 +12,8 @@ const ConsultBusiness = () => {
     errors,
     isValid,
     handleClean,
-    submitDisabled,
     setPaginateData,
+    submitDisabled,
     business,
   } = useConsultBusiness();
   return (

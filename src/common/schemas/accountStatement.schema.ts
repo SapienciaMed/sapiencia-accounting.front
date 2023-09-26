@@ -69,7 +69,7 @@ export const manageCompanySchema = yup.object({
   email: yup
     .string()
     .matches(/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/i, {
-      message: "Formato de correo electrónico inválido example@hotmail.com",
+      message: "Formato de correo electrónico inválido example@correo.com",
     })
     .email("Ingrese un correo electrónico válido")
     .required("Completar información")

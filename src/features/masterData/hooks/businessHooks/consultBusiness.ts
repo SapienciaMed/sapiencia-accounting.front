@@ -83,7 +83,10 @@ export const useConsultBusiness = () => {
         description: `Razón social ${row.name} eliminado exitosamente.`,
         show: true,
         okTitle: "Cerrar",
-        onOk: () => setMessage({ show: false }),
+        onOk: () => {
+          setMessage({ show: false });
+          navigate(0);
+        },
         background: true,
       });
       if (resp.operation.code === EResponseCodes.FAIL) {

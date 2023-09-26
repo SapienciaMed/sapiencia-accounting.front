@@ -5,6 +5,7 @@ import ConsultBusiness from "./pages/businnesPages/ConsultBusiness";
 import DetailBusiness from "./pages/businnesPages/EditBusiness";
 import ConsultManageContract from "./pages/manageContractPages/ConsultManageContract";
 import CreateManageContract from "./pages/manageContractPages/CreateManageContract";
+import DetailContract from "./pages/manageContractPages/EditContract";
 
 const MasterDataRoutes = () => {
   // const CreateAccountStatement = lazy(
@@ -26,6 +27,8 @@ const MasterDataRoutes = () => {
       <Route path="/razon-social/editar/:id" element={<DetailBusiness />} />
       <Route path="/contrato" element={<ConsultManageContract />} />
       <Route path="/contrato/crear" element={<CreateManageContract />} />
+
+      <Route path="/contrato/editar/:id" element={<DetailContract />} />
     </Routes>
   );
 };

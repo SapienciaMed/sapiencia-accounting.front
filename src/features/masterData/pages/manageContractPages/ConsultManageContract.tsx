@@ -1,9 +1,10 @@
 import ManageContractForm from "../../forms/manageContractForm/ManageContractForm";
 import { useConsultBusiness } from "../../hooks/businessHooks/consultBusiness";
+import { useConsultContract } from "../../hooks/manageContractHooks/consultContract";
 
 const ConsultManageContract = () => {
   const {
-    urlGetConsultBusiness,
+    urlGetConsultContract,
     tableComponentRef,
     tableView,
     onSubmit,
@@ -12,17 +13,18 @@ const ConsultManageContract = () => {
     errors,
     isValid,
     handleClean,
-    submitDisabled,
     setPaginateData,
     business,
     contract,
-  } = useConsultBusiness();
+    submitDisabled,
+  } = useConsultContract();
   return (
     <ManageContractForm
       business={business}
       contract={contract}
+      submitDisabled={submitDisabled}
       setPaginateData={setPaginateData}
-      urlGetConsultBusiness={urlGetConsultBusiness}
+      urlGetConsultContract={urlGetConsultContract}
       tableComponentRef={tableComponentRef}
       tableView={tableView}
       onSubmit={onSubmit}
@@ -31,7 +33,6 @@ const ConsultManageContract = () => {
       errors={errors}
       isValid={isValid}
       handleClean={handleClean}
-      submitDisabled={submitDisabled}
     />
   );
 };

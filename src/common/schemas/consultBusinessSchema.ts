@@ -5,6 +5,6 @@ export const consultBusinessSchema = yup.object({
 });
 
 export const consultContractSchema = yup.object({
-  id: yup.number().optional(),
-  businessCode: yup.number().optional(),
+  id: yup.number().optional().nullable(),
+  businessCode: yup.number().optional().nullable(),
 });

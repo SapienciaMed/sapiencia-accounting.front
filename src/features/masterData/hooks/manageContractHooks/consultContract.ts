@@ -5,6 +5,7 @@ import useYupValidationResolver from "../../../../common/hooks/form-validator.ho
 import {
   IBusiness,
   IContract,
+  IManageContract,
 } from "../../../../common/interfaces/accountStatement.interface";
 import { ITableAction } from "../../../../common/interfaces/table.interfaces";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
@@ -12,17 +13,16 @@ import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import { consultContractSchema } from "../../../../common/schemas/consultBusinessSchema";
 import { useGetBusiness } from "../businessHooks/getBusinessName";
+import { useGetContract } from "./getContract";
 
-export const useConsultBusiness = () => {
+export const useConsultContract = () => {
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
+  const { contract } = useGetContract();
   const { business, setReload } = useGetBusiness();
+  const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
-  const [formWatch, setFormWatch] = useState({
-    value: "",
-  });
   const { deleted } = useCrudService(urlApiAccounting);
-  const [submitDisabled, setSubmitDisabled] = useState(true);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const resolver = useYupValidationResolver(consultContractSchema);
   const {
@@ -33,16 +33,16 @@ export const useConsultBusiness = () => {
     watch,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
-  const idValue = watch("id");
+  const [contractId, businessCode] = watch(["id", "businessCode"]);
   const { setMessage } = useContext(AppContext);
 
-  const urlGetConsultBusiness = `${urlApiAccounting}/api/v1/contract/get-paginated`;
+  const urlGetConsultContract = `${urlApiAccounting}/api/v1/contract/get-paginated`;
 
-  const tableActions: ITableAction<IBusiness>[] = [
+  const tableActions: ITableAction<IManageContract>[] = [
     {
       icon: "Edit",
       onClick: (row) => {
-        navigate(`/contabilidad/razon-social/editar/${row.id}`);
+        navigate(`/contabilidad/contrato/editar/${row.id}`);
       },
     },
     {
@@ -104,49 +104,28 @@ export const useConsultBusiness = () => {
 
   const onSubmit = handleSubmit((filters: IContract) => {
     setTableView(true);
-    const { id, businessCode } = filters;
-    tableComponentRef.current?.loadData({
-      id: String(id),
-      businessCode: String(businessCode),
-    });
+    tableComponentRef.current?.loadData(filters);
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormWatch({
-      ...formWatch,
-      [name]: value,
-    });
-  };
-
   useEffect(() => {
-    if (idValue) return setSubmitDisabled(false);
-    setSubmitDisabled(true);
-  }, [idValue]);
-
-  useEffect(() => {
-    const { value } = formWatch;
-    if (value) {
-      return setSubmitDisabled(false);
-    } else {
-      setSubmitDisabled(false);
-    }
-  }, [formWatch]);
+    const isValidForm = contractId || businessCode;
+    setSubmitDisabled(!isValidForm);
+  }, [contractId, businessCode]);
 
   return {
     tableComponentRef,
     setPaginateData,
-    urlGetConsultBusiness,
+    urlGetConsultContract,
     tableView,
     onSubmit,
     register,
+    contract,
     control,
     errors,
     isValid,
     business,
     tableActions,
-    handleClean,
-    handleChange,
     submitDisabled,
+    handleClean,
   };
 };

@@ -37,7 +37,7 @@ export const useManageContract = () => {
       const resp = await post<IContract>(endpoint, body);
       if (resp.operation.code === EResponseCodes.FAIL) {
         return setMessage({
-          title: "Error en la creación",
+          title: "Creación Contrato",
           description: resp.operation.message,
           onOk: () => setMessage({ show: false }),
           show: true,
