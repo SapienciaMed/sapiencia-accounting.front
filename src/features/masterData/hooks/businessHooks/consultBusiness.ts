@@ -85,7 +85,6 @@ export const useConsultBusiness = () => {
         okTitle: "Cerrar",
         onOk: () => {
           setMessage({ show: false });
-          navigate(0);
         },
         background: true,
       });

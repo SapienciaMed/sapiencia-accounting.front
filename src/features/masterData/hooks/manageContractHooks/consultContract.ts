@@ -14,6 +14,7 @@ import useCrudService from "../../../../common/hooks/crud-service.hook";
 import { consultContractSchema } from "../../../../common/schemas/consultBusinessSchema";
 import { useGetBusiness } from "../businessHooks/getBusinessName";
 import { useGetContract } from "./getContract";
+import { EResponseCodes } from "../../../../common/constants/api.enum";
 
 export const useConsultContract = () => {
   const navigate = useNavigate();
@@ -55,44 +56,50 @@ export const useConsultContract = () => {
 
   const handleDelete = (row) => {
     setMessage({
-      title: "Eliminar razón social",
-      description: `Estás segur@ de eliminar ${row.name}?`,
+      title: " Eliminar contrato",
+      description: `¿Esta segur@ de eliminar el contrato?`,
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
       onOk: () => {
         setMessage({ show: false });
-        deleteBusiness(row);
+        deleteContract(row);
       },
       onClose: () => setMessage({ show: false }),
       background: true,
     });
   };
 
-  const deleteBusiness = async (row) => {
+  const deleteContract = async (row) => {
     try {
-      const endpoint = `/api/v1/business/${row.id}/delete`;
-      await deleted(endpoint);
+      const endpoint = `/api/v1/contract/${row.id}/delete-by-id`;
       setReload(new Date());
+      const resp = await deleted<null>(endpoint);
+      handleClean();
       setMessage({
-        title: "Razón social!",
-        description: "Razón social eliminada exitosamente",
+        title: "Contrato",
+        description: `Contrato eliminado exitosamente.`,
         show: true,
         okTitle: "Cerrar",
         onOk: () => {
-          setMessage({ show: false }), handleClean();
+          setMessage({ show: false });
         },
-      });
-    } catch (err) {
-      console.log(err);
-      setMessage({
-        title: "Error razón social",
-        description: "Error, por favor intente más tarde",
-        show: true,
-        okTitle: "Cerrar",
-        onOk: () => setMessage({ show: false }),
         background: true,
       });
+      if (resp.operation.code === EResponseCodes.FAIL) {
+        return setMessage({
+          title: "Contrato en uso",
+          description: resp.operation.message,
+          show: true,
+          okTitle: "Cerrar",
+          onOk: () => {
+            setMessage({ show: false });
+          },
+          background: true,
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

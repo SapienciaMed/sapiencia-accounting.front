@@ -49,7 +49,7 @@ const ManageContractForm = ({
             </span>
           </div>
           <div className="grid-form-3-container gap-25 mt-24px">
-            <div className="">
+            <div>
               <SelectComponent
                 idInput="id"
                 control={control}
@@ -62,7 +62,7 @@ const ManageContractForm = ({
                 filter
               />
             </div>
-            <div className="grid-span-2-columns">
+            <div className="grid-span-2-columns mr-24px">
               <SelectComponent
                 idInput="businessCode"
                 control={control}
@@ -76,7 +76,7 @@ const ManageContractForm = ({
               />
             </div>
           </div>
-          <div className="button-save-container-display mr-24px">
+          <div className="button-save-container-display mr-24px mt-20px">
             <ButtonComponent
               value="Limpiar campos"
               className="button-clean bold"

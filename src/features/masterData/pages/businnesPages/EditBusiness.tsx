@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import {
   ButtonComponent,
   FormComponent,
@@ -6,13 +6,11 @@ import {
   SelectComponent,
 } from "../../../../common/components/Form";
 import { useGetMunicipality } from "../../hooks/businessHooks/getMunicipality";
-import { useEditBusiness } from "../../hooks/businessHooks/editBusiness";
-import { IGetBusiness } from "../../../../common/interfaces/accountStatement.interface";
+import { useEditBusiness } from "../../hooks/businessHooks/EditBusiness";
 
 const DetailBusiness = () => {
   const { control, register, errors, onSubmit, handleCancel, watch } =
     useEditBusiness();
-  useState<IGetBusiness>(null);
   const { municipality } = useGetMunicipality();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">

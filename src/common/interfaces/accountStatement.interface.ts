@@ -40,7 +40,24 @@ export interface IManageContract {
   userCreated: string; // CTR_DOCUMENTO_USUARIO_CREÓ_EL_REGISTRO
   dateCreated?: DateTime; // CTR_FECHA_HORA_CREACIÓN_REGISTRO
 }
-
+export interface IGetContract {
+  id?: number;
+  contractId: string | number;
+  businessCode: number;
+  debitAccount: string | number;
+  creditAccount: string | number;
+  business: {
+    id?: number;
+    nit: string;
+    name: string;
+    municipalityCode: string | number;
+    address: string;
+    phone: number;
+    email: string;
+    sender: string;
+    chargeSender: string;
+  };
+}
 export interface IGetBusiness {
   id?: number;
   nit: string;
