@@ -107,3 +107,20 @@ export const createContractSchema = yup.object({
     .max(20, "Solo se permiten 20 caracteres")
     .required("Completar información"),
 });
+
+export const editContractSchema = yup.object({
+  contractId: yup
+    .string()
+    .max(100, "Solo se permiten 100 caracteres")
+    .required("Completar información"),
+  // ESTE ES LA VALIDACION PARA NIT
+  businessCode: yup.number().required("Completar información"),
+  debitAccount: yup
+    .string()
+    .max(20, "Solo se permiten 20 caracteres")
+    .required("Completar información"),
+  creditAccount: yup
+    .string()
+    .max(20, "Solo se permiten 20 caracteres")
+    .required("Completar información"),
+});

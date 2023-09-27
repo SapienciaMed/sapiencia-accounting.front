@@ -8,8 +8,15 @@ import {
 import { useEditContract } from "../../hooks/manageContractHooks/EditContract";
 
 const DetailContract = () => {
-  const { control, register, errors, onSubmit, handleCancel, nitData } =
-    useEditContract();
+  const {
+    control,
+    register,
+    errors,
+    onSubmit,
+    handleCancel,
+    nitData,
+    isValid,
+  } = useEditContract();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
@@ -45,7 +52,11 @@ const DetailContract = () => {
                 control={control}
                 errors={errors}
                 data={nitData}
-                label={<>NIT</>}
+                label={
+                  <>
+                    NIT <span>*</span>
+                  </>
+                }
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccione."
@@ -68,11 +79,7 @@ const DetailContract = () => {
           <div className="grid-form-4-container gap-25 mt-25px">
             <InputComponent
               idInput="business.municipality"
-              label={
-                <>
-                  Ciudad <span>*</span>
-                </>
-              }
+              label={<>Ciudad</>}
               typeInput="text"
               register={register}
               errors={errors}
@@ -82,11 +89,7 @@ const DetailContract = () => {
             />
             <InputComponent
               idInput="business.address"
-              label={
-                <>
-                  Dirección <span>*</span>
-                </>
-              }
+              label={<>Dirección</>}
               typeInput="text"
               register={register}
               errors={errors}
@@ -96,11 +99,7 @@ const DetailContract = () => {
             />
             <InputComponent
               idInput="business.phone"
-              label={
-                <>
-                  Teléfono <span>*</span>
-                </>
-              }
+              label={<>Teléfono</>}
               typeInput="text"
               register={register}
               errors={errors}
@@ -110,11 +109,7 @@ const DetailContract = () => {
             />
             <InputComponent
               idInput="business.email"
-              label={
-                <>
-                  Correo electrónico <span>*</span>
-                </>
-              }
+              label={<>Correo electrónico</>}
               typeInput="text"
               register={register}
               errors={errors}
@@ -127,11 +122,7 @@ const DetailContract = () => {
             <div className="grid-span-2-columns">
               <InputComponent
                 idInput="business.sender"
-                label={
-                  <>
-                    Persona a la que se remite la cuenta <span>*</span>
-                  </>
-                }
+                label={<>Persona a la que se remite la cuenta</>}
                 typeInput="text"
                 register={register}
                 errors={errors}
@@ -143,11 +134,7 @@ const DetailContract = () => {
             <div>
               <InputComponent
                 idInput="business.chargeSender"
-                label={
-                  <>
-                    Cargo <span>*</span>
-                  </>
-                }
+                label={<>Cargo</>}
                 typeInput="text"
                 register={register}
                 errors={errors}
@@ -206,8 +193,11 @@ const DetailContract = () => {
           />
           <ButtonComponent
             value="Guardar"
-            className="button-save big"
             type="submit"
+            disabled={!isValid || Object.keys(errors).length > 0}
+            className={`button-save ${
+              !isValid || Object.keys(errors).length > 0 ? "disabled-black" : ""
+            } big`}
           />
         </div>
       </FormComponent>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
-import { createContractSchema } from "../../../../common/schemas/accountStatement.schema";
+import { editContractSchema } from "../../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { useGetContractById } from "./getContractById";
 import { useForm } from "react-hook-form";
@@ -15,7 +15,7 @@ export const useEditContract = () => {
   const { put } = useCrudService(urlApiAccounting);
   const { business } = useGetBusiness();
   const [nitData, setNitData] = useState([]);
-  const resolver = useYupValidationResolver(createContractSchema);
+  const resolver = useYupValidationResolver(editContractSchema);
   const { id, contract } = useGetContractById();
   const {
     control,
@@ -24,7 +24,7 @@ export const useEditContract = () => {
     watch,
     reset,
     setValue,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
   const businessCode = watch("businessCode");
@@ -99,6 +99,7 @@ export const useEditContract = () => {
   useEffect(() => {
     if (!contract) return;
     reset(contract);
+    console.log({ contract });
     setValue("businessCode", contract.businessCode);
   }, [contract, nitData]);
 
@@ -119,6 +120,7 @@ export const useEditContract = () => {
     if (!businessCode) return;
     const businessFound = nitData?.find(({ value }) => value === businessCode);
     reset(businessFound);
+    console.log({ businessFound });
     setValue("businessCode", businessFound?.value);
   }, [businessCode]);
 
@@ -127,6 +129,7 @@ export const useEditContract = () => {
     register,
     errors,
     handleCancel,
+    isValid,
     handleSubmit,
     onSubmit: handleSubmit(onSubmit),
     nitData,
