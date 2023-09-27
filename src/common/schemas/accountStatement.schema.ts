@@ -17,7 +17,7 @@ export const accountStatementSchema = yup.object({
 });
 
 export const filtersAccountStatementSchema = yup.object({
-  accountNum: yup.mixed().optional().typeError("Debe ser un número"),
+  accountNum: yup.string().optional().max(15, "Solo se permiten 15 caracteres"),
   contractCode: yup.string().optional().nullable(),
   nit: yup
     .string()
