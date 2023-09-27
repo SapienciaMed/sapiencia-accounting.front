@@ -73,8 +73,8 @@ export const useConsultContract = () => {
   const deleteContract = async (row) => {
     try {
       const endpoint = `/api/v1/contract/${row.id}/delete-by-id`;
-      setReload(new Date());
       const resp = await deleted<null>(endpoint);
+      setReload(new Date());
       handleClean();
       setMessage({
         title: "Contrato",

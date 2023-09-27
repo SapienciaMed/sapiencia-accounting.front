@@ -75,8 +75,8 @@ export const useConsultBusiness = () => {
   const deleteBusiness = async (row) => {
     try {
       const endpoint = `/api/v1/business/${row.id}/delete`;
-      setReload(new Date());
       const resp = await deleted<null>(endpoint);
+      setReload(new Date());
       handleClean();
       setMessage({
         title: "Razón social!",

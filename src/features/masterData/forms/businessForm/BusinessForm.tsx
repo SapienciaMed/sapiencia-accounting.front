@@ -35,7 +35,7 @@ const BusinessForm = ({
             <div className="text-black large bold grid-span-2-columns pb-14px">
               Gestionar razón social
             </div>
-            <div className="button-save-container-display mr-33px">
+            <div className="button-save-container-display mr-33px button-create-business">
               <Link
                 to="/contabilidad/razon-social/crear"
                 className="text-links"

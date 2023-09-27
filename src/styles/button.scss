@@ -355,19 +355,31 @@
 
 .button-download {
   @include generate-button(100px, #533893, transparent, 1px solid #533893);
-    margin: 0.5em;
+  margin: 0.5em;
+
   &.large {
     width: 9.5em;
     height: 2.5em;
     font-size: 16px;
   }
 }
-.container-buttonText{
+
+.container-buttonText {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.3rem;
-  span{
+
+  span {
     font-weight: 600;
+  }
+}
+
+.button-create-business {}
+
+@media (max-width: 769px) {
+  .button-create-business {
+    display: flex;
+    justify-content: flex-start !important;
   }
 }
