@@ -1,5 +1,5 @@
 import BusinessForm from "../../forms/businessForm/BusinessForm";
-import { useConsultBusiness } from "../../hooks/businessHooks/ConsultBusiness";
+import { useConsultBusiness } from "../../hooks/businessHooks/consultBusiness";
 
 const ConsultBusiness = () => {
   const {

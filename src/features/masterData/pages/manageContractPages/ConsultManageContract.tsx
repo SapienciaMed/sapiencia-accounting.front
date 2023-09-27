@@ -1,5 +1,4 @@
 import ManageContractForm from "../../forms/manageContractForm/ManageContractForm";
-import { useConsultBusiness } from "../../hooks/businessHooks/ConsultBusiness";
 import { useConsultContract } from "../../hooks/manageContractHooks/consultContract";
 
 const ConsultManageContract = () => {

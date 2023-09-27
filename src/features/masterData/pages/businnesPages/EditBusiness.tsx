@@ -5,11 +5,11 @@ import {
   InputComponent,
   SelectComponent,
 } from "../../../../common/components/Form";
+import { useEditBusiness } from "../../hooks/businessHooks/editBusiness";
 import { useGetMunicipality } from "../../hooks/businessHooks/getMunicipality";
-import { useEditBusiness } from "../../hooks/businessHooks/EditBusiness";
 
 const DetailBusiness = () => {
-  const { control, register, errors, onSubmit, handleCancel, watch } =
+  const { control, register, errors, onSubmit, handleCancel } =
     useEditBusiness();
   const { municipality } = useGetMunicipality();
   return (
