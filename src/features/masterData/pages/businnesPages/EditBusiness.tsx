@@ -5,7 +5,7 @@ import {
   InputComponent,
   SelectComponent,
 } from "../../../../common/components/Form";
-import { useEditBusiness } from "../../hooks/businessHooks/EditBusiness";
+import { useEditBusiness } from "../../hooks/businessHooks/editBusiness";
 import { useGetMunicipality } from "../../hooks/businessHooks/getMunicipality";
 
 const DetailBusiness = () => {
