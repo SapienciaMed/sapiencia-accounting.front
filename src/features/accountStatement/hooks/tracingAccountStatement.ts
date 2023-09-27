@@ -41,7 +41,7 @@ export const useTracingAccountStatement = () => {
       const resp = await getAccountStatementByAccountNum(accountNum);
       if (resp.operation.code === EResponseCodes.FAIL) {
         setMessage({
-          title: "Error",
+          title: "Resultado de Búsqueda",
           show: true,
           description: resp.operation.message,
           okTitle: "Aceptar",
