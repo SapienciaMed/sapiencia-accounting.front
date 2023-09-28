@@ -74,12 +74,24 @@ export const useEditAccountStatementTracking = () => {
       statusId: data.tracking.statusId,
       trackingDate: data.trackingDate,
     };
-    updateAccountStatementTracking(body);
+    setMessage({
+      title: "Guardar Cambios",
+      description: "¿Esta segur@ de guardar los cambios?",
+      show: true,
+      okTitle: "Aceptar",
+      cancelTitle: "Cancelar",
+      onOk: () => {
+        setMessage({ show: false });
+        updateAccountStatementTracking(body);
+      },
+      onClose: () => setMessage({ show: false }),
+      background: true,
+    });
   };
 
   const handleCancel = () => {
     setMessage({
-      title: "Editar seguimiento cuenta de cobro",
+      title: "Cancelar cambios",
       description: "¿Estás segur@ de cancelar los cambios?",
       show: true,
       okTitle: "Aceptar",

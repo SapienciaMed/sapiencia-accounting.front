@@ -46,6 +46,10 @@ export const editAccountStatementSchema = yup.object({
       .number()
       .typeError("Debe ser un número")
       .required("Completar información"),
+    observation: yup
+      .string()
+      .max(500, "Solo se permiten 500 caracteres")
+      .required("Completar información"),
   }),
 });
 

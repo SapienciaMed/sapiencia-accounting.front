@@ -9,6 +9,7 @@ import { editAccountStatementSchema } from "../../../common/schemas/accountState
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { businessData } from "../data";
 import { useGetAccountStatementById } from "./getAccountStatementById";
+import { sqlDateToJSDate } from "../../../common/utils/helpers";
 
 export const useEditAccountStatement = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ export const useEditAccountStatement = () => {
 
   const handleCancel = () => {
     setMessage({
-      title: "Crear cuenta de cobro",
+      title: "Cancelar cambios",
       description: "¿Estás segur@ de cancelar los cambios?",
       show: true,
       okTitle: "Aceptar",
@@ -111,6 +112,10 @@ export const useEditAccountStatement = () => {
       setValue(
         "valueLabel",
         numberToColombianPesosWord(accountStatement.valuePay)
+      );
+      setValue(
+        "expeditionDate",
+        sqlDateToJSDate(accountStatement.expeditionDate)
       );
     }
   }, [accountStatement]);

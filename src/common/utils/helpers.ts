@@ -4,6 +4,10 @@ export const jsDateToSQL = (jsDate: Date) => {
   return DateTime.fromJSDate(jsDate).toSQL();
 };
 
+export const sqlDateToJSDate = (sqlDate: string) => {
+  return DateTime.fromSQL(sqlDate).toSQLTime();
+};
+
 export const formaterNumberToCurrency = (value: number) => {
   const formatter = new Intl.NumberFormat("es-CO", {
     style: "currency",

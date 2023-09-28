@@ -93,7 +93,7 @@ export const useAccountStatement = () => {
 
   const handleCancel = () => {
     setMessage({
-      title: "Crear cuenta de cobro",
+      title: "Cancelar cambios",
       description: "¿Estás segur@ de cancelar los cambios?",
       show: true,
       okTitle: "Aceptar",

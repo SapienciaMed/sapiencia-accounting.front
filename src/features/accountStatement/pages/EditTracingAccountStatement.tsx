@@ -142,8 +142,13 @@ const DetailAccountStatement = () => {
           <div className="grid-span-3-columns gap-25 mt-25px">
             <InputComponent
               idInput="tracking.observation"
-              label={<>Observaciones</>}
+              label={
+                <>
+                  Observaciones <span>*</span>
+                </>
+              }
               typeInput="text"
+              errors={errors}
               register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
@@ -203,7 +208,7 @@ const DetailAccountStatement = () => {
         ></div>
         <div className="button-save-container-display mr-24px">
           <ButtonComponent
-            value="Cerrar"
+            value="Cancelar"
             className="button-clean bold"
             type="button"
             action={handleCancel}
