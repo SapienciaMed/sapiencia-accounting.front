@@ -6,7 +6,7 @@ import { AppContext } from "../../../common/contexts/app.context";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { IGetAccountStatement } from "../../../common/interfaces/accountStatement.interface";
-import { editAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
+import { editAccountStatementTrackingSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { useGetStatementStatus } from "./getStatementStatus.hook";
 
@@ -25,7 +25,7 @@ export const useEditAccountStatementTracking = () => {
   const { setMessage, currentAccountStatement, setCurrentAccountStatement } =
     useContext(AppContext);
   const { put } = useCrudService(urlApiAccounting);
-  const resolver = useYupValidationResolver(editAccountStatementSchema);
+  const resolver = useYupValidationResolver(editAccountStatementTrackingSchema);
   const {
     control,
     handleSubmit,

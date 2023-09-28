@@ -16,12 +16,14 @@ export const useGetStatementStatus = () => {
     try {
       const endpoint = "/api/v1/account-statement-status/get-all";
       const resp: ApiResponse<IAccountStatementStatus[]> = await get(endpoint);
-      const adaptedData = resp.data.map(({ id, status_name }) => {
-        return {
-          value: id,
-          name: status_name,
-        };
-      });
+      const adaptedData = resp.data
+        .map(({ id, status_name }) => {
+          return {
+            value: id,
+            name: status_name,
+          };
+        })
+        .sort((a, b) => a.name.localeCompare(b.name));
       setStatementstatus(adaptedData);
     } catch (err) {
       console.error(err);

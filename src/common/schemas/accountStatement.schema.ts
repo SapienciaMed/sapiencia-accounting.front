@@ -16,6 +16,15 @@ export const accountStatementSchema = yup.object({
     .required("Completar información"),
 });
 
+export const editAccountStatementSchema = yup.object({
+  id: yup.string().required("Completar información"),
+  contractCode: yup.string().required("Completar información"),
+  valuePay: yup
+    .string()
+    .max(15, "Solo se permiten 15 caracteres")
+    .required("Completar información"),
+});
+
 export const filtersAccountStatementSchema = yup.object({
   accountNum: yup.string().optional().max(15, "Solo se permiten 15 caracteres"),
   contractCode: yup.string().optional().nullable(),
@@ -30,7 +39,7 @@ export const filtersAccountStatementSchema = yup.object({
   expeditionDate: yup.date().optional().nullable(),
 });
 
-export const editAccountStatementSchema = yup.object({
+export const editAccountStatementTrackingSchema = yup.object({
   contractCode: yup.string().required("Completar información"),
   valuePay: yup
     .string()

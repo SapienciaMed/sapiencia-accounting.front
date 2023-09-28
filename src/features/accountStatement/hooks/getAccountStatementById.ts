@@ -4,7 +4,6 @@ import useCrudService from "../../../common/hooks/crud-service.hook";
 import { IGetAccountStatement } from "../../../common/interfaces/accountStatement.interface";
 import { ApiResponse } from "../../../common/utils/api-response";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { jsDateToSQL, sqlDateToJSDate } from "../../../common/utils/helpers";
 
 export const useGetAccountStatementById = () => {
   const { id } = useParams();
@@ -16,12 +15,7 @@ export const useGetAccountStatementById = () => {
     try {
       const endpoint = `/api/v1/account-statement/get-by-id/${id}`;
       const resp: ApiResponse<IGetAccountStatement> = await get(endpoint);
-      setAccountStatement({
-        ...resp.data,
-        expeditionDate: sqlDateToJSDate(
-          resp.data?.expeditionDate?.split("/").join("-")
-        ),
-      });
+      setAccountStatement(resp.data);
     } catch (err) {
       console.error(err);
     }

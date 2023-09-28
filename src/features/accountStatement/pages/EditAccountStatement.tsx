@@ -12,8 +12,15 @@ import { contractsData, paymentTypeData } from "../data";
 import { useEditAccountStatement } from "../hooks/editAccountStatement";
 
 const DetailAccountStatement = () => {
-  const { control, register, errors, onSubmit, handleCancel } =
-    useEditAccountStatement();
+  const {
+    control,
+    register,
+    errors,
+    onSubmit,
+    handleCancel,
+    isValid,
+    submitDisabled,
+  } = useEditAccountStatement();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
@@ -172,8 +179,11 @@ const DetailAccountStatement = () => {
           />
           <ButtonComponent
             value="Guardar"
-            className="button-save big"
+            className={`button-save ${
+              !isValid || submitDisabled ? "disabled-black" : ""
+            } big`}
             type="submit"
+            disabled={!isValid || submitDisabled}
           />
         </div>
       </FormComponent>

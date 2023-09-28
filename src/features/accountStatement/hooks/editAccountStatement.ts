@@ -1,5 +1,5 @@
 import { numberToColombianPesosWord } from "@isildur1/number-to-word";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../common/contexts/app.context";
@@ -9,13 +9,13 @@ import { editAccountStatementSchema } from "../../../common/schemas/accountState
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { businessData } from "../data";
 import { useGetAccountStatementById } from "./getAccountStatementById";
-import { sqlDateToJSDate } from "../../../common/utils/helpers";
 
 export const useEditAccountStatement = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { id, accountStatement } = useGetAccountStatementById();
   const { put } = useCrudService(urlApiAccounting);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(editAccountStatementSchema);
   const {
     control,
@@ -24,9 +24,13 @@ export const useEditAccountStatement = () => {
     watch,
     setValue,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
-  const [contractCode, valuePay] = watch(["contractCode", "valuePay"]);
+  const [accountNum, contractCode, valuePay] = watch([
+    "id",
+    "contractCode",
+    "valuePay",
+  ]);
 
   const updateAccountStatement = async (data) => {
     try {
@@ -55,6 +59,7 @@ export const useEditAccountStatement = () => {
 
   const onSubmit = async (data) => {
     const { contractCode, valuePay, concept } = data;
+    console.log(data);
     const body = {
       contractCode,
       valuePay,
@@ -113,10 +118,6 @@ export const useEditAccountStatement = () => {
         "valueLabel",
         numberToColombianPesosWord(accountStatement.valuePay)
       );
-      setValue(
-        "expeditionDate",
-        sqlDateToJSDate(accountStatement.expeditionDate)
-      );
     }
   }, [accountStatement]);
 
@@ -124,12 +125,21 @@ export const useEditAccountStatement = () => {
     setValue("valueLabel", numberToColombianPesosWord(valuePay));
   }, [valuePay]);
 
+  useEffect(() => {
+    if (!accountNum || !contractCode || !valuePay) {
+      return setSubmitDisabled(true);
+    }
+    setSubmitDisabled(false);
+  }, [accountNum, contractCode, valuePay]);
+
   return {
     control,
     register,
     errors,
+    isValid,
     handleCancel,
     handleSubmit,
+    submitDisabled,
     onSubmit: handleSubmit(onSubmit),
   };
 };
