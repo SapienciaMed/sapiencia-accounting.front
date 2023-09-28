@@ -33,7 +33,7 @@ export const useEditAccountStatement = () => {
       const endpoint = `/api/v1/account-statement/update/${id}`;
       await put(endpoint, data);
       setMessage({
-        title: "¡Cambios guardados!",
+        title: "Cambios guardados",
         description: "Cambios guardados exitosamente",
         show: true,
         okTitle: "Cerrar",

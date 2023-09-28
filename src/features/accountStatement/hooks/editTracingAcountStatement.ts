@@ -53,7 +53,7 @@ export const useEditAccountStatementTracking = () => {
         });
       }
       setMessage({
-        title: "¡Cambios guardados!",
+        title: "Cambios guardados",
         description: "Cambios guardados exitosamente",
         show: true,
         okTitle: "Cerrar",
