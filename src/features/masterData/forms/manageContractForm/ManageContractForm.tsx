@@ -36,7 +36,7 @@ const ManageContractForm = ({
             <div className="text-black large bold grid-span-2-columns pb-14px">
               Gestionar contrato
             </div>
-            <div className="button-save-container-display mr-33px">
+            <div className="button-save-container-display mr-33px button-create-business">
               <Link to="/contabilidad/contrato/crear" className="text-links">
                 Crear contrato
                 <div className="text-links ml-5px">
@@ -76,7 +76,7 @@ const ManageContractForm = ({
               />
             </div>
           </div>
-          <div className="button-save-container-display mr-24px mt-20px">
+          <div className="button-save-container-display mr-24px mt-20px button-save-bussiness">
             <ButtonComponent
               value="Limpiar campos"
               className="button-clean bold"

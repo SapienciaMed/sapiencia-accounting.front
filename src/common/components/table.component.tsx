@@ -1,7 +1,14 @@
-import { Column } from "primereact/column";
+import React, {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+  useContext,
+} from "react";
+import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 import { DataView } from "primereact/dataview";
-import { Dropdown } from "primereact/dropdown";
 import {
   Paginator,
   PaginatorCurrentPageReportOptions,
@@ -12,21 +19,14 @@ import {
   PaginatorRowsPerPageDropdownOptions,
   PaginatorTemplateOptions,
 } from "primereact/paginator";
-import { classNames } from "primereact/utils";
-import React, {
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState,
-  Dispatch,
-} from "react";
-import * as Icons from "react-icons/fa";
-import { EResponseCodes } from "../constants/api.enum";
-import { AppContext } from "../contexts/app.context";
-import useCrudService from "../hooks/crud-service.hook";
-import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { IPagingData } from "../utils/api-response";
+import useCrudService from "../hooks/crud-service.hook";
+import { EResponseCodes } from "../constants/api.enum";
+import { classNames } from "primereact/utils";
+import * as Icons from "react-icons/fa";
+import { Dropdown } from "primereact/dropdown";
+import { useWidth } from "../hooks/use-width";
+import { AppContext } from "../contexts/app.context";
 
 interface IProps<T> {
   url: string;
@@ -64,7 +64,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   const [page, setPage] = useState<number>(0);
   const [first, setFirst] = useState<number>(0);
   const [searchCriteria, setSearchCriteria] = useState<object>();
-  // const { width } = useWidth();
+  const { width } = useWidth();
   const { setMessage } = useContext(AppContext);
 
   // ============================================
@@ -196,7 +196,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
         leftContent={leftContent}
       />
 
-      {900 > 830 ? (
+      {900 > 830 ? ( // cambiar condición, error dentro del componente
         <DataTable
           className="spc-table full-height"
           value={resultData?.array || []}
@@ -207,6 +207,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
           {columns.map((col) => (
             <Column
               key={col.fieldName}
+              sortable={col.sortable}
               field={col.fieldName}
               header={col.header}
               body={col.renderCell}
