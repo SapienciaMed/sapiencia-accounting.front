@@ -7,14 +7,17 @@ import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { editAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { businessData } from "../data";
 import { useGetAccountStatementById } from "./getAccountStatementById";
+import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
+import { useGetBusiness } from "../../masterData/hooks/businessHooks/getBusinessName";
 
 export const useEditAccountStatement = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { id, accountStatement } = useGetAccountStatementById();
+  const { business: businessData } = useGetBusiness();
   const { put } = useCrudService(urlApiAccounting);
+  const { contract: contractData, setReload } = useGetContract();
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(editAccountStatementSchema);
   const {
@@ -104,12 +107,11 @@ export const useEditAccountStatement = () => {
   }, [accountStatement]);
 
   useEffect(() => {
-    const businessFound = businessData.find(
-      ({ id }) => Number(id) === contractCode,
-      valuePay
+    const businessFound = contractData?.find(
+      ({ value }) => value === contractCode
     );
-    setValue("nit", businessFound?.nit ?? "");
-    setValue("business", businessFound?.name ?? "");
+    setValue("nit", businessFound?.data?.nit ?? "");
+    setValue("business", businessFound?.data?.name ?? "");
   }, [contractCode, valuePay]);
 
   useEffect(() => {
@@ -141,5 +143,6 @@ export const useEditAccountStatement = () => {
     handleSubmit,
     submitDisabled,
     onSubmit: handleSubmit(onSubmit),
+    contractData,
   };
 };

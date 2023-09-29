@@ -8,7 +8,7 @@ import {
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { InputNumberComponent } from "../../../common/components/Form/input-number.component";
 import { TextAreaComponent } from "../../../common/components/Form/input-text-area.component";
-import { contractsData, paymentTypeData } from "../data";
+import { paymentTypeData } from "../data";
 import { useEditAccountStatement } from "../hooks/editAccountStatement";
 
 const DetailAccountStatement = () => {
@@ -16,6 +16,7 @@ const DetailAccountStatement = () => {
     control,
     register,
     errors,
+    contractData,
     onSubmit,
     handleCancel,
     isValid,
@@ -46,7 +47,7 @@ const DetailAccountStatement = () => {
               idInput="contractCode"
               control={control}
               errors={errors}
-              data={contractsData}
+              data={contractData}
               label={
                 <>
                   Contrato <span>*</span>

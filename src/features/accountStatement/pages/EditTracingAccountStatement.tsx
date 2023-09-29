@@ -97,7 +97,7 @@ const DetailAccountStatement = () => {
               {statusId === STATE_TYPE.Pagada && (
                 <DatePickerComponent
                   idInput={`${
-                    currentAccountStatement.tracking.statusId === statusId
+                    currentAccountStatement.tracking?.statusId === statusId
                       ? "tracking.trackingDate"
                       : "trackingDate"
                   }`}
@@ -118,7 +118,7 @@ const DetailAccountStatement = () => {
               {statusId === STATE_TYPE.Anulada && (
                 <DatePickerComponent
                   idInput={`${
-                    currentAccountStatement.tracking.statusId === statusId
+                    currentAccountStatement.tracking?.statusId === statusId
                       ? "tracking.trackingDate"
                       : "trackingDate"
                   }`}
