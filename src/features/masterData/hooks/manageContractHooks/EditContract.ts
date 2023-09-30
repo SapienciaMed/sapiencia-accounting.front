@@ -8,6 +8,7 @@ import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { useGetContractById } from "./getContractById";
 import { useForm } from "react-hook-form";
 import { useGetBusiness } from "../businessHooks/getBusinessName";
+import { EResponseCodes } from "../../../../common/constants/api.enum";
 
 export const useEditContract = () => {
   const navigate = useNavigate();
@@ -32,10 +33,22 @@ export const useEditContract = () => {
   const updateContract = async (data) => {
     try {
       const endpoint = `/api/v1/contract/${id}/update-by-id`;
-      await put(endpoint, data);
+      const resp = await put(endpoint, data);
+      if (resp.operation.code === EResponseCodes.FAIL) {
+        return setMessage({
+          title: "Editar contrato",
+          description: resp.operation.message,
+          show: true,
+          okTitle: "Cerrar",
+          onOk: () => {
+            setMessage({ show: false });
+          },
+          background: true,
+        });
+      }
       setMessage({
-        title: "Cambios guardados",
-        description: "¡Cambios guardados exitosamente!",
+        title: "Contrato editado",
+        description: "Contrato editado exitosamente",
         show: true,
         okTitle: "Cerrar",
         onOk: () => {
@@ -46,14 +59,6 @@ export const useEditContract = () => {
       });
     } catch (err) {
       console.log(err);
-      setMessage({
-        title: "Error contrato",
-        description: "Error, por favor intente más tarde",
-        show: true,
-        okTitle: "Cerrar",
-        onOk: () => setMessage({ show: false }),
-        background: true,
-      });
     }
   };
 

@@ -8,6 +8,7 @@ import useYupValidationResolver from "../../../../common/hooks/form-validator.ho
 import { manageCompanySchema } from "../../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { useGetBusinessById } from "./getBusinessById";
+import { EResponseCodes } from "../../../../common/constants/api.enum";
 
 export const useEditBusiness = () => {
   const navigate = useNavigate();
@@ -28,7 +29,19 @@ export const useEditBusiness = () => {
   const updateBusiness = async (data) => {
     try {
       const endpoint = `/api/v1/business/${id}/update`;
-      await put(endpoint, data);
+      const resp = await put(endpoint, data);
+      if (resp.operation.code === EResponseCodes.FAIL) {
+        return setMessage({
+          title: "Razón social",
+          description: resp.operation.message,
+          show: true,
+          okTitle: "Cerrar",
+          onOk: () => {
+            setMessage({ show: false });
+          },
+          background: true,
+        });
+      }
       setMessage({
         title: "Razón social",
         description: "¡Editada exitosamente!",
@@ -42,14 +55,6 @@ export const useEditBusiness = () => {
       });
     } catch (err) {
       console.log(err);
-      setMessage({
-        title: "Error razón social",
-        description: "Error, por favor intente más tarde",
-        show: true,
-        okTitle: "Cerrar",
-        onOk: () => setMessage({ show: false }),
-        background: true,
-      });
     }
   };
 
@@ -60,7 +65,7 @@ export const useEditBusiness = () => {
       phone: String(data.phone),
     };
     setMessage({
-      title: "Edición  razón social",
+      title: "Editar razón social",
       description: "¿Esta segur@ de editar la razón social?",
       show: true,
       okTitle: "Aceptar",
