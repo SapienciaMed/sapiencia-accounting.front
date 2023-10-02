@@ -40,7 +40,7 @@ export const useManageCompanyName = () => {
         });
       }
       setMessage({
-        title: "¡Razón social!",
+        title: "Razón social",
         description: "¡Creada exitosamente!",
         show: true,
         okTitle: "Cerrar",
@@ -60,7 +60,7 @@ export const useManageCompanyName = () => {
     };
     setMessage({
       title: "Crear razón social",
-      description: "¿Esta segur@ de crear la razón social?",
+      description: "¿Está segur@ de crear la razón social?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -76,7 +76,7 @@ export const useManageCompanyName = () => {
   const handleCancel = () => {
     setMessage({
       title: "Cancelar razón social",
-      description: "¿Esta segur@ de cancelar la creación de la razón social?",
+      description: "¿Está segur@ de cancelar la creación de la razón social?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",

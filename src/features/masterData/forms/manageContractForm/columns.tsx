@@ -11,7 +11,7 @@ export const tableColumns: ITableElement<IManageContract>[] = [
   },
   {
     fieldName: "business.name",
-    header: "Razón social nombre",
+    header: "Razón social / Nombre",
   },
   {
     fieldName: "debitAccount",

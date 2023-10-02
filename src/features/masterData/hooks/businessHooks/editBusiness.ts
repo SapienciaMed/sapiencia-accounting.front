@@ -66,7 +66,7 @@ export const useEditBusiness = () => {
     };
     setMessage({
       title: "Editar razón social",
-      description: "¿Esta segur@ de editar la razón social?",
+      description: "¿Está segur@ de editar la razón social?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -82,7 +82,7 @@ export const useEditBusiness = () => {
   const handleCancel = () => {
     setMessage({
       title: "Cancelar edición razón social",
-      description: "¿Esta segur@ de cancelar la edición de la razón social?",
+      description: "¿Está segur@ de cancelar la edición de la razón social?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",

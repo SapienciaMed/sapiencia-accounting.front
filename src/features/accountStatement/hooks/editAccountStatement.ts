@@ -41,7 +41,7 @@ export const useEditAccountStatement = () => {
       await put(endpoint, data);
       setMessage({
         title: "Cambios guardados",
-        description: "Cambios guardados exitosamente",
+        description: "¡Cambios guardados exitosamente!",
         show: true,
         okTitle: "Cerrar",
         onOk: () => setMessage({ show: false }),
@@ -70,7 +70,7 @@ export const useEditAccountStatement = () => {
     };
     setMessage({
       title: "Guardar cambios",
-      description: "Estás segur@ de guardar los cambios?",
+      description: "Está segur@ de guardar los cambios?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -86,7 +86,7 @@ export const useEditAccountStatement = () => {
   const handleCancel = () => {
     setMessage({
       title: "Cancelar cambios",
-      description: "¿Estás segur@ de cancelar los cambios?",
+      description: "¿Está segur@ de cancelar los cambios?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",

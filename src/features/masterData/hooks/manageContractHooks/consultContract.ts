@@ -57,7 +57,7 @@ export const useConsultContract = () => {
   const handleDelete = (row) => {
     setMessage({
       title: " Eliminar contrato",
-      description: `¿Esta segur@ de eliminar el contrato?`,
+      description: `¿Está segur@ de eliminar el contrato?`,
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -78,7 +78,7 @@ export const useConsultContract = () => {
       handleClean();
       setMessage({
         title: "Contrato",
-        description: `Contrato eliminado exitosamente.`,
+        description: `¡Contrato eliminado exitosamente!`,
         show: true,
         okTitle: "Cerrar",
         onOk: () => {

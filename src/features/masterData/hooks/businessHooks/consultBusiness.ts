@@ -59,7 +59,7 @@ export const useConsultBusiness = () => {
   const handleDelete = (row) => {
     setMessage({
       title: "Eliminar razón social",
-      description: `Estás segur@ de eliminar ${row.name}?`,
+      description: `¿Está segur@ de eliminar ${row.name}?`,
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -79,8 +79,8 @@ export const useConsultBusiness = () => {
       setReload(new Date());
       handleClean();
       setMessage({
-        title: "Razón social!",
-        description: `Razón social ${row.name} eliminado exitosamente.`,
+        title: "Razón social",
+        description: `¡Razón social ${row.name} eliminado exitosamente!`,
         show: true,
         okTitle: "Cerrar",
         onOk: () => {

@@ -54,7 +54,7 @@ export const useEditAccountStatementTracking = () => {
       }
       setMessage({
         title: "Cambios guardados",
-        description: "Cambios guardados exitosamente",
+        description: "¡Cambios guardados exitosamente!",
         show: true,
         okTitle: "Cerrar",
         background: true,
@@ -76,7 +76,7 @@ export const useEditAccountStatementTracking = () => {
     };
     setMessage({
       title: "Guardar Cambios",
-      description: "¿Esta segur@ de guardar los cambios?",
+      description: "¿Está segur@ de guardar los cambios?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -92,7 +92,7 @@ export const useEditAccountStatementTracking = () => {
   const handleCancel = () => {
     setMessage({
       title: "Cancelar cambios",
-      description: "¿Estás segur@ de cancelar los cambios?",
+      description: "¿Está segur@ de cancelar los cambios?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",

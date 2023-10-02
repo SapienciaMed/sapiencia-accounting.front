@@ -48,7 +48,7 @@ export const useEditContract = () => {
       }
       setMessage({
         title: "Contrato editado",
-        description: "Contrato editado exitosamente",
+        description: "¡Contrato editado exitosamente!",
         show: true,
         okTitle: "Cerrar",
         onOk: () => {
@@ -70,7 +70,7 @@ export const useEditContract = () => {
     };
     setMessage({
       title: "Guardar cambios",
-      description: "¿Esta segur@ de guardar los cambios?",
+      description: "¿Está segur@ de guardar los cambios?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -85,7 +85,7 @@ export const useEditContract = () => {
   const handleCancel = () => {
     setMessage({
       title: "Cancelar contrato",
-      description: " ¿Esta segur@ de cancelar la edición del contrato?",
+      description: " ¿Está segur@ de cancelar la edición del contrato?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",

@@ -46,7 +46,7 @@ export const useManageContract = () => {
         });
       }
       setMessage({
-        title: "¡Contrato!",
+        title: "Contrato",
         description: " ¡Creado exitosamente!",
         show: true,
         okTitle: "Cerrar",
@@ -64,7 +64,7 @@ export const useManageContract = () => {
   const onSubmit = (data) => {
     setMessage({
       title: "Creación contrato",
-      description: "¿Esta segur@ de crear el contrato?",
+      description: "¿Está segur@ de crear el contrato?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -80,7 +80,7 @@ export const useManageContract = () => {
   const handleCancel = () => {
     setMessage({
       title: "Cancelar contrato",
-      description: "¿Esta segur@ de cancelar la creación del contrato?",
+      description: "¿Está segur@ de cancelar la creación del contrato?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
