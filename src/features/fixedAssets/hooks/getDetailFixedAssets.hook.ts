@@ -6,7 +6,7 @@ import {useFixedAssetsById} from "./getFixedAssetsById"
 export const useGetDetailFixedAssets = () =>{
     const navigate = useNavigate();
     const {fixedAssets} = useFixedAssetsById();
-    const {control, register,reset,setValue}= useForm();
+    const {control, register,reset}= useForm();
 
     const handleClose = ()=> navigate(-1);
 
