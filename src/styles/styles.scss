@@ -283,6 +283,10 @@ div[id="single-spa-application:@sapiencia/accounting"] {
 }
 
 @media (min-width: 1024px) {
+
+  .viewHistoricals{
+    justify-content: flex-end;
+  }
   div[id="single-spa-application:@sapiencia/accounting"] {
     width: initial;
   }
@@ -291,6 +295,8 @@ div[id="single-spa-application:@sapiencia/accounting"] {
     display: flex;
     flex-direction: row;
   }
+
+
 
   // .dashboard-margin {
   //   grid-template-rows: 16em 1fr;
@@ -516,6 +522,12 @@ div[id="single-spa-application:@sapiencia/accounting"] {
   .table-column {
     padding: 8px;
     font-weight: normal;
+  }
+}
+
+@media(max-width : 600px){
+  .viewHistoricals{
+    justify-content: flex-start;
   }
 }
 
