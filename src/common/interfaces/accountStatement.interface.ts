@@ -40,6 +40,20 @@ export interface IManageContract {
   userCreated: string; // CTR_DOCUMENTO_USUARIO_CREÓ_EL_REGISTRO
   dateCreated?: DateTime; // CTR_FECHA_HORA_CREACIÓN_REGISTRO
 }
+export interface IProperty {
+  plate: string; // BIE_PLACA_ACTIVO
+  description: string; // BIE_TIPO_ACTIVO_DESCRIPCION
+  acquisitionDate: string; // BIE_FECHA_ADQUISICION
+  equipmentStatus: number; // BIE_ESTADO_EQUIPO
+  workerId: number;
+  area: number; // BIE_AREA
+  model: string; // BIE_MODELO
+  measure: string; // BIE_MEDIDAS
+  activeOwner: number; // BIE_PROPIETARIO_ACTIVO
+  observation: string; // BIE_OBSERVACION
+  brand: string; //BIE_MARCA
+  clerk: number; // BIE_FUNCIONARIO
+}
 export interface IGetContract {
   id?: number;
   contractId: string | number;
@@ -71,6 +85,24 @@ export interface IGetBusiness {
   contract?: string;
 }
 
+export interface IFurtunite {
+  id: number;
+  grouper: string;
+  itemCode: string;
+  itemDescription: string;
+  additionalFields: string;
+}
+
+export type ISelectInfo = {
+  name: string;
+  value: number;
+};
+
+export type IWorkersInfoSelect = {
+  name: string;
+  value: number;
+};
+
 export type IBusinessInfoSelect = {
   name: string;
   value: number;
@@ -87,7 +119,6 @@ export interface IContract {
   updatedAt: string;
   business: IBusiness;
 }
-
 export interface IAccountStatementForm {
   contractCode: number;
   accountNum: number;
@@ -142,3 +173,5 @@ export enum STATE_TYPE {
   "Pagada" = 2,
   "Vencida" = 3,
 }
+
+export type IGenericItem = { id: number; itemDescription: string };
