@@ -2,6 +2,7 @@ import { memo } from "react";
 import {
   ButtonComponent,
   InputComponent,
+  SelectComponent,
 } from "../../../common/components/Form";
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { TextAreaComponent } from "../../../common/components/Form/input-text-area.component";
@@ -23,54 +24,53 @@ const DetailFixedAssets = () => {
             </span>
 
 
-            <InputComponent
+            <SelectComponent
               idInput="area"
               label={<>Area</>}
-              typeInput="text"
-              // register={register}
-              className="input-basic medium"
+              control={control}
+              className="select-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
             <InputComponent
-              idInput="status"
+              idInput="equipmentStatus"
               label={<>Estado</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
             <InputComponent
-              idInput="ccuser"
+              idInput="userIdentification"
               label={<>CC usuario</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
 
             <InputComponent
-              idInput="status"
+              idInput="fullName"
               label={<>Nombres y apellidos</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
             <InputComponent
-              idInput="status"
+              idInput="clerk"
               label={<>Funcionario</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
             <DatePickerComponent
-              idInput="expeditionDate"
+              idInput="acquisitionDate"
               control={control}
               label={<>Fecha de adquisición</>}
               classNameLabel="text-black big bold"
@@ -81,55 +81,55 @@ const DetailFixedAssets = () => {
               disabled
             />
             <InputComponent
-              idInput="status"
+              idInput="description"
               label={<>Topo activo/ descripción</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
             <InputComponent
-              idInput="status"
+              idInput="model"
               label={<>Marca</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
             <InputComponent
-              idInput="status"
+              idInput="model"
               label={<>Modelo</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
             <InputComponent
-              idInput="status"
+              idInput="plate"
               label={<>Placa activo</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
             <InputComponent
-              idInput="status"
+              idInput="measure"
               label={<>Medida</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
             <InputComponent
-              idInput="status"
+              idInput="activeOwner"
               label={<>Propietario activo</>}
               typeInput="text"
-              // register={register}
+              register={register}
               className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
@@ -137,7 +137,7 @@ const DetailFixedAssets = () => {
           </div>
           <div className="mt-20px grid-span-4-columns">
             <TextAreaComponent
-              idInput="concept"
+              idInput="observation"
               className="text-area-basic"
               classNameLabel="text-black big bold"
               label={<>Observaciones</>}
