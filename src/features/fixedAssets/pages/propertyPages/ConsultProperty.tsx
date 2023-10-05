@@ -14,13 +14,15 @@ const ConsultProperty = () => {
     handleClean,
     setPaginateData,
     submitDisabled,
-    equipmentStatus,
+    equipmentStatusData,
     register,
+    handleChange,
   } = useConsultProperty();
   return (
     <ManagePropertyForm
       register={register}
-      equipmentStatus={equipmentStatus}
+      handleChange={handleChange}
+      equipmentStatusData={equipmentStatusData}
       submitDisabled={submitDisabled}
       setPaginateData={setPaginateData}
       urlGetConsultFurniture={urlGetConsultFurniture}

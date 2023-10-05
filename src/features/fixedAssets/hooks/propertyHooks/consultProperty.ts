@@ -12,7 +12,7 @@ import { useGetGenericItems } from "./getGenericItems";
 import { consultPropertySchema } from "../../../../common/schemas/fixedAssets.schema";
 
 export const useConsultProperty = () => {
-  const { data: equipmentStatus } = useGetGenericItems("ESTADO_EQUIPO");
+  const { data: equipmentStatusData } = useGetGenericItems("ESTADO_EQUIPO");
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
 
@@ -26,10 +26,19 @@ export const useConsultProperty = () => {
     handleSubmit,
     register,
     reset,
+    watch,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
   const { setMessage } = useContext(AppContext);
   const urlGetConsultFurniture = `${urlApiAccounting}/api/v1/furniture/get-all-paginated`;
+  const [formWatch, setFormWatch] = useState({
+    plate: "",
+    description: "",
+  });
+  const [acquisitionDate, equipmentStatus] = watch([
+    "acquisitionDate",
+    "equipmentStatus",
+  ]);
 
   const tableActions: ITableAction<IProperty>[] = [
     {
@@ -103,6 +112,7 @@ export const useConsultProperty = () => {
 
   const handleClean = () => {
     reset();
+    setSubmitDisabled(true);
     tableComponentRef.current?.emptyData();
     setTableView(false);
   };
@@ -112,10 +122,26 @@ export const useConsultProperty = () => {
     tableComponentRef.current?.loadData(filters);
   });
 
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setFormWatch({
+      ...formWatch,
+      [name]: value,
+    });
+  };
+
+  useEffect(() => {
+    const { plate, description } = formWatch;
+    if (acquisitionDate || equipmentStatus || description || plate) {
+      return setSubmitDisabled(false);
+    }
+    setSubmitDisabled(true);
+  }, [acquisitionDate, equipmentStatus, formWatch]);
+
   return {
     tableComponentRef,
     setPaginateData,
-    equipmentStatus,
+    equipmentStatusData,
     urlGetConsultFurniture,
     tableView,
     onSubmit,
@@ -125,6 +151,7 @@ export const useConsultProperty = () => {
     isValid,
     tableActions,
     submitDisabled,
+    handleChange,
     handleClean,
   };
 };

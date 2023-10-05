@@ -24,7 +24,8 @@ const ManagePropertyForm = ({
   submitDisabled,
   register,
   setPaginateData,
-  equipmentStatus,
+  equipmentStatusData,
+  handleChange,
 }) => {
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
@@ -58,22 +59,24 @@ const ManagePropertyForm = ({
               <InputComponent
                 idInput="plate"
                 label={<>Placa activo</>}
-                typeInput="text"
                 register={register}
+                typeInput="number"
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
+                onChange={handleChange}
               />
             </div>
             <div className="grid-span-2-columns mr-24px">
               <InputComponent
                 idInput="description"
                 label={<>Tipo activo/descripción</>}
-                typeInput="text"
                 register={register}
+                typeInput="text"
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -95,7 +98,7 @@ const ManagePropertyForm = ({
                 idInput="equipmentStatus"
                 control={control}
                 errors={errors}
-                data={equipmentStatus}
+                data={equipmentStatusData}
                 label={<> Estado equipo</>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"

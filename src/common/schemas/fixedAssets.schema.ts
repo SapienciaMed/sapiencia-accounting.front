@@ -38,17 +38,10 @@ export const createPropertySchema = yup.object({
 
 export const consultPropertySchema = yup.object({
   acquisitionDate: yup.date().optional().nullable(),
-  equipmentStatus: yup
-    .string()
-    .required("Selecciona un estado de equipo para buscar"),
+  equipmentStatus: yup.number().optional().nullable(),
   description: yup
     .string()
-    .max(50, "Solo se permiten 50 caracteres")
     .optional()
-    .nullable(),
-  plate: yup
-    .string()
-    .max(50, "Solo se permiten 50 caracteres")
-    .optional()
-    .nullable(),
+    .max(50, "Solo se permiten 50 caracteres"),
+  plate: yup.string().optional().max(12, "Solo se permiten 12 caracteres"),
 });
