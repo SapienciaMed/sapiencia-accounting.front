@@ -174,4 +174,8 @@ export enum STATE_TYPE {
   "Vencida" = 3,
 }
 
-export type IGenericItem = { id: number; itemDescription: string };
+export type IGenericItem = {
+  id: number;
+  itemDescription: string;
+  itemCode: string;
+};
