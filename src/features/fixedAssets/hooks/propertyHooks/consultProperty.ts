@@ -5,44 +5,43 @@ import { EResponseCodes } from "../../../../common/constants/api.enum";
 import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
-import {
-  IManageContract,
-  IContract,
-} from "../../../../common/interfaces/accountStatement.interface";
+import { IProperty } from "../../../../common/interfaces/accountStatement.interface";
 import { ITableAction } from "../../../../common/interfaces/table.interfaces";
-import { consultContractSchema } from "../../../../common/schemas/consultBusinessSchema";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
-import { useGetBusiness } from "../../../masterData/hooks/businessHooks/getBusinessName";
-import { useGetContract } from "../../../masterData/hooks/manageContractHooks/getContract";
+import { useGetGenericItems } from "./getGenericItems";
+import { consultPropertySchema } from "../../../../common/schemas/fixedAssets.schema";
 
 export const useConsultProperty = () => {
+  const { data: equipmentStatus } = useGetGenericItems("ESTADO_EQUIPO");
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
-  const { contract } = useGetContract();
-  const { business, setReload } = useGetBusiness();
+
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
   const { deleted } = useCrudService(urlApiAccounting);
-  const [setPaginateData] = useState({ page: "", perPage: "" });
-  const resolver = useYupValidationResolver(consultContractSchema);
+  const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
+  const resolver = useYupValidationResolver(consultPropertySchema);
   const {
     control,
     handleSubmit,
     register,
     reset,
-    watch,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
-  const [contractId, businessCode] = watch(["id", "businessCode"]);
   const { setMessage } = useContext(AppContext);
+  const urlGetConsultFurniture = `${urlApiAccounting}/api/v1/furniture/get-all-paginated`;
 
-  const urlGetConsultContract = `${urlApiAccounting}/api/v1/contract/get-paginated`;
-
-  const tableActions: ITableAction<IManageContract>[] = [
+  const tableActions: ITableAction<IProperty>[] = [
+    {
+      icon: "Detail",
+      onClick: (row) => {
+        // navigate(`/contabilidad/cuenta-de-cobro/detalle/${row.id}`);
+      },
+    },
     {
       icon: "Edit",
       onClick: (row) => {
-        navigate(`/contabilidad/contrato/editar/${row.id}`);
+        // navigate(`/contabilidad/contrato/editar/${row.id}`);
       },
     },
     {
@@ -73,7 +72,7 @@ export const useConsultProperty = () => {
     try {
       const endpoint = `/api/v1/contract/${row.id}/delete-by-id`;
       const resp = await deleted<null>(endpoint);
-      setReload(new Date());
+      // setReload(new Date());
       handleClean();
       setMessage({
         title: "Contrato",
@@ -108,28 +107,22 @@ export const useConsultProperty = () => {
     setTableView(false);
   };
 
-  const onSubmit = handleSubmit((filters: IContract) => {
+  const onSubmit = handleSubmit((filters: IProperty) => {
     setTableView(true);
     tableComponentRef.current?.loadData(filters);
   });
 
-  useEffect(() => {
-    const isValidForm = contractId || businessCode;
-    setSubmitDisabled(!isValidForm);
-  }, [contractId, businessCode]);
-
   return {
     tableComponentRef,
     setPaginateData,
-    urlGetConsultContract,
+    equipmentStatus,
+    urlGetConsultFurniture,
     tableView,
     onSubmit,
     register,
-    contract,
     control,
     errors,
     isValid,
-    business,
     tableActions,
     submitDisabled,
     handleClean,

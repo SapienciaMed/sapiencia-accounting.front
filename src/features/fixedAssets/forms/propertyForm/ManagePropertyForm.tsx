@@ -8,11 +8,11 @@ import {
 } from "../../../../common/components/Form";
 import TableComponent from "../../../../common/components/table.component";
 import Svgs from "../../../../public/images/icons/svgs";
-import { tableColumns } from "../../../accountStatement/forms/consultAccountStatement/columns";
+import { tableColumns } from "../propertyForm/columns";
 import { DatePickerComponent } from "../../../../common/components/Form/input-date.component";
 
 const ManagePropertyForm = ({
-  urlGetConsultContract,
+  urlGetConsultFurniture,
   tableComponentRef,
   tableView,
   onSubmit,
@@ -22,9 +22,9 @@ const ManagePropertyForm = ({
   isValid,
   handleClean,
   submitDisabled,
+  register,
   setPaginateData,
-  business,
-  contract,
+  equipmentStatus,
 }) => {
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
@@ -59,7 +59,7 @@ const ManagePropertyForm = ({
                 idInput="plate"
                 label={<>Placa activo</>}
                 typeInput="text"
-                //register={register}
+                register={register}
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
@@ -70,7 +70,7 @@ const ManagePropertyForm = ({
                 idInput="description"
                 label={<>Tipo activo/descripción</>}
                 typeInput="text"
-                // register={register}
+                register={register}
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
@@ -81,6 +81,7 @@ const ManagePropertyForm = ({
             <div>
               <DatePickerComponent
                 idInput="acquisitionDate"
+                errors={errors}
                 control={control}
                 label={<>Fecha de adquisición</>}
                 classNameLabel="text-black big bold"
@@ -94,7 +95,7 @@ const ManagePropertyForm = ({
                 idInput="equipmentStatus"
                 control={control}
                 errors={errors}
-                // data={}
+                data={equipmentStatus}
                 label={<> Estado equipo</>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
@@ -121,6 +122,36 @@ const ManagePropertyForm = ({
           </div>
         </div>
       </FormComponent>
+      {tableView && (
+        <>
+          <div className="container-sections-forms ml-20px mr-20px">
+            <TableComponent
+              setPaginateData={setPaginateData}
+              ref={tableComponentRef}
+              url={urlGetConsultFurniture}
+              columns={tableColumns}
+              actions={tableActions}
+              isShowModal={true}
+              emptyMessage="No se generó resultado en la búsqueda"
+              titleMessageModalNoResult="Resultado de búsqueda"
+            />
+          </div>
+          <div
+            style={{
+              height: "1px",
+              margin: "0 20px",
+              backgroundColor: "#e0e0e0",
+            }}
+          ></div>
+          <div className="button-save-container-display mr-24px">
+            <ButtonComponent
+              value="Cerrar"
+              className="button-save big"
+              action={handleClean}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

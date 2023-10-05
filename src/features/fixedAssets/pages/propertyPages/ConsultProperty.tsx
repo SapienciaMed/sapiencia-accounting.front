@@ -3,7 +3,7 @@ import { useConsultProperty } from "../../hooks/propertyHooks/consultProperty";
 
 const ConsultProperty = () => {
   const {
-    urlGetConsultContract,
+    urlGetConsultFurniture,
     tableComponentRef,
     tableView,
     onSubmit,
@@ -13,17 +13,17 @@ const ConsultProperty = () => {
     isValid,
     handleClean,
     setPaginateData,
-    business,
-    contract,
     submitDisabled,
+    equipmentStatus,
+    register,
   } = useConsultProperty();
   return (
     <ManagePropertyForm
-      business={business}
-      contract={contract}
+      register={register}
+      equipmentStatus={equipmentStatus}
       submitDisabled={submitDisabled}
       setPaginateData={setPaginateData}
-      urlGetConsultContract={urlGetConsultContract}
+      urlGetConsultFurniture={urlGetConsultFurniture}
       tableComponentRef={tableComponentRef}
       tableView={tableView}
       onSubmit={onSubmit}
