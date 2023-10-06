@@ -7,7 +7,7 @@ import {
 } from "../../../../common/components/Form";
 import { DatePickerComponent } from "../../../../common/components/Form/input-date.component";
 import { TextAreaComponent } from "../../../../common/components/Form/input-text-area.component";
-import { useEditFixedAssets } from "../../hooks/propertyHooks/ediProperty";
+import { useEditProperty } from "../../hooks/propertyHooks/ediProperty";
 
 const EditProperty = () => {
   const {
@@ -25,7 +25,7 @@ const EditProperty = () => {
     officers,
     handleChange,
     activeOwner,
-  } = useEditFixedAssets();
+  } = useEditProperty();
   return (
     <>
       <FormComponent

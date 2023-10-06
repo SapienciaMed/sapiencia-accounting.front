@@ -12,7 +12,7 @@ import { useGetAllIdentification } from "./getAllIdentificationUserHook";
 import { useGetAllWorkersFullName } from "./getAllWorkersFullNameHook";
 import { EResponseCodes } from "../../../../common/constants/api.enum";
 
-export const useEditFixedAssets = () => {
+export const useEditProperty = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { id, property } = usePropertyById();
