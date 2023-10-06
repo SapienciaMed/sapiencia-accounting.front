@@ -24,8 +24,6 @@ const CreatePropertyForm = () => {
     identification,
     fullName,
   } = useManageProperty();
-  console.log("isValid:", isValid);
-  console.log("errors:", errors);
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent

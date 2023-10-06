@@ -43,7 +43,7 @@ export interface IManageContract {
 export interface IProperty {
   plate: string; // BIE_PLACA_ACTIVO
   description: string; // BIE_TIPO_ACTIVO_DESCRIPCION
-  acquisitionDate: string; // BIE_FECHA_ADQUISICION
+  acquisitionDate: DateTime; // BIE_FECHA_ADQUISICION
   equipmentStatus: number; // BIE_ESTADO_EQUIPO
   workerId: number;
   area: number; // BIE_AREA
@@ -53,6 +53,22 @@ export interface IProperty {
   observation: string; // BIE_OBSERVACION
   brand: string; //BIE_MARCA
   clerk: number; // BIE_FUNCIONARIO
+}
+
+export interface IFurniture {
+  plate: string;
+  description: string;
+  acquisitionDate: string;
+  equipmentStatus: number;
+  userIdentification: string;
+  fullName: string;
+  area: number;
+  model: string;
+  brand: string;
+  measure: string;
+  activeOwner: number;
+  observation: string;
+  clerk: number;
 }
 export interface IGetContract {
   id?: number;
@@ -174,4 +190,8 @@ export enum STATE_TYPE {
   "Vencida" = 3,
 }
 
-export type IGenericItem = { id: number; itemDescription: string };
+export type IGenericItem = {
+  id: number;
+  itemDescription: string;
+  itemCode: string;
+};

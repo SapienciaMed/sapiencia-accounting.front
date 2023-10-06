@@ -17,9 +17,9 @@ export const useGetGenericItems = (grouper: string) => {
       const endpoint = `/api/v1/generic-list/get-by-grouper/${grouper}`;
       const { data }: ApiResponse<IGenericItem[]> = await get(endpoint);
       const adaptedData = data?.map((item) => {
-        const { id, itemDescription } = item;
+        const { itemDescription, itemCode } = item;
         return {
-          value: id,
+          value: Number(itemCode),
           name: itemDescription,
         };
       });
