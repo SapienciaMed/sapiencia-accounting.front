@@ -17,9 +17,11 @@ const ConsultProperty = () => {
     equipmentStatusData,
     register,
     handleChange,
+    downloadCollection,
   } = useConsultProperty();
   return (
     <ManagePropertyForm
+      downloadCollection={downloadCollection}
       register={register}
       handleChange={handleChange}
       equipmentStatusData={equipmentStatusData}

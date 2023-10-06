@@ -26,6 +26,7 @@ const ManagePropertyForm = ({
   setPaginateData,
   equipmentStatusData,
   handleChange,
+  downloadCollection,
 }) => {
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
@@ -147,6 +148,18 @@ const ManagePropertyForm = ({
             }}
           ></div>
           <div className="button-save-container-display mr-24px">
+            <ButtonComponent
+              value={
+                <>
+                  <div className="container-buttonText">
+                    <span>Descargar</span>
+                    <Svgs svg="excel" width={23.593} height={28.505} />
+                  </div>
+                </>
+              }
+              className="button-download large "
+              action={downloadCollection}
+            />
             <ButtonComponent
               value="Cerrar"
               className="button-save big"

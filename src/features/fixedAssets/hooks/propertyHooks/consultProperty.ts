@@ -54,6 +54,16 @@ export const useConsultProperty = () => {
     },
   ];
 
+  const downloadCollection = async () => {
+    const { page, perPage } = paginateData;
+    // const endpoint = `${urlApiAccounting}/api/v1/account-statement/generate-xlsx?page=${
+    //   page + 1
+    // }&perPage=${perPage}&contractCode=${contractCode ?? ""}&${
+    //   expeditionDate ?? ""
+    // }&${accountNum ?? ""}&${nit ?? ""}`;
+    // window.open(endpoint, "_blank");
+  };
+
   const handleClean = () => {
     reset();
     setSubmitDisabled(true);
@@ -83,6 +93,7 @@ export const useConsultProperty = () => {
   }, [acquisitionDate, equipmentStatus, formWatch]);
 
   return {
+    downloadCollection,
     tableComponentRef,
     setPaginateData,
     equipmentStatusData,
