@@ -23,6 +23,7 @@ const EditProperty = () => {
     identification,
     fullName,
     officers,
+    handleChange,
     activeOwner,
   } = useEditFixedAssets();
   return (
@@ -123,6 +124,7 @@ const EditProperty = () => {
                 typeInput="text"
                 register={register}
                 errors={errors}
+                onChange={handleChange}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
               />
@@ -131,6 +133,7 @@ const EditProperty = () => {
                 label={<>Marca</>}
                 typeInput="text"
                 register={register}
+                onChange={handleChange}
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
@@ -141,6 +144,7 @@ const EditProperty = () => {
                 typeInput="text"
                 register={register}
                 errors={errors}
+                onChange={handleChange}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
               />
@@ -150,6 +154,7 @@ const EditProperty = () => {
                 typeInput="text"
                 register={register}
                 errors={errors}
+                onChange={handleChange}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
                 disabled
@@ -160,6 +165,7 @@ const EditProperty = () => {
                 typeInput="text"
                 register={register}
                 errors={errors}
+                onChange={handleChange}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
               />
@@ -181,6 +187,7 @@ const EditProperty = () => {
                 idInput="observation"
                 className="text-area-basic"
                 errors={errors}
+                onChange={handleChange}
                 classNameLabel="text-black big bold"
                 label={<>Observaciones</>}
                 register={register}
@@ -213,6 +220,7 @@ const EditProperty = () => {
           />
           <ButtonComponent
             value="Guardar"
+            disabled={!isValid || submitDisabled}
             className={`button-save ${
               !isValid || submitDisabled ? "disabled-black" : ""
             } big`}
