@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export interface IGetFixedAssets{
+export interface IGetProperty{
     id?: number,
     plate: string,
     description: string,

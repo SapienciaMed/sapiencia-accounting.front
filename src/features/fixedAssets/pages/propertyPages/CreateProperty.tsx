@@ -45,7 +45,7 @@ const CreatePropertyForm = () => {
               errors={errors}
               label={
                 <>
-                  Area <span>*</span>
+                  Área <span>*</span>
                 </>
               }
               className="select-basic medium"

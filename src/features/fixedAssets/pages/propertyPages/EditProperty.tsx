@@ -4,10 +4,10 @@ import {
   FormComponent,
   InputComponent,
   SelectComponent,
-} from "../../../common/components/Form";
-import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
-import { TextAreaComponent } from "../../../common/components/Form/input-text-area.component";
-import { useEditFixedAssets } from "../hooks/editFixedAssets";
+} from "../../../../common/components/Form";
+import { DatePickerComponent } from "../../../../common/components/Form/input-date.component";
+import { TextAreaComponent } from "../../../../common/components/Form/input-text-area.component";
+import { useEditFixedAssets } from "../../hooks/propertyHooks/ediProperty";
 
 const EditFixedAssets = () => {
   const {
@@ -22,18 +22,18 @@ const EditFixedAssets = () => {
     equipmentStatus,
     identification,
     fullName,
-    officers
+    officers,
+    activeOwner,
   } = useEditFixedAssets();
   return (
     <>
       <FormComponent
         id="editFixedAssets"
-        className="form-signIn"
         action={onSubmit}
       >
-        <div className="container-sections-forms mt-24px ml-12px mr-16px p-0">
-          <div className=" container-sections-forms ml-20px mr-20px">
-            <div className="grid-form-3-container gap-25">
+      <div className="container-sections-forms mt-24px ml-12px mr-16px p-0">
+        <div className=" container-sections-forms ml-20px mr-20px">
+          <div className="grid-form-3-container gap-25">
               <span className="text-black large bold grid-span-3-columns">
                 Editar bien mueble
               </span>
@@ -66,7 +66,7 @@ const EditFixedAssets = () => {
                 errors={errors}
                 label={
                   <>
-                    CC usuario <span>*</span>
+                    CC usuario 
                   </>
                 }
                 className="select-basic medium"
@@ -82,7 +82,7 @@ const EditFixedAssets = () => {
                 errors={errors}
                 label={
                   <>
-                    Nombres y apellidos <span>*</span>
+                    Nombres y apellidos 
                   </>
                 }
                 className="select-basic medium"
@@ -91,25 +91,26 @@ const EditFixedAssets = () => {
                 data={fullName}
                 filter
               />
-            <SelectComponent
-              idInput="clerk"
-              control={control}
-              errors={errors}
-              label={
-                <>
-                  Funcionario <span>*</span>
-                </>
-              }
-              className="select-basic medium"
-              classNameLabel="text-black big bold"
-              placeholder="Seleccionar"
-              data={officers}
-              filter
-            />
+              <SelectComponent
+                idInput="clerk"
+                control={control}
+                errors={errors}
+                label={
+                  <>
+                    Funcionario
+                  </>
+                }
+                className="select-basic medium"
+                classNameLabel="text-black big bold"
+                placeholder="Seleccionar"
+                data={officers}
+                filter
+              />
               <DatePickerComponent
                 idInput="acquisitionDate"
                 control={control}
                 label={<>Fecha de adquisición</>}
+                errors={errors}
                 classNameLabel="text-black big bold"
                 className="dataPicker-basic  medium "
                 placeholder="DD/MM/YYYY"
@@ -121,6 +122,7 @@ const EditFixedAssets = () => {
                 label={<>Topo activo/ descripción</>}
                 typeInput="text"
                 register={register}
+                errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
               />
@@ -129,6 +131,7 @@ const EditFixedAssets = () => {
                 label={<>Marca</>}
                 typeInput="text"
                 register={register}
+                errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
               />
@@ -137,6 +140,7 @@ const EditFixedAssets = () => {
                 label={<>Modelo</>}
                 typeInput="text"
                 register={register}
+                errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
               />
@@ -145,6 +149,7 @@ const EditFixedAssets = () => {
                 label={<>Placa activo</>}
                 typeInput="text"
                 register={register}
+                errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
                 disabled
@@ -154,23 +159,28 @@ const EditFixedAssets = () => {
                 label={<>Medidas</>}
                 typeInput="text"
                 register={register}
+                errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
               />
-              <InputComponent
+              <SelectComponent
                 idInput="activeOwner"
+                control={control}
+                errors={errors}
                 label={<>Propietario activo</>}
-                typeInput="text"
-                register={register}
-                className="input-basic medium"
+                className="select-basic medium"
                 classNameLabel="text-black big bold"
-                disabled
+                placeholder="Seleccionar"
+                data={activeOwner}
+                filter
+                
               />
             </div>
             <div className="mt-20px grid-span-4-columns">
               <TextAreaComponent
                 idInput="observation"
                 className="text-area-basic"
+                errors={errors}
                 classNameLabel="text-black big bold"
                 label={<>Observaciones</>}
                 register={register}
@@ -207,7 +217,6 @@ const EditFixedAssets = () => {
               !isValid || submitDisabled ? "disabled-black" : ""
             } big`}
             type="submit"
-            disabled={!isValid || submitDisabled}
           />
         </div>
       </FormComponent>

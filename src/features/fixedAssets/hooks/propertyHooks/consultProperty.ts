@@ -43,13 +43,13 @@ export const useConsultProperty = () => {
     {
       icon: "Detail",
       onClick: (row) => {
-        // navigate(`/contabilidad/cuenta-de-cobro/detalle/${row.id}`);
+        navigate(`/contabilidad/activos-fijos/detalle/${row.id}`);
       },
     },
     {
       icon: "Edit",
       onClick: (row) => {
-        // navigate(`/contabilidad/contrato/editar/${row.id}`);
+        navigate(`/contabilidad/activos-fijos/editar/${row.id}`);
       },
     },
   ];

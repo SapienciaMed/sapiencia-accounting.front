@@ -3,14 +3,14 @@ import {
   ButtonComponent,
   InputComponent,
   SelectComponent,
-} from "../../../common/components/Form";
-import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
-import { TextAreaComponent } from "../../../common/components/Form/input-text-area.component";
-import { useGetDetailFixedAssets } from "../hooks/getDetailFixedAssets.hook";
-import Svgs from "../../../public/images/icons/svgs";
+} from "../../../../common/components/Form";
+import { DatePickerComponent } from "../../../../common/components/Form/input-date.component";
+import { TextAreaComponent } from "../../../../common/components/Form/input-text-area.component";
+import { useGetDetailProperty } from "../../hooks/propertyHooks/getDetailProperty.hook";
+import Svgs from "../../../../public/images/icons/svgs";
 
 const DetailFixedAssets = () => {
-  const { register, control, handleClose } = useGetDetailFixedAssets();
+  const { register, control, handleClose } = useGetDetailProperty();
   return (
     <>
       <div className="container-sections-forms mt-24px ml-12px mr-16px p-0">
@@ -26,7 +26,7 @@ const DetailFixedAssets = () => {
 
             <InputComponent
               idInput="area"
-              label={<>Area</>}
+              label={<>Área</>}
               typeInput="text"
               register={register}
               className="input-basic medium"
@@ -146,15 +146,7 @@ const DetailFixedAssets = () => {
               disabled
             />
           </div>
-          <div
-            style={{
-              marginTop: "8px",
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            Máx 500 caracteres.
-          </div>
+          
         </div>
       </div>
       <div

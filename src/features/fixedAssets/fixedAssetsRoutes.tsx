@@ -2,8 +2,8 @@ import { memo } from "react";
 import { Route, Routes } from "react-router-dom";
 import ConsultProperty from "./pages/propertyPages/ConsultProperty";
 import CreateProperty from "./pages/propertyPages/CreateProperty";
-import DetailFixedAssets from "./pages/DetailFixedAssets";
-import EditFixedAssets from "./pages/EditFixedAssets";
+import DetailFixedAssets from "./pages/propertyPages/DetailProperty";
+import EditFixedAssets from "./pages/propertyPages/EditProperty";
 
 const FixedAssetsRoutes = () => {
   // const CreateAccountStatement = lazy(

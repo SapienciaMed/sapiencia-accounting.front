@@ -1,27 +1,27 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../../common/contexts/app.context";
-import useCrudService from "../../../common/hooks/crud-service.hook";
-import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { urlApiAccounting } from "../../../common/utils/base-url";
-import { useFixedAssetsById } from "./getFixedAssetsById";
-import { editFixedAssets } from "../../../common/schemas/fixedAssets.schema";
-import { useGetGenericItems } from "./propertyHooks/getGenericItems";
-import { useGetAllIdentification } from "./propertyHooks/getAllIdentificationUserHook";
-import { useGetAllWorkersFullName } from "./propertyHooks/getAllWorkersFullNameHook";
-
+import { AppContext } from "../../../../common/contexts/app.context";
+import useCrudService from "../../../../common/hooks/crud-service.hook";
+import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
+import { urlApiAccounting } from "../../../../common/utils/base-url";
+import { usePropertyById } from "./getPropertyByIdraw";
+import { editProperySchema } from "../../../../common/schemas/fixedAssets.schema";
+import { useGetGenericItems } from "./getGenericItems";
+import { useGetAllIdentification } from "./getAllIdentificationUserHook";
+import { useGetAllWorkersFullName } from "./getAllWorkersFullNameHook";
 
 export const useEditFixedAssets = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
-  const { id, fixedAssets } = useFixedAssetsById();
+  const { id, property } = usePropertyById();
   const { put } = useCrudService(urlApiAccounting);
   const [submitDisabled, setSubmitDisabled] = useState(true);
-  const resolver = useYupValidationResolver(editFixedAssets);
+  const resolver = useYupValidationResolver(editProperySchema);
   const { data: area } = useGetGenericItems("AREA");
   const { data: equipmentStatus } = useGetGenericItems("ESTADO_EQUIPO");
   const { data: officers } = useGetGenericItems("FUNCIONARIO");
+  const { data: activeOwner } = useGetGenericItems("PROPIETARIO_ACTIVO");
   const { identification } = useGetAllIdentification();
   const { fullName } = useGetAllWorkersFullName();
   const {
@@ -32,13 +32,13 @@ export const useEditFixedAssets = () => {
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
-  const updateFixedAssets = async (data) => {
+  const updateProperty = async (data) => {
     try {
       const endpoint = `/api/v1/furniture/${id}/update-by-id`;
       await put(endpoint, data);
       setMessage({
-        title: "Cambios guardados",
-        description: "¡Cambios guardados exitosamente!",
+        title: "Activo fijo",
+        description: "¡Editado exitosamente!",
         show: true,
         okTitle: "Cerrar",
         onOk: () => setMessage({ show: false }),
@@ -55,20 +55,17 @@ export const useEditFixedAssets = () => {
         background: true,
       });
     }
-
-   
-
   };
   const onSubmit = async (data) => {
     setMessage({
-      title: "Guardar cambios",
-      description: "Está segur@ de guardar los cambios?",
+      title: "Editar Activo",
+      description: "¿Está segur@ de editar activo?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
       onOk: () => {
         setMessage({ show: false });
-        updateFixedAssets(data);
+        updateProperty(data);
       },
       onClose: () => setMessage({ show: false }),
       background: true,
@@ -85,7 +82,7 @@ export const useEditFixedAssets = () => {
       background: true,
       onOk: () => {
         setMessage({ show: false });
-        navigate("/activos-fijos/consultar");
+        navigate("/contabilidad/activos-fijos/consultar");
       },
       onCancel: () => {
         setMessage({ show: false });
@@ -95,10 +92,8 @@ export const useEditFixedAssets = () => {
   };
 
   useEffect(() => {
-    reset(fixedAssets);
-  }, [fixedAssets]);
-
-
+    reset(property);
+  }, [property]);
 
   return {
     control,
@@ -112,6 +107,8 @@ export const useEditFixedAssets = () => {
     area,
     equipmentStatus,
     identification,
-    fullName,officers
+    fullName,
+    officers,
+    activeOwner,
   };
 };
