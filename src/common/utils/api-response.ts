@@ -23,6 +23,7 @@ export interface IPagingData<T> {
 }
 
 export class ApiResponse<T> {
+  [x: string]: any;
   data: T;
   operation: IOperation;
 
