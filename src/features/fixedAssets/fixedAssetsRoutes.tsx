@@ -2,6 +2,8 @@ import { memo } from "react";
 import { Route, Routes } from "react-router-dom";
 import ConsultProperty from "./pages/propertyPages/ConsultProperty";
 import CreateProperty from "./pages/propertyPages/CreateProperty";
+import EditProperty from "./pages/propertyPages/EditProperty";
+import DetailProperty from "./pages/propertyPages/DetailProperty";
 
 const FixedAssetsRoutes = () => {
   // const CreateAccountStatement = lazy(
@@ -20,6 +22,8 @@ const FixedAssetsRoutes = () => {
     <Routes>
       <Route path="/consultar" element={<ConsultProperty />} />
       <Route path="/crear" element={<CreateProperty />} />
+      <Route path="/detalle/:id" element ={<DetailProperty/>}/>
+      <Route path="/editar/:id" element ={<EditProperty/>}/>
     </Routes>
   );
 };

@@ -9,7 +9,7 @@ import { DatePickerComponent } from "../../../../common/components/Form/input-da
 import { TextAreaComponent } from "../../../../common/components/Form/input-text-area.component";
 import { useEditFixedAssets } from "../../hooks/propertyHooks/ediProperty";
 
-const EditFixedAssets = () => {
+const EditProperty = () => {
   const {
     control,
     register,
@@ -224,4 +224,4 @@ const EditFixedAssets = () => {
   );
 };
 
-export default memo(EditFixedAssets);
+export default memo(EditProperty);

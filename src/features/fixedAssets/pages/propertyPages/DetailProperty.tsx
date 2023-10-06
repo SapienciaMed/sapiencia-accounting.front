@@ -9,7 +9,7 @@ import { TextAreaComponent } from "../../../../common/components/Form/input-text
 import { useGetDetailProperty } from "../../hooks/propertyHooks/getDetailProperty.hook";
 import Svgs from "../../../../public/images/icons/svgs";
 
-const DetailFixedAssets = () => {
+const DetailProperty = () => {
   const { register, control, handleClose } = useGetDetailProperty();
   return (
     <>
@@ -167,4 +167,4 @@ const DetailFixedAssets = () => {
   );
 };
 
-export default memo(DetailFixedAssets);
+export default memo(DetailProperty);
