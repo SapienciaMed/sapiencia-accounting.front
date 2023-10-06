@@ -4,7 +4,7 @@ import { ITableElement } from "../../../../common/interfaces/table.interfaces";
 export const tableColumns: ITableElement<IFurniture>[] = [
   {
     fieldName: "area",
-    header: "Area",
+    header: "Área",
   },
   {
     fieldName: "equipmentStatus",
