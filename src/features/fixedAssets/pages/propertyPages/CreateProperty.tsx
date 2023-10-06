@@ -34,7 +34,7 @@ const CreatePropertyForm = () => {
         <div className="container-sections-forms ml-20px mr-20px">
           <div className="grid-form-3-container gap-25">
             <span className="text-black extra-large bold grid-span-3-columns">
-              Gestionar bienes muebles
+              Crear bienes mueble
             </span>
           </div>
 
@@ -61,7 +61,7 @@ const CreatePropertyForm = () => {
               errors={errors}
               label={
                 <>
-                  Estado equipo <span>*</span>
+                  Estado <span>*</span>
                 </>
               }
               className="select-basic medium"

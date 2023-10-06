@@ -31,10 +31,6 @@ export const useManageProperty = () => {
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
-  useEffect(() => {
-    console.log(isValid);
-  }, [isValid]);
-
   const createProperty = async (data: IProperty) => {
     try {
       const endpoint = "/api/v1/furniture/create";
