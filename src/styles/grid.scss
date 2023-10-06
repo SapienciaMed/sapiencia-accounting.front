@@ -106,7 +106,10 @@
   }
 }
 
+
+
 @media (max-width: 920px) {
+  
   .grid-form-4-container {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     .grid-span-2-columns,
@@ -199,6 +202,7 @@
 }
 
 @media (max-width: 580px) {
+
   .grid-form-4-container {
     grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
     .grid-span-2-columns,

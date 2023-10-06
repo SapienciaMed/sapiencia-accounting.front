@@ -41,6 +41,7 @@ export interface IManageContract {
   dateCreated?: DateTime; // CTR_FECHA_HORA_CREACIÓN_REGISTRO
 }
 export interface IProperty {
+  id:number,
   plate: string; // BIE_PLACA_ACTIVO
   description: string; // BIE_TIPO_ACTIVO_DESCRIPCION
   acquisitionDate: DateTime; // BIE_FECHA_ADQUISICION
