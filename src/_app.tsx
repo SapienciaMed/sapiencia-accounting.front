@@ -9,8 +9,8 @@ import useAppCominicator from "./common/hooks/app-communicator.hook";
 import AccountStatementRoutes from "./features/accountStatement/accountStatementRoutes";
 import "./styles/_app.scss";
 import MasterDataRoutes from "./features/masterData/MasterDataRoutes";
-import FixedAssetsRoutes from "./features/fixedAssets/FixedAssetsRoutes";
 import FixedAssetsRoutes from "./features/fixedAssets/fixedAssetsRoutes";
+
 
 function App() {
   const { publish } = useAppCominicator();

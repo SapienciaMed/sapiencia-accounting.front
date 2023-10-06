@@ -5,13 +5,13 @@ export interface IGetFixedAssets{
     plate: string,
     description: string,
     acquisitionDate: DateTime,
-    equipmentStatus: number,
+    equipmentStatus: string,
     userIdentification: string,
-    area: number,
+    area: string,
     fullName: string,
     model: string,
     measure: string,
-    activeOwner: number,
+    activeOwner: string,
     observation: string,
-    clerk: number
+    clerk: string
 }

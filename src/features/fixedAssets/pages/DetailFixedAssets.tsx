@@ -24,11 +24,12 @@ const DetailFixedAssets = () => {
             </span>
 
 
-            <SelectComponent
+            <InputComponent
               idInput="area"
               label={<>Area</>}
-              control={control}
-              className="select-basic medium"
+              typeInput="text"
+              register={register}
+              className="input-basic medium"
               classNameLabel="text-black big bold"
               disabled
             />
@@ -90,7 +91,7 @@ const DetailFixedAssets = () => {
               disabled
             />
             <InputComponent
-              idInput="model"
+              idInput="brand"
               label={<>Marca</>}
               typeInput="text"
               register={register}
