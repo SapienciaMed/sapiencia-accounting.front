@@ -105,6 +105,7 @@ const ManageContractForm = ({
               actions={tableActions}
               isShowModal={true}
               emptyMessage="No se generó resultado en la búsqueda"
+              descriptionModalNoResult="No se generó resultado en la búsqueda"
               titleMessageModalNoResult="Resultado de búsqueda"
             />
           </div>

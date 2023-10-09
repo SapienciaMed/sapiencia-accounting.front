@@ -12,7 +12,7 @@ import {
 } from "../../../common/interfaces/accountStatement.interface";
 import { accountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { jsDateToSQL } from "../../../common/utils/helpers";
+import { jsDateToISODate } from "../../../common/utils/helpers";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
 import { useGetLastConsecutive } from "./getLastConsecutive.hook";
@@ -71,12 +71,13 @@ export const useAccountStatement = () => {
     const { expeditionDate, expirationDate, paymentType } = data;
     const body = {
       ...data,
-      expeditionDate: jsDateToSQL(expeditionDate),
-      expirationDate: jsDateToSQL(expirationDate),
+      expeditionDate: jsDateToISODate(expeditionDate),
+      expirationDate: jsDateToISODate(expirationDate),
       accountNum: lastConsecutive,
       userCreate: "000 0000 0000",
       paymentType: String(paymentType),
     };
+    console.log(body);
     setMessage({
       title: "Crear cuenta de cobro",
       description: "¿Está segur@ de crear la cuenta de cobro?",

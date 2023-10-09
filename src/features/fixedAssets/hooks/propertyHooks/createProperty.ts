@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { EResponseCodes } from "../../../../common/constants/api.enum";
@@ -6,8 +6,9 @@ import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
 import { IProperty } from "../../../../common/interfaces/accountStatement.interface";
-import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { createPropertySchema } from "../../../../common/schemas/fixedAssets.schema";
+import { urlApiAccounting } from "../../../../common/utils/base-url";
+import { jsDateToISODate } from "../../../../common/utils/helpers";
 import { useGetAllIdentification } from "./getAllIdentificationUserHook";
 import { useGetAllWorkersFullName } from "./getAllWorkersFullNameHook";
 import { useGetGenericItems } from "./getGenericItems";
@@ -62,6 +63,10 @@ export const useManageProperty = () => {
   };
 
   const onSubmit = (data) => {
+    const body = {
+      ...data,
+      acquisitionDate: jsDateToISODate(data.acquisitionDate),
+    };
     setMessage({
       title: "Crear Activo",
       description: "¿Esta segur@ de crear el  activo?",
@@ -70,7 +75,7 @@ export const useManageProperty = () => {
       cancelTitle: "Cancelar",
       onOk: () => {
         setMessage({ show: false });
-        createProperty(data);
+        createProperty(body);
       },
       onClose: () => setMessage({ show: false }),
       background: true,

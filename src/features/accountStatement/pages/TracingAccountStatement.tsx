@@ -11,7 +11,6 @@ const TracingAccountStatement = () => {
     handleChange,
     submitDisabled,
   } = useTracingAccountStatement();
-
   return (
     <TracingAccountStatementForm
       onSubmit={onSubmit}

@@ -1,12 +1,12 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
+import { Link } from "react-router-dom";
 import {
   ButtonComponent,
   FormComponent,
   SelectComponent,
 } from "../../../../common/components/Form";
-import { Link } from "react-router-dom";
-import Svgs from "../../../../public/images/icons/svgs";
 import TableComponent from "../../../../common/components/table.component";
+import Svgs from "../../../../public/images/icons/svgs";
 import { tableColumns } from "./columns";
 
 const BusinessForm = ({
@@ -92,6 +92,7 @@ const BusinessForm = ({
               actions={tableActions}
               isShowModal={true}
               emptyMessage="No se generó resultado en la búsqueda"
+              descriptionModalNoResult="No se generó resultado en la búsqueda"
               titleMessageModalNoResult="Resultado de búsqueda"
             />
           </div>

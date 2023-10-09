@@ -1,15 +1,15 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import {
-  FormComponent,
-  SelectComponent,
   ButtonComponent,
+  FormComponent,
   InputComponent,
+  SelectComponent,
 } from "../../../../common/components/Form";
+import { DatePickerComponent } from "../../../../common/components/Form/input-date.component";
 import TableComponent from "../../../../common/components/table.component";
 import Svgs from "../../../../public/images/icons/svgs";
 import { tableColumns } from "../propertyForm/columns";
-import { DatePickerComponent } from "../../../../common/components/Form/input-date.component";
 
 const ManagePropertyForm = ({
   urlGetConsultFurniture,
@@ -137,6 +137,7 @@ const ManagePropertyForm = ({
               actions={tableActions}
               isShowModal={true}
               emptyMessage="No se generó resultado en la búsqueda"
+              descriptionModalNoResult="No se generó resultado en la búsqueda"
               titleMessageModalNoResult="Resultado de búsqueda"
             />
           </div>
