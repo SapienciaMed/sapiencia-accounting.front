@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import {
   ButtonComponent,
   FormComponent,
@@ -7,10 +7,7 @@ import {
 } from "../../../common/components/Form";
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { InputNumberComponent } from "../../../common/components/Form/input-number.component";
-import {
-  IGetAccountStatement,
-  STATE_TYPE,
-} from "../../../common/interfaces/accountStatement.interface";
+import { STATE_TYPE } from "../../../common/interfaces/accountStatement.interface";
 import { paymentTypeData } from "../data";
 import { useEditAccountStatementTracking } from "../hooks/editTracingAcountStatement";
 
@@ -23,10 +20,10 @@ const DetailAccountStatement = () => {
     onSubmit,
     statusId,
     handleCancel,
-    statementstatus,
+    statementStatusData,
     currentAccountStatement,
   } = useEditAccountStatementTracking();
-  useState<IGetAccountStatement>(null);
+  console.log({ statusId, currentAccountStatement });
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
@@ -83,7 +80,7 @@ const DetailAccountStatement = () => {
               idInput="tracking.statusId"
               control={control}
               errors={errors}
-              data={statementstatus}
+              data={statementStatusData}
               label={
                 <>
                   Estado <span>*</span>
@@ -94,7 +91,7 @@ const DetailAccountStatement = () => {
               placeholder="Seleccione."
             />
             <div>
-              {statusId === STATE_TYPE.Pagada && (
+              {statusId === STATE_TYPE.PAGADA && (
                 <DatePickerComponent
                   idInput={`${
                     currentAccountStatement.tracking?.statusId === statusId
@@ -115,7 +112,7 @@ const DetailAccountStatement = () => {
                   maxDate={new Date()}
                 />
               )}
-              {statusId === STATE_TYPE.Anulada && (
+              {statusId === STATE_TYPE.ANULADA && (
                 <DatePickerComponent
                   idInput={`${
                     currentAccountStatement.tracking?.statusId === statusId

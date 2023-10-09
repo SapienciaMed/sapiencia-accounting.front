@@ -41,7 +41,7 @@ export interface IManageContract {
   dateCreated?: DateTime; // CTR_FECHA_HORA_CREACIÓN_REGISTRO
 }
 export interface IProperty {
-  id:number,
+  id: number;
   plate: string; // BIE_PLACA_ACTIVO
   description: string; // BIE_TIPO_ACTIVO_DESCRIPCION
   acquisitionDate: DateTime; // BIE_FECHA_ADQUISICION
@@ -186,9 +186,9 @@ export enum PAYMENT_TYPE {
 }
 
 export enum STATE_TYPE {
-  "Anulada" = 1,
-  "Pagada" = 2,
-  "Vencida" = 3,
+  "ANULADA" = 1,
+  "PAGADA" = 2,
+  "VENCIDA" = 3,
 }
 
 export type IGenericItem = {

@@ -8,7 +8,7 @@ import useYupValidationResolver from "../../../common/hooks/form-validator.hook"
 import { IGetAccountStatement } from "../../../common/interfaces/accountStatement.interface";
 import { editAccountStatementTrackingSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { useGetStatementStatus } from "./getStatementStatus.hook";
+import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 
 type IUpdateTracking = {
   statusId: string;
@@ -35,7 +35,7 @@ export const useEditAccountStatementTracking = () => {
     formState: { isValid, errors },
   } = useForm({ resolver, mode: "all" });
   const statusId = watch("tracking.statusId");
-  const { statementstatus } = useGetStatementStatus();
+  const { data: statementStatusData } = useGetGenericItems("ESTADO_CUENTA");
 
   const updateAccountStatementTracking = async (body: IUpdateTracking) => {
     try {
@@ -72,7 +72,7 @@ export const useEditAccountStatementTracking = () => {
     const body = {
       observation: data.tracking.observation,
       statusId: data.tracking.statusId,
-      trackingDate: data.trackingDate,
+      trackingDate: data.trackingDate ?? data.tracking.trackingDate,
     };
     setMessage({
       title: "Guardar Cambios",
@@ -129,7 +129,7 @@ export const useEditAccountStatementTracking = () => {
     statusId,
     handleCancel,
     handleSubmit,
-    statementstatus,
+    statementStatusData,
     currentAccountStatement,
     onSubmit: handleSubmit(onSubmit),
   };
