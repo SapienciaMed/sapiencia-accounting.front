@@ -1,14 +1,7 @@
-import React, {
-  useState,
-  forwardRef,
-  useImperativeHandle,
-  useEffect,
-  useContext,
-} from "react";
-import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
-import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import { DataView } from "primereact/dataview";
+import { Dropdown } from "primereact/dropdown";
 import {
   Paginator,
   PaginatorCurrentPageReportOptions,
@@ -19,14 +12,21 @@ import {
   PaginatorRowsPerPageDropdownOptions,
   PaginatorTemplateOptions,
 } from "primereact/paginator";
-import { IPagingData } from "../utils/api-response";
-import useCrudService from "../hooks/crud-service.hook";
-import { EResponseCodes } from "../constants/api.enum";
 import { classNames } from "primereact/utils";
+import React, {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import * as Icons from "react-icons/fa";
-import { Dropdown } from "primereact/dropdown";
-import { useWidth } from "../hooks/use-width";
+import { EResponseCodes } from "../constants/api.enum";
 import { AppContext } from "../contexts/app.context";
+import useCrudService from "../hooks/crud-service.hook";
+import { useWidth } from "../hooks/use-width";
+import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
+import { IPagingData } from "../utils/api-response";
 
 interface IProps<T> {
   url: string;
@@ -196,7 +196,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
         leftContent={leftContent}
       />
 
-      {900 > 830 ? ( // cambiar condición, error dentro del componente
+      {width > 830 ? (
         <DataTable
           className="spc-table full-height"
           value={resultData?.array || []}
@@ -207,10 +207,10 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
           {columns.map((col) => (
             <Column
               key={col.fieldName}
-              sortable={col.sortable}
               field={col.fieldName}
               header={col.header}
               body={col.renderCell}
+              sortable={col.sorteable}
             />
           ))}
 
