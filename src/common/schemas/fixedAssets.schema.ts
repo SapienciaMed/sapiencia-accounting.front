@@ -22,7 +22,7 @@ export const createPropertySchema = yup.object({
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
   plate: yup
-    .number()
+    .string()
     .max(12, "Solo se permiten 12 caracteres")
     .required("Completar información"),
   measure: yup
