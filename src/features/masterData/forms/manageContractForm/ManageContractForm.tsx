@@ -1,12 +1,12 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
+import { Link } from "react-router-dom";
 import {
   ButtonComponent,
   FormComponent,
   SelectComponent,
 } from "../../../../common/components/Form";
-import { Link } from "react-router-dom";
-import Svgs from "../../../../public/images/icons/svgs";
 import TableComponent from "../../../../common/components/table.component";
+import Svgs from "../../../../public/images/icons/svgs";
 import { tableColumns } from "./columns";
 
 const ManageContractForm = ({

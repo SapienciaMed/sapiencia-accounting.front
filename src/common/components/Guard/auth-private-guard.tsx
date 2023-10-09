@@ -9,7 +9,6 @@ const PrivateRoute = ({ element, allowedAction }) => {
     return <div>Loading...</div>;
   }
 
-  console.log(authorization);
   if (
     authorization?.allowedActions?.findIndex((i) => i == allowedAction) >= 0
   ) {

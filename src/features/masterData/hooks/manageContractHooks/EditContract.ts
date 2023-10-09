@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { EResponseCodes } from "../../../../common/constants/api.enum";
 import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
 import { editContractSchema } from "../../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
-import { useGetContractById } from "./getContractById";
-import { useForm } from "react-hook-form";
 import { useGetBusiness } from "../businessHooks/getBusinessName";
-import { EResponseCodes } from "../../../../common/constants/api.enum";
+import { useGetContractById } from "./getContractById";
 
 export const useEditContract = () => {
   const navigate = useNavigate();
@@ -104,7 +104,6 @@ export const useEditContract = () => {
   useEffect(() => {
     if (!contract) return;
     reset(contract);
-    console.log({ contract });
     setValue("businessCode", contract.businessCode);
   }, [contract, nitData]);
 
@@ -118,14 +117,12 @@ export const useEditContract = () => {
       };
     });
     setNitData(newData);
-    console.log({ newData });
   }, [business]);
 
   useEffect(() => {
     if (!businessCode) return;
     const businessFound = nitData?.find(({ value }) => value === businessCode);
     reset(businessFound);
-    console.log({ businessFound });
     setValue("businessCode", businessFound?.value);
   }, [businessCode]);
 

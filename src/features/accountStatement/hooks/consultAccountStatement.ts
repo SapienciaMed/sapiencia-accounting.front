@@ -67,7 +67,7 @@ export const useConsultAccountStatement = () => {
     },
   ];
 
-  const downloadCollection = async () => {
+  const downloadCollection = () => {
     const { page, perPage } = paginateData;
     const endpoint = `${urlApiAccounting}/api/v1/account-statement/generate-xlsx?page=${
       page + 1
