@@ -4,6 +4,7 @@ import ConsultProperty from "./pages/propertyPages/ConsultProperty";
 import CreateProperty from "./pages/propertyPages/CreateProperty";
 import DetailProperty from "./pages/propertyPages/DetailProperty";
 import EditProperty from "./pages/propertyPages/EditProperty";
+import PrivateRoute from "../../common/components/Guard/auth-private-guard";
 
 const FixedAssetsRoutes = () => {
   // const CreateAccountStatement = lazy(
@@ -20,10 +21,42 @@ const FixedAssetsRoutes = () => {
   // );
   return (
     <Routes>
-      <Route path="/consultar" element={<ConsultProperty />} />
-      <Route path="/crear" element={<CreateProperty />} />
-      <Route path="/detalle/:id" element ={<DetailProperty/>}/>
-      <Route path="/editar/:id" element ={<EditProperty/>}/>
+      <Route
+        path="/consultar"
+        element={
+          <PrivateRoute
+            element={<ConsultProperty />}
+            allowedAction="BIEN_MUEBLE_CONSULTAR"
+          />
+        }
+      />
+      <Route
+        path="/crear"
+        element={
+          <PrivateRoute
+            element={<CreateProperty />}
+            allowedAction="BIEN_MUEBLE_CREAR"
+          />
+        }
+      />
+      <Route
+        path="/detalle/:id"
+        element={
+          <PrivateRoute
+            element={<DetailProperty />}
+            allowedAction="BIEN_MUEBLE_DETALLE"
+          />
+        }
+      />
+      <Route
+        path="/editar/:id"
+        element={
+          <PrivateRoute
+            element={<EditProperty />}
+            allowedAction="BIEN_MUEBLE_EDITAR"
+          />
+        }
+      />
     </Routes>
   );
 };

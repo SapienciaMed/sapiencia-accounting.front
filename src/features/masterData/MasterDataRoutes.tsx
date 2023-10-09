@@ -6,6 +6,7 @@ import DetailBusiness from "./pages/businnesPages/EditBusiness";
 import ConsultManageContract from "./pages/manageContractPages/ConsultManageContract";
 import CreateManageContract from "./pages/manageContractPages/CreateManageContract";
 import DetailContract from "./pages/manageContractPages/EditContract";
+import PrivateRoute from "../../common/components/Guard/auth-private-guard";
 
 const MasterDataRoutes = () => {
   // const CreateAccountStatement = lazy(
@@ -22,13 +23,62 @@ const MasterDataRoutes = () => {
   // );
   return (
     <Routes>
-      <Route path="/razon-social" element={<ConsultBusiness />} />
-      <Route path="/razon-social/crear" element={<CreateManageCompanyName />} />
-      <Route path="/razon-social/editar/:id" element={<DetailBusiness />} />
-      <Route path="/contrato" element={<ConsultManageContract />} />
-      <Route path="/contrato/crear" element={<CreateManageContract />} />
+      <Route
+        path="/razon-social"
+        element={
+          <PrivateRoute
+            element={<ConsultBusiness />}
+            allowedAction="RAZON_SOCIAL_CONSULTAR"
+          />
+        }
+      />
+      <Route
+        path="/razon-social/crear"
+        element={
+          <PrivateRoute
+            element={<CreateManageCompanyName />}
+            allowedAction="RAZON_SOCIAL_CREAR"
+          />
+        }
+      />
+      <Route
+        path="/razon-social/editar/:id"
+        element={
+          <PrivateRoute
+            element={<DetailBusiness />}
+            allowedAction="RAZON_SOCIAL_EDITAR"
+          />
+        }
+      />
 
-      <Route path="/contrato/editar/:id" element={<DetailContract />} />
+      <Route
+        path="/contrato"
+        element={
+          <PrivateRoute
+            element={<ConsultManageContract />}
+            allowedAction="CONTRATO_CONSULTAR"
+          />
+        }
+      />
+      <Route
+        path="/contrato/crear"
+        element={
+          <PrivateRoute
+            element={<CreateManageContract />}
+            allowedAction="CONTRATO_CREAR"
+          />
+        }
+      />
+
+      <Route
+        path="/contrato/editar/:id"
+        element={
+          <PrivateRoute
+            element={<DetailContract />}
+            allowedAction="CONTRATO_EDITAR"
+          />
+        }
+      />
     </Routes>
   );
 };

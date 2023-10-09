@@ -19,10 +19,42 @@ const AccountStatementRoutes = () => (
         />
       }
     />
-    <Route path="/consultar" element={<ConsultAccountStatement />} />
-    <Route path="/detalle/:id" element={<DetailAccountStatement />} />
-    <Route path="/editar/:id" element={<EditAccountStatement />} />
-    <Route path="/seguimiento" element={<TracingAccountStatement />} />
+    <Route
+      path="/consultar"
+      element={
+        <PrivateRoute
+          element={<ConsultAccountStatement />}
+          allowedAction="CUENTA_COBRO_CONSULTAR"
+        />
+      }
+    />
+    <Route
+      path="/detalle/:id"
+      element={
+        <PrivateRoute
+          element={<DetailAccountStatement />}
+          allowedAction="CUENTA_COBRO_DETALLE"
+        />
+      }
+    />
+    <Route
+      path="/editar/:id"
+      element={
+        <PrivateRoute
+          element={<EditAccountStatement />}
+          allowedAction="CUENTA_COBRO_EDITAR"
+        />
+      }
+    />
+    <Route
+      path="/seguimiento"
+      element={
+        <PrivateRoute
+          element={<TracingAccountStatement />}
+          allowedAction="SEGUIMIENTO_CUENTA_COBRO_CONSULTAR"
+        />
+      }
+    />
     <Route
       path="/seguimiento/:accountNum"
       element={<EditTracingAccountStatement />}
