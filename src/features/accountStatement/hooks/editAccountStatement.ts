@@ -7,17 +7,17 @@ import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { editAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { useGetAccountStatementById } from "./getAccountStatementById";
+import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
-import { useGetBusiness } from "../../masterData/hooks/businessHooks/getBusinessName";
+import { useGetAccountStatementById } from "./getAccountStatementById";
 
 export const useEditAccountStatement = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { id, accountStatement } = useGetAccountStatementById();
-  const { business: businessData } = useGetBusiness();
+  const { data: paymentTypeData } = useGetGenericItems("FORMA_PAGO");
   const { put } = useCrudService(urlApiAccounting);
-  const { contract: contractData, setReload } = useGetContract();
+  const { contract: contractData } = useGetContract();
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(editAccountStatementSchema);
   const {
@@ -141,8 +141,9 @@ export const useEditAccountStatement = () => {
     isValid,
     handleCancel,
     handleSubmit,
-    submitDisabled,
-    onSubmit: handleSubmit(onSubmit),
     contractData,
+    submitDisabled,
+    paymentTypeData,
+    onSubmit: handleSubmit(onSubmit),
   };
 };

@@ -8,7 +8,6 @@ import {
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { InputNumberComponent } from "../../../common/components/Form/input-number.component";
 import { STATE_TYPE } from "../../../common/interfaces/accountStatement.interface";
-import { paymentTypeData } from "../data";
 import { useEditAccountStatementTracking } from "../hooks/editTracingAcountStatement";
 
 const DetailAccountStatement = () => {
@@ -20,6 +19,7 @@ const DetailAccountStatement = () => {
     onSubmit,
     statusId,
     handleCancel,
+    paymentTypeData,
     statementStatusData,
     currentAccountStatement,
   } = useEditAccountStatementTracking();

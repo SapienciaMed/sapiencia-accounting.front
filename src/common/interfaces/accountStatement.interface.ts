@@ -179,10 +179,10 @@ export interface IFilterAccountStatement {
 }
 
 export enum PAYMENT_TYPE {
-  "CONTADO" = "1",
-  "A 30 días" = "2",
-  "A 60 días" = "3",
-  "A 90 días" = "4",
+  "CONTADO" = 1,
+  "A 30 días" = 2,
+  "A 60 días" = 3,
+  "A 90 días" = 4,
 }
 
 export enum STATE_TYPE {

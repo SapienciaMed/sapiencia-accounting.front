@@ -13,15 +13,16 @@ import {
 import { accountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { jsDateToSQL } from "../../../common/utils/helpers";
-import { businessData } from "../data";
-import { useGetLastConsecutive } from "./getLastConsecutive.hook";
+import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
+import { useGetLastConsecutive } from "./getLastConsecutive.hook";
 
 export const useAccountStatement = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
   const { lastConsecutive, setRealoadConsecutive } = useGetLastConsecutive();
-  const { contract: contractData, setReload } = useGetContract();
+  const { contract: contractData } = useGetContract();
+  const { data: paymentTypeData } = useGetGenericItems("FORMA_PAGO");
   const { post } = useCrudService(urlApiAccounting);
   const resolver = useYupValidationResolver(accountStatementSchema);
   const {
@@ -137,15 +138,6 @@ export const useAccountStatement = () => {
   }, [valuePayValue]);
 
   useEffect(() => {
-    if (!businessData) return;
-    const businessFound = businessData?.find(
-      ({ id }) => Number(id) === contractValue
-    );
-    setValue("nit", businessFound?.nit ?? "");
-    setValue("business", businessFound?.name ?? "");
-  }, [contractValue]);
-
-  useEffect(() => {
     setValue("expeditionDate", new Date());
   }, [lastConsecutive]);
 
@@ -163,6 +155,7 @@ export const useAccountStatement = () => {
   }, [contractValue]);
 
   return {
+    paymentTypeData,
     lastConsecutive,
     control,
     handleSubmit: handleSubmit(onSubmit),

@@ -4,7 +4,7 @@ export const accountStatementSchema = yup.object({
   id: yup.string().required("Completar información"),
   contractCode: yup.string().required("Completar información"),
   business: yup.string().required("Completar información"),
-  paymentType: yup.string().required("Completar información"),
+  paymentType: yup.number().required("Completar información"),
   concept: yup
     .string()
     .min(1)

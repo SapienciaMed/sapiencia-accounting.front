@@ -8,7 +8,6 @@ import {
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { InputNumberComponent } from "../../../common/components/Form/input-number.component";
 import { TextAreaComponent } from "../../../common/components/Form/input-text-area.component";
-import { paymentTypeData } from "../data";
 import { useEditAccountStatement } from "../hooks/editAccountStatement";
 
 const DetailAccountStatement = () => {
@@ -21,6 +20,7 @@ const DetailAccountStatement = () => {
     handleCancel,
     isValid,
     submitDisabled,
+    paymentTypeData,
   } = useEditAccountStatement();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">

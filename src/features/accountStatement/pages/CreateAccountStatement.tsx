@@ -8,18 +8,18 @@ import {
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { InputNumberComponent } from "../../../common/components/Form/input-number.component";
 import { TextAreaComponent } from "../../../common/components/Form/input-text-area.component";
-import { paymentTypeData } from "../data";
 import { useAccountStatement } from "../hooks/accountStatement.hook";
 
 const CreateAccountStatement = () => {
   const {
     control,
-    handleSubmit,
+    isValid,
     register,
     errors,
+    handleSubmit,
     handleCancel,
-    isValid,
     contractData,
+    paymentTypeData,
   } = useAccountStatement();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">

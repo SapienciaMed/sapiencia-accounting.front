@@ -7,11 +7,11 @@ import {
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { InputNumberComponent } from "../../../common/components/Form/input-number.component";
 import { TextAreaComponent } from "../../../common/components/Form/input-text-area.component";
-import { paymentTypeData } from "../data";
 import { useGetDetailAccountStatement } from "../hooks/getDetailAccountStatement.hook";
 
 const DetailAccountStatement = () => {
-  const { register, control, handleClose } = useGetDetailAccountStatement();
+  const { register, control, handleClose, paymentTypeData } =
+    useGetDetailAccountStatement();
   return (
     <>
       <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">

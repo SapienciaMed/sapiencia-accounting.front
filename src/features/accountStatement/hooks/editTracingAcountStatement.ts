@@ -25,6 +25,7 @@ export const useEditAccountStatementTracking = () => {
   const { setMessage, currentAccountStatement, setCurrentAccountStatement } =
     useContext(AppContext);
   const { put } = useCrudService(urlApiAccounting);
+  const { data: paymentTypeData } = useGetGenericItems("FORMA_PAGO");
   const resolver = useYupValidationResolver(editAccountStatementTrackingSchema);
   const {
     control,
@@ -35,7 +36,10 @@ export const useEditAccountStatementTracking = () => {
     formState: { isValid, errors },
   } = useForm({ resolver, mode: "all" });
   const statusId = watch("tracking.statusId");
-  const { data: statementStatusData } = useGetGenericItems("ESTADO_CUENTA");
+  const { data: statementStatusData } = useGetGenericItems(
+    "ESTADO_CUENTA",
+    true
+  );
 
   const updateAccountStatementTracking = async (body: IUpdateTracking) => {
     try {
@@ -129,6 +133,7 @@ export const useEditAccountStatementTracking = () => {
     statusId,
     handleCancel,
     handleSubmit,
+    paymentTypeData,
     statementStatusData,
     currentAccountStatement,
     onSubmit: handleSubmit(onSubmit),

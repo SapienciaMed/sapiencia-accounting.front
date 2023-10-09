@@ -7,7 +7,10 @@ import {
 import { ApiResponse } from "../../../../common/utils/api-response";
 import { urlApiCore } from "../../../../common/utils/base-url";
 
-export const useGetGenericItems = (grouper: string) => {
+export const useGetGenericItems = (
+  grouper: string,
+  sorteable: boolean = false
+) => {
   const { get } = useCrudService(urlApiCore);
   const [data, setData] = useState<ISelectInfo[]>([]);
   const [reload, setReload] = useState(new Date());
@@ -16,16 +19,17 @@ export const useGetGenericItems = (grouper: string) => {
     try {
       const endpoint = `/api/v1/generic-list/get-by-grouper/${grouper}`;
       const { data }: ApiResponse<IGenericItem[]> = await get(endpoint);
-      const adaptedData = data
-        ?.map((item) => {
-          const { itemDescription, itemCode } = item;
-          return {
-            value: Number(itemCode),
-            name: itemDescription,
-          };
-        })
-        .sort((a, b) => a.name.localeCompare(b.name));
-      setData(adaptedData);
+      const adaptedData = data?.map((item) => {
+        const { itemDescription, itemCode } = item;
+        return {
+          value: Number(itemCode),
+          name: itemDescription,
+        };
+      });
+      const sortedData = sorteable
+        ? adaptedData.sort((a, b) => a.name.localeCompare(b.name))
+        : adaptedData;
+      setData(sortedData);
     } catch (err) {
       console.error(err);
     }
