@@ -32,11 +32,14 @@ export const useEditProperty = () => {
     measure: "",
     observation: "",
   });
+
+
   const {
     control,
     handleSubmit,
     register,
     reset,
+    setValue,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
@@ -138,7 +141,6 @@ export const useEditProperty = () => {
   }, [formWatch]);
 
   useEffect(() => {
-console.log({isValid, submitDisabled})
   }, [isValid, submitDisabled])
 
   return {

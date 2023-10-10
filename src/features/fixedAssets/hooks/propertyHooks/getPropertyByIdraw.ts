@@ -14,7 +14,13 @@ export const usePropertyById= ()=>{
         try {
             const endpoint = `/api/v1/furniture/${id}/get-by-id-raw`;
             const resp: ApiResponse<IGetProperty> = await get(endpoint);
-            setProperty(resp.data);
+            const data = resp.data
+            console.log(data)
+            if(data.equipmentStatus == '2' || data.equipmentStatus == '3'){
+                data.clerk = null;
+                data.workerId = 0;
+            }
+            setProperty(data);
         } catch (error) {
             console.error(error)
         }

@@ -14,4 +14,5 @@ export interface IGetProperty{
     activeOwner: string,
     observation: string,
     clerk: string
+    workerId:number
 }
