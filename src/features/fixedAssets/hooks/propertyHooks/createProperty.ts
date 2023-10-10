@@ -8,7 +8,7 @@ import useYupValidationResolver from "../../../../common/hooks/form-validator.ho
 import { IProperty } from "../../../../common/interfaces/accountStatement.interface";
 import { createPropertySchema } from "../../../../common/schemas/fixedAssets.schema";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
-import { jsDateToSQLDate } from "../../../../common/utils/helpers";
+import { jsDateToSQL } from "../../../../common/utils/helpers";
 import { useGetAllIdentification } from "./getAllIdentificationUserHook";
 import { useGetAllWorkersFullName } from "./getAllWorkersFullNameHook";
 import { useGetGenericItems } from "./getGenericItems";
@@ -65,7 +65,7 @@ export const useManageProperty = () => {
   const onSubmit = (data) => {
     const body = {
       ...data,
-      acquisitionDate: jsDateToSQLDate(data.acquisitionDate),
+      acquisitionDate: jsDateToSQL(data.acquisitionDate),
     };
     setMessage({
       title: "Crear Activo",
