@@ -19,7 +19,7 @@ export const tableColumns: ITableElement<IGetAccountStatement>[] = [
     fieldName: "expeditionDate",
     header: "Fecha expedición",
     renderCell: (row) => {
-      return <>{DateTime.fromISO(row.expeditionDate).toSQLDate()}</>;
+      return <>{DateTime.fromSQL(row.expeditionDate).toSQLDate()}</>;
     },
   },
   {
