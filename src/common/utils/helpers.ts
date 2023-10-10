@@ -5,6 +5,10 @@ export const jsDateToSQL = (jsDate: Date) => {
   return DateTime.fromJSDate(jsDate).toSQL();
 };
 
+export const jsDateToSQLDate = (jsDate: Date) => {
+  return DateTime.fromJSDate(jsDate).toSQLDate();
+};
+
 export const jsDateToISODate = (jsDate: Date) => {
   return DateTime.fromJSDate(jsDate).toISODate();
 };
