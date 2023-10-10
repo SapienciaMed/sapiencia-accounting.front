@@ -19,7 +19,7 @@ export const useConsultAccountStatement = () => {
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
   const [tableView, setTableView] = useState<boolean>(false);
-  const { contract: contractData, setReload } = useGetContract();
+  const { contract: contractData } = useGetContract();
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const [formWatch, setFormWatch] = useState({
     accountNum: "",

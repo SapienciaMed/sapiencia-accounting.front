@@ -23,6 +23,6 @@ export const formaterNumberToCurrency = (value: number) => {
 };
 
 export const tzToAmericaBogota = (date: string) => {
-  const tzDate = moment.tz(date);
+  const tzDate = moment(date);
   return tzDate.tz("America/Bogota").format("DD/MM/YYYY");
 };
