@@ -1,6 +1,6 @@
-import { DateTime } from "luxon";
 import { IFurniture } from "../../../../common/interfaces/accountStatement.interface";
 import { ITableElement } from "../../../../common/interfaces/table.interfaces";
+import { tzToAmericaBogota } from "../../../../common/utils/helpers";
 export const tableColumns: ITableElement<IFurniture>[] = [
   {
     fieldName: "area",
@@ -26,9 +26,7 @@ export const tableColumns: ITableElement<IFurniture>[] = [
     fieldName: "acquisitionDate",
     header: "Fecha de adquisición",
     renderCell: (row) => {
-      return (
-        <>{DateTime.fromISO(row.acquisitionDate).toFormat("dd/MM/yyyy")}</>
-      );
+      return <>{tzToAmericaBogota(row.acquisitionDate)}</>;
     },
   },
   {

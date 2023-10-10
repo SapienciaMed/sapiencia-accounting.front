@@ -1,14 +1,17 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
-import { IProperty } from "../../../../common/interfaces/accountStatement.interface";
+import {
+  IProperty,
+  IPropertyFilters,
+} from "../../../../common/interfaces/accountStatement.interface";
 import { ITableAction } from "../../../../common/interfaces/table.interfaces";
-import { urlApiAccounting } from "../../../../common/utils/base-url";
-import { useGetGenericItems } from "./getGenericItems";
 import { consultPropertySchema } from "../../../../common/schemas/fixedAssets.schema";
+import { urlApiAccounting } from "../../../../common/utils/base-url";
+import { jsDateToISODate } from "../../../../common/utils/helpers";
+import { useGetGenericItems } from "./getGenericItems";
 
 export const useConsultProperty = () => {
   const { data: equipmentStatusData } = useGetGenericItems("ESTADO_EQUIPO");
@@ -28,7 +31,6 @@ export const useConsultProperty = () => {
     watch,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
-  const { setMessage } = useContext(AppContext);
   const urlGetConsultFurniture = `${urlApiAccounting}/api/v1/furniture/get-all-paginated`;
   const [formWatch, setFormWatch] = useState({
     plate: "",
@@ -71,9 +73,12 @@ export const useConsultProperty = () => {
     setTableView(false);
   };
 
-  const onSubmit = handleSubmit((filters: IProperty) => {
+  const onSubmit = handleSubmit((filters: IPropertyFilters) => {
     setTableView(true);
-    tableComponentRef.current?.loadData(filters);
+    tableComponentRef.current?.loadData({
+      ...filters,
+      acquisitionDate: jsDateToISODate(filters.acquisitionDate),
+    });
   });
 
   const handleChange = ({ target }) => {

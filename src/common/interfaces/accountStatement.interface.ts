@@ -56,6 +56,13 @@ export interface IProperty {
   clerk: number; // BIE_FUNCIONARIO
 }
 
+export interface IPropertyFilters {
+  plate: string;
+  description: string;
+  acquisitionDate: Date;
+  equipmentStatus: number;
+}
+
 export interface IFurniture {
   plate: string;
   description: string;
