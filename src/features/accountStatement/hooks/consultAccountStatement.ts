@@ -10,6 +10,7 @@ import {
 import { ITableAction } from "../../../common/interfaces/table.interfaces";
 import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
+import { jsDateToISODate } from "../../../common/utils/helpers";
 import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
 
 export const useConsultAccountStatement = () => {
@@ -86,7 +87,10 @@ export const useConsultAccountStatement = () => {
 
   const onSubmit = handleSubmit((filters: IFilterAccountStatement) => {
     setTableView(true);
-    tableComponentRef.current?.loadData(filters);
+    tableComponentRef.current?.loadData({
+      ...filters,
+      expeditionDate: jsDateToISODate(expeditionDate),
+    });
   });
 
   const handleChange = ({ target }) => {
