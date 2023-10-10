@@ -10,7 +10,7 @@ import {
 import { ITableAction } from "../../../../common/interfaces/table.interfaces";
 import { consultPropertySchema } from "../../../../common/schemas/fixedAssets.schema";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
-import { jsDateToSQL } from "../../../../common/utils/helpers";
+import { jsDateToISODate } from "../../../../common/utils/helpers";
 import { useGetGenericItems } from "./getGenericItems";
 
 export const useConsultProperty = () => {
@@ -77,7 +77,7 @@ export const useConsultProperty = () => {
     setTableView(true);
     tableComponentRef.current?.loadData({
       ...filters,
-      acquisitionDate: jsDateToSQL(filters.acquisitionDate),
+      acquisitionDate: jsDateToISODate(filters.acquisitionDate),
     });
   });
 
