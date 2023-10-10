@@ -1,7 +1,9 @@
-import { DateTime } from "luxon";
 import { IGetAccountStatement } from "../../../../common/interfaces/accountStatement.interface";
 import { ITableElement } from "../../../../common/interfaces/table.interfaces";
-import { formaterNumberToCurrency } from "../../../../common/utils/helpers";
+import {
+  formaterNumberToCurrency,
+  tzToAmericaBogota,
+} from "../../../../common/utils/helpers";
 
 export const tableColumns: ITableElement<IGetAccountStatement>[] = [
   {
@@ -19,7 +21,7 @@ export const tableColumns: ITableElement<IGetAccountStatement>[] = [
     fieldName: "expeditionDate",
     header: "Fecha expedición",
     renderCell: (row) => {
-      return <>{DateTime.fromSQL(row.expeditionDate).toSQLDate()}</>;
+      return <>{tzToAmericaBogota(row.expeditionDate)}</>;
     },
   },
   {
