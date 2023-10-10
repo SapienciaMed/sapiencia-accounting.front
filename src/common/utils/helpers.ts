@@ -1,5 +1,4 @@
 import { DateTime } from "luxon";
-import moment from "moment-timezone";
 
 export const jsDateToSQL = (jsDate: Date) => {
   return DateTime.fromJSDate(jsDate).toSQL();
@@ -20,9 +19,4 @@ export const formaterNumberToCurrency = (value: number) => {
     minimumFractionDigits: 2,
   });
   return formatter.format(value);
-};
-
-export const tzToAmericaBogota = (date: string) => {
-  const tzDate = moment(date);
-  return tzDate.tz("America/Bogota").format("DD/MM/YYYY");
 };
