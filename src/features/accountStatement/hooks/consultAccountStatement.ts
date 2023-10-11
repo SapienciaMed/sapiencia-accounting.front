@@ -72,7 +72,6 @@ export const useConsultAccountStatement = () => {
       hide: !validateActionAccess("CUENTA_COBRO_PDF"),
     },
   ];
-  console.log("hola hehe ");
   const downloadCollection = useCallback(() => {
     const { page, perPage } = paginateData;
     const { accountNum, nit } = formWatch;
