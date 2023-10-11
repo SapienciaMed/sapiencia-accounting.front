@@ -137,5 +137,6 @@ export const useConsultContract = () => {
     tableActions,
     submitDisabled,
     handleClean,
+    validateActionAccess,
   };
 };

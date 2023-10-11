@@ -116,5 +116,6 @@ export const useConsultProperty = () => {
     submitDisabled,
     handleChange,
     handleClean,
+    validateActionAccess,
   };
 };

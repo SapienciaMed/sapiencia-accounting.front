@@ -23,6 +23,7 @@ const ManageContractForm = ({
   setPaginateData,
   business,
   contract,
+  validateActionAccess,
 }) => {
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
@@ -36,14 +37,16 @@ const ManageContractForm = ({
             <div className="text-black large bold grid-span-2-columns pb-14px">
               Gestionar contrato
             </div>
-            <div className="button-save-container-display mr-33px button-create-business">
-              <Link to="/contabilidad/contrato/crear" className="text-links">
-                Crear contrato
-                <div className="text-links ml-5px">
-                  <Svgs svg="add" width={16} height={17} />
-                </div>
-              </Link>
-            </div>
+            {validateActionAccess("CONTRATO_CREAR") && (
+              <div className="button-save-container-display mr-33px button-create-business">
+                <Link to="/contabilidad/contrato/crear" className="text-links">
+                  Crear contrato
+                  <div className="text-links ml-5px">
+                    <Svgs svg="add" width={16} height={17} />
+                  </div>
+                </Link>
+              </div>
+            )}
             <span className="text-black biggest bold grid-span-3-columns">
               Consultar contrato
             </span>

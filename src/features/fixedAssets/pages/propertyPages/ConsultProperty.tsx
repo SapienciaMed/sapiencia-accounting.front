@@ -18,9 +18,11 @@ const ConsultProperty = () => {
     register,
     handleChange,
     downloadCollection,
+    validateActionAccess,
   } = useConsultProperty();
   return (
     <ManagePropertyForm
+      validateActionAccess={validateActionAccess}
       downloadCollection={downloadCollection}
       register={register}
       handleChange={handleChange}

@@ -157,5 +157,6 @@ export const useConsultBusiness = () => {
     handleClean,
     handleChange,
     submitDisabled,
+    validateActionAccess,
   };
 };

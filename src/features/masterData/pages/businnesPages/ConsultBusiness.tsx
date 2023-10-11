@@ -15,10 +15,12 @@ const ConsultBusiness = () => {
     setPaginateData,
     submitDisabled,
     business,
+    validateActionAccess,
   } = useConsultBusiness();
   return (
     <BusinessForm
       business={business}
+      validateActionAccess={validateActionAccess}
       setPaginateData={setPaginateData}
       urlGetConsultBusiness={urlGetConsultBusiness}
       tableComponentRef={tableComponentRef}
