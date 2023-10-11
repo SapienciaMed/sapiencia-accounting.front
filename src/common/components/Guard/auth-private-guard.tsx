@@ -21,7 +21,7 @@ const PrivateRoute = ({ element, allowedAction }) => {
       okTitle: "Aceptar",
       onOk: () => setMessage({}),
     });
-    return <Navigate to={"/core"} replace />;
+    return <Navigate to={"/contabilidad"} replace />;
   }
 };
 
