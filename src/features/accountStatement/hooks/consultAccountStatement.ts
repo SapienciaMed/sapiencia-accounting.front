@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
@@ -10,7 +10,10 @@ import {
 import { ITableAction } from "../../../common/interfaces/table.interfaces";
 import { filtersAccountStatementSchema } from "../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { jsDateToISODate } from "../../../common/utils/helpers";
+import {
+  jsDateToISODate,
+  jsDateToSQLDate,
+} from "../../../common/utils/helpers";
 import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
 
 export const useConsultAccountStatement = () => {
@@ -36,12 +39,9 @@ export const useConsultAccountStatement = () => {
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "onBlur" });
 
-  const [contractCode, expeditionDate, accountNum, nit] = watch([
+  const [contractCode, expeditionDate] = watch([
     "contractCode",
     "expeditionDate",
-    "accountNum",
-    "contractCode",
-    "nit",
   ]);
 
   const tableActions: ITableAction<IAccountStatement>[] = [
@@ -68,18 +68,37 @@ export const useConsultAccountStatement = () => {
     },
   ];
 
-  const downloadCollection = () => {
+  const downloadCollection = useCallback(() => {
     const { page, perPage } = paginateData;
-    const endpoint = `${urlApiAccounting}/api/v1/account-statement/generate-xlsx?page=${
-      page + 1
-    }&perPage=${perPage}&contractCode=${contractCode ?? ""}&${
-      expeditionDate ?? ""
-    }&${accountNum ?? ""}&${nit ?? ""}`;
-    window.open(endpoint, "_blank");
-  };
+    const { accountNum, nit } = formWatch;
+    const url = new URL(
+      `${urlApiAccounting}/api/v1/account-statement/generate-xlsx`
+    );
+    const params = new URLSearchParams();
+    params.append("page", page + 1);
+    params.append("perPage", perPage);
+    if (contractCode) {
+      params.append("contractCode", contractCode);
+    }
+    if (expeditionDate) {
+      params.append("expeditionDate", jsDateToSQLDate(expeditionDate));
+    }
+    if (accountNum) {
+      params.append("accountNum", accountNum);
+    }
+    if (nit) {
+      params.append("nit", nit);
+    }
+    url.search = params.toString();
+    window.open(url.toString(), "_blank");
+  }, [paginateData, formWatch, contractCode, expeditionDate]);
 
   const handleClean = () => {
     reset();
+    setFormWatch({
+      accountNum: "",
+      nit: "",
+    });
     setSubmitDisabled(true);
     tableComponentRef.current?.emptyData();
     setTableView(false);
