@@ -154,10 +154,12 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
         <div className="card-header">
           {columns.map((column) => {
             const properties = column.fieldName.split(".");
-            let field =
-              properties.length === 2
-                ? item[properties[0]][properties[1]]
-                : item[properties[0]];
+            let field = item[properties[0]];
+            properties.length >= 2 &&
+              properties.forEach((prop, index) => {
+                if (index === 0) return;
+                field = field[prop];
+              });
             return (
               <div key={item} className="item-value-container">
                 <p className="text-black bold">{column.header}</p>
