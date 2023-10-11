@@ -19,10 +19,10 @@ const DetailProperty = () => {
             <span className="text-black large bold grid-span-2-columns">
               Consulta detalle bien inmueble
             </span>
-            <span className="text-links viewHistoricals" >
-              Ver Historico   &nbsp;<Svgs svg="view" width={16} height={17}/>
+            <span className="text-links viewHistoricals">
+              Ver Historico &nbsp;
+              <Svgs svg="view" width={16} height={17} />
             </span>
-
 
             <InputComponent
               idInput="area"
@@ -119,7 +119,7 @@ const DetailProperty = () => {
             />
             <InputComponent
               idInput="measure"
-              label={<>Medida</>}
+              label={<>Medidas</>}
               typeInput="text"
               register={register}
               className="input-basic medium"
@@ -146,7 +146,6 @@ const DetailProperty = () => {
               disabled
             />
           </div>
-          
         </div>
       </div>
       <div

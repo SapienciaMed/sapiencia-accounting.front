@@ -100,7 +100,7 @@ const ManagePropertyForm = ({
                 control={control}
                 errors={errors}
                 data={equipmentStatusData}
-                label={<> Estado equipo</>}
+                label={<> Estado </>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccionar"
@@ -136,7 +136,7 @@ const ManagePropertyForm = ({
               columns={tableColumns}
               actions={tableActions}
               isShowModal={true}
-              emptyMessage="No se generó resultado en la búsqueda"
+              emptyMessage="Resultado en la búsqueda"
               descriptionModalNoResult="No se generó resultado en la búsqueda"
               titleMessageModalNoResult="Resultado de búsqueda"
             />
