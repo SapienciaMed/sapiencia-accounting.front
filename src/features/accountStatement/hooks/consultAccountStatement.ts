@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
@@ -15,11 +15,13 @@ import {
   jsDateToSQLDate,
 } from "../../../common/utils/helpers";
 import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
+import { AppContext } from "../../../common/contexts/app.context";
 
 export const useConsultAccountStatement = () => {
   const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
   const { width } = useWidth();
   const navigate = useNavigate();
+  const { validateActionAccess } = useContext(AppContext);
   const tableComponentRef = useRef(null);
   const [tableView, setTableView] = useState<boolean>(false);
   const { contract: contractData } = useGetContract();
@@ -50,12 +52,14 @@ export const useConsultAccountStatement = () => {
       onClick: (row) => {
         navigate(`/contabilidad/cuenta-de-cobro/detalle/${row.id}`);
       },
+      hide: !validateActionAccess("CUENTA_COBRO_DETALLE"),
     },
     {
       icon: "Edit",
       onClick: (row) => {
         navigate(`/contabilidad/cuenta-de-cobro/editar/${row.id}`);
       },
+      hide: !validateActionAccess("CUENTA_COBRO_EDITAR"),
     },
     {
       icon: "Pdf",
@@ -65,6 +69,7 @@ export const useConsultAccountStatement = () => {
         }/generate-account-statement-pdf?responsive=${width < 830}`;
         window.open(pdfUrl, "_blank");
       },
+      hide: !validateActionAccess("CUENTA_COBRO_PDF"),
     },
   ];
 

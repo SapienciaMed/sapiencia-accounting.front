@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
@@ -12,6 +12,7 @@ import { consultPropertySchema } from "../../../../common/schemas/fixedAssets.sc
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { jsDateToISODate } from "../../../../common/utils/helpers";
 import { useGetGenericItems } from "./getGenericItems";
+import { AppContext } from "../../../../common/contexts/app.context";
 
 export const useConsultProperty = () => {
   const { data: equipmentStatusData } = useGetGenericItems("ESTADO_EQUIPO");
@@ -20,7 +21,7 @@ export const useConsultProperty = () => {
 
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
-  const { deleted } = useCrudService(urlApiAccounting);
+  const { validateActionAccess } = useContext(AppContext);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const resolver = useYupValidationResolver(consultPropertySchema);
   const {
@@ -47,12 +48,14 @@ export const useConsultProperty = () => {
       onClick: (row) => {
         navigate(`/contabilidad/activos-fijos/detalle/${row.id}`);
       },
+      hide: !validateActionAccess("BIEN_MUEBLE_DETALLE"),
     },
     {
       icon: "Edit",
       onClick: (row) => {
         navigate(`/contabilidad/activos-fijos/editar/${row.id}`);
       },
+      hide: !validateActionAccess("BIEN_MUEBLE_EDITAR"),
     },
   ];
 

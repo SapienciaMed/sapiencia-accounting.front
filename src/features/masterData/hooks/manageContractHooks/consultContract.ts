@@ -20,6 +20,7 @@ export const useConsultContract = () => {
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
   const { contract } = useGetContract();
+  const { validateActionAccess } = useContext(AppContext);
   const { business, setReload } = useGetBusiness();
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
@@ -45,12 +46,14 @@ export const useConsultContract = () => {
       onClick: (row) => {
         navigate(`/contabilidad/contrato/editar/${row.id}`);
       },
+      hide: !validateActionAccess("CONTRATO_EDITAR"),
     },
     {
       icon: "Delete",
       onClick: (row) => {
         handleDelete(row);
       },
+      hide: !validateActionAccess("CONTRATO_ELIMINAR"),
     },
   ];
 

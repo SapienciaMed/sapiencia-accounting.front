@@ -20,6 +20,7 @@ export const useConsultBusiness = () => {
   const tableComponentRef = useRef(null);
   const { contract } = useGetContract();
   const { business, setReload } = useGetBusiness();
+  const { validateActionAccess } = useContext(AppContext);
   const [tableView, setTableView] = useState<boolean>(false);
   const [formWatch, setFormWatch] = useState({
     value: "",
@@ -47,12 +48,14 @@ export const useConsultBusiness = () => {
       onClick: (row) => {
         navigate(`/contabilidad/razon-social/editar/${row.id}`);
       },
+      hide: !validateActionAccess("RAZON_SOCIAL_EDITAR"),
     },
     {
       icon: "Delete",
       onClick: (row) => {
         handleDelete(row);
       },
+      hide: !validateActionAccess("RAZON_SOCIAL_ELIMINAR"),
     },
   ];
 
