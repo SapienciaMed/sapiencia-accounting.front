@@ -19,9 +19,11 @@ const ConsultAccountStatement = () => {
     tableComponentRef,
     downloadCollection,
     urlGetAccountStatement,
+    validateActionAccess,
   } = useConsultAccountStatement();
   return (
     <ConsultAccountStatementForm
+      validateActionAccess={validateActionAccess}
       errors={errors}
       control={control}
       isValid={isValid}

@@ -149,5 +149,6 @@ export const useConsultAccountStatement = () => {
     tableComponentRef,
     downloadCollection,
     urlGetAccountStatement,
+    validateActionAccess,
   };
 };
