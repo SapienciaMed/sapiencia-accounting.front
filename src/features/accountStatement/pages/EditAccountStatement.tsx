@@ -22,6 +22,7 @@ const DetailAccountStatement = () => {
     submitDisabled,
     paymentTypeData,
   } = useEditAccountStatement();
+  console.log(paymentTypeData);
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
