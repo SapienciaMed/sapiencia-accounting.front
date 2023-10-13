@@ -103,7 +103,13 @@ export const useEditAccountStatement = () => {
   };
 
   useEffect(() => {
-    reset(accountStatement);
+    if (accountStatement) {
+      const { paymentType } = accountStatement;
+      reset({
+        ...accountStatement,
+        paymentType: Number(paymentType),
+      });
+    }
   }, [accountStatement]);
 
   useEffect(() => {
