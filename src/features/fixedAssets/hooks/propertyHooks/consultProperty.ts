@@ -1,7 +1,7 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import useCrudService from "../../../../common/hooks/crud-service.hook";
+import { AppContext } from "../../../../common/contexts/app.context";
 import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
 import {
   IProperty,
@@ -12,7 +12,6 @@ import { consultPropertySchema } from "../../../../common/schemas/fixedAssets.sc
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { jsDateToISODate } from "../../../../common/utils/helpers";
 import { useGetGenericItems } from "./getGenericItems";
-import { AppContext } from "../../../../common/contexts/app.context";
 
 export const useConsultProperty = () => {
   const { data: equipmentStatusData } = useGetGenericItems("ESTADO_EQUIPO");
@@ -59,15 +58,28 @@ export const useConsultProperty = () => {
     },
   ];
 
-  const downloadCollection = async () => {
+  const downloadCollection = useCallback(() => {
     const { page, perPage } = paginateData;
-    // const endpoint = `${urlApiAccounting}/api/v1/account-statement/generate-xlsx?page=${
-    //   page + 1
-    // }&perPage=${perPage}&contractCode=${contractCode ?? ""}&${
-    //   expeditionDate ?? ""
-    // }&${accountNum ?? ""}&${nit ?? ""}`;
-    // window.open(endpoint, "_blank");
-  };
+    const { plate, description } = formWatch;
+    const url = new URL(`${urlApiAccounting}/api/v1/furniture/generate-xlsx`);
+    const params = new URLSearchParams();
+    params.append("page", page + 1);
+    params.append("perPage", perPage);
+    if (plate) {
+      params.append("plate", plate);
+    }
+    if (description) {
+      params.append("description", description);
+    }
+    if (acquisitionDate) {
+      params.append("acquisitionDate", acquisitionDate);
+    }
+    if (equipmentStatus) {
+      params.append("equipmentStatus", equipmentStatus);
+    }
+    url.search = params.toString();
+    window.open(url.toString(), "_blank");
+  }, [paginateData, formWatch, acquisitionDate, equipmentStatus]);
 
   const handleClean = () => {
     reset();
