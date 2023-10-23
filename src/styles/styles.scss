@@ -1,8 +1,10 @@
 @import "./mixins.scss";
+
 div[id="single-spa-application:@sapiencia/accounting"] {
   height: 100%;
   width: 100vw;
 }
+
 .main-page {
   padding: 20px;
 }
@@ -187,6 +189,7 @@ div[id="single-spa-application:@sapiencia/accounting"] {
   display: grid;
   grid-template-rows: 1fr 3em;
 }
+
 .title-area {
   display: flex;
   justify-content: space-between;
@@ -220,13 +223,16 @@ div[id="single-spa-application:@sapiencia/accounting"] {
   }
 
   &::-webkit-scrollbar {
-    width: 100%; /* Ancho de la barra de desplazamiento */
+    width: 100%;
+    /* Ancho de la barra de desplazamiento */
     height: 0px;
-    background-color: transparent; /* Color de fondo transparente */
+    background-color: transparent;
+    /* Color de fondo transparente */
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: transparent; /* Color transparente del pulgar */
+    background-color: transparent;
+    /* Color transparente del pulgar */
   }
 }
 
@@ -284,9 +290,10 @@ div[id="single-spa-application:@sapiencia/accounting"] {
 
 @media (min-width: 1024px) {
 
-  .viewHistoricals{
+  .viewHistoricals {
     justify-content: flex-end;
   }
+
   div[id="single-spa-application:@sapiencia/accounting"] {
     width: initial;
   }
@@ -382,25 +389,26 @@ div[id="single-spa-application:@sapiencia/accounting"] {
     }
 
     &::-webkit-scrollbar {
-      width: 100%; /* Ancho de la barra de desplazamiento */
+      width: 100%;
+      /* Ancho de la barra de desplazamiento */
       height: 0px;
-      background-color: transparent; /* Color de fondo transparente */
+      background-color: transparent;
+      /* Color de fondo transparente */
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: transparent; /* Color transparente del pulgar */
+      background-color: transparent;
+      /* Color transparente del pulgar */
     }
   }
 
   .container-actions_formTabs {
-    @include generate-flex-container(
-      row,
+    @include generate-flex-container(row,
       null,
       space-around,
       null,
       null,
-      0.62em
-    );
+      0.62em);
   }
 
   .form-steps {
@@ -412,6 +420,7 @@ div[id="single-spa-application:@sapiencia/accounting"] {
       border: 1px solid #e0e0e0;
     }
   }
+
   .fields-container {
     display: flex;
     flex-direction: row;
@@ -442,6 +451,7 @@ div[id="single-spa-application:@sapiencia/accounting"] {
     padding: 2em;
     margin: 0.5em;
   }
+
   .button-container-display {
     display: flex;
     align-items: center;
@@ -483,6 +493,7 @@ div[id="single-spa-application:@sapiencia/accounting"] {
 .table-column {
   padding: 4px;
 }
+
 .title-table {
   background-color: #fff;
   height: auto;
@@ -511,6 +522,7 @@ div[id="single-spa-application:@sapiencia/accounting"] {
     display: flex;
     justify-content: center;
   }
+
   .table-row {
     flex-direction: column;
     width: 100%;
@@ -525,8 +537,8 @@ div[id="single-spa-application:@sapiencia/accounting"] {
   }
 }
 
-@media(max-width : 600px){
-  .viewHistoricals{
+@media(max-width : 600px) {
+  .viewHistoricals {
     justify-content: flex-start;
   }
 }
@@ -535,6 +547,76 @@ div[id="single-spa-application:@sapiencia/accounting"] {
   padding-left: 16px;
 }
 
-.color-icon-pdf{
-  color:#F00;
+.color-icon-pdf {
+  color: #F00;
+}
+
+// modal historicos 
+
+.custom-history-description-container {
+  max-height: 205px;
+  overflow-y: auto;
+  margin-top: 18px;
+  margin-bottom: -5px;
+}
+
+.custom-history-description {
+  display: flex;
+  align-items: center;
+  padding: 3px 13px 22px 30px;
+  flex-direction: column;
+
+  .icon-modal {
+    display: inline-block;
+    padding: 1px 16px 0px 0px;
+  }
+
+  .container-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+  }
+
+  .label-container {
+    padding-bottom: 11px;
+  }
+
+  .title-label-history {
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    height: 2.7em;
+    border-radius: 11px;
+    padding: 18px 1em 16px 12px;
+    position: relative;
+    min-width: 200px;
+  }
+
+  .icon-container {
+    padding-left: 18em;
+  }
+}
+
+.collapse-dropdown-modal {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+
+  &[open] {
+    .title:after {
+      transform: rotate(1deg);
+      position: absolute;
+    }
+
+    .title {
+      color: var(--sapiensa-principal-533893);
+    }
+
+    .icon-dropdown-modal {
+      transform: rotate(90deg);
+      transition: transform 0.3s ease-in-out;
+    }
+
+  }
 }

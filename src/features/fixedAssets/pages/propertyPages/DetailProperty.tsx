@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import {
   ButtonComponent,
   InputComponent,
@@ -8,9 +8,12 @@ import { DatePickerComponent } from "../../../../common/components/Form/input-da
 import { TextAreaComponent } from "../../../../common/components/Form/input-text-area.component";
 import { useGetDetailProperty } from "../../hooks/propertyHooks/getDetailProperty.hook";
 import Svgs from "../../../../public/images/icons/svgs";
+import { Link } from "react-router-dom";
 
 const DetailProperty = () => {
-  const { register, control, handleClose } = useGetDetailProperty();
+  const { register, control, handleClose, showHistoryProperty } =
+    useGetDetailProperty();
+
   return (
     <>
       <div className="container-sections-forms mt-24px ml-12px mr-16px p-0">
@@ -19,10 +22,14 @@ const DetailProperty = () => {
             <span className="text-black large bold grid-span-2-columns">
               Consulta detalle bien inmueble
             </span>
-            <span className="text-links viewHistoricals">
-              Ver Historico &nbsp;
-              <Svgs svg="view" width={16} height={17} />
-            </span>
+            <div className="button-save-container-display mr-33px button-create-business">
+              <Link to="#" className="text-links" onClick={showHistoryProperty}>
+                Ver Historico
+                <div className="text-links ml-5px">
+                  <Svgs svg="view" width={16} height={17} />
+                </div>
+              </Link>
+            </div>
 
             <InputComponent
               idInput="area"

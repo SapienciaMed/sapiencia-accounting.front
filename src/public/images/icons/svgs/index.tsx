@@ -126,6 +126,17 @@ const Svgs = ({ svg = "default", width = 24, height = 24 }) => {
         />{" "}
       </svg>
     ),
+    point: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        viewBox="0 0 20 21"
+        fill="none"
+      >
+        <ellipse cx="10" cy="10.3846" rx="10" ry="10.3846" fill="#533893" />
+      </svg>
+    ),
     default: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
