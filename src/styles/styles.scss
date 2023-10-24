@@ -573,7 +573,7 @@ div[id="single-spa-application:@sapiencia/accounting"] {
 
   .container-label {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-evenly;
 
   }
@@ -604,19 +604,9 @@ div[id="single-spa-application:@sapiencia/accounting"] {
   width: 100%;
 
   &[open] {
-    .title:after {
-      transform: rotate(1deg);
-      position: absolute;
-    }
-
-    .title {
-      color: var(--sapiensa-principal-533893);
-    }
-
     .icon-dropdown-modal {
       transform: rotate(90deg);
       transition: transform 0.3s ease-in-out;
     }
-
   }
 }

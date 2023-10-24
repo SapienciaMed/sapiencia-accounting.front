@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Svgs from "../../../public/images/icons/svgs";
 import { Dropdown } from "primereact/dropdown";
 import icono from "../../../public/images/icono.png";
@@ -20,32 +20,66 @@ export interface ListDateInfo {
 }
 
 export function ContainerLabel({ date }: ListDateInfo): React.JSX.Element {
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
+
+  const toggleInfo = () => {
+    setIsInfoOpen(!isInfoOpen);
+  };
+
   return (
-    <div className="container-label">
-      <div className="title-label-history">
-        <div>{date.dateInfo}</div>
-        <div className="icon-container">
-          <DropdownModal />
+    <div>
+      <div className="container-label">
+        <div className="title-label-history">
+          <div>{date.dateInfo}</div>
+          <div className="icon-container">
+            <details
+              key={""}
+              className={`collapse-dropdown-modal ${isInfoOpen ? "open" : ""}`}
+            >
+              <summary onClick={toggleInfo}>
+                <span>
+                  <img
+                    className={`icon-dropdown-modal ${
+                      isInfoOpen ? "collapse-dropdown-modal" : ""
+                    }`}
+                    src={icono}
+                    alt=""
+                  />
+                </span>
+              </summary>
+            </details>
+          </div>
         </div>
       </div>
+      {isInfoOpen && (
+        <div className="">
+          <div className="additional-info">
+            {/* Aquí puedes colocar tu tabla o contenido adicional */}
+            {/* Ejemplo de tabla */}
+            <table>
+              <thead>
+                <tr>
+                  <th>Encabezado 1</th>
+                  <th>Encabezado 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Dato 1</td>
+                  <td>Dato 2</td>
+                </tr>
+                {/* Agrega más filas según tu necesidad */}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export function DropdownModal() {
-  return (
-    <div>
-      <Fragment>
-        <details key={""} className="collapse-dropdown-modal">
-          <summary>
-            <span>
-              <img className="icon-dropdown-modal" src={icono} alt="" />
-            </span>
-          </summary>
-        </details>
-      </Fragment>
-    </div>
-  );
+export function DropdownModal({ toggleInfo }) {
+  return <div></div>;
 }
 
 export function HistoryDescription({ deployment }) {

@@ -23,19 +23,19 @@ export const useGetDetailProperty = () => {
     // const id = property.id;
     const deployment = [
       {
-        dateInfo: "Otra fecha: 2020-10-10",
+        dateInfo: "Otra fecha1: 2020-10-10",
       },
       {
-        dateInfo: "Otra fecha: 2023-10-21",
+        dateInfo: "Otra fecha2: 2020-10-10",
       },
       {
-        dateInfo: "Otra fecha: 2023-10-21",
+        dateInfo: "Otra fecha3: 2020-10-10",
       },
       {
-        dateInfo: "Otra fecha: 2023-10-21",
+        dateInfo: "Otra fecha4: 2020-10-10",
       },
       {
-        dateInfo: "Otra fecha: 2023-10-21",
+        dateInfo: "Otra fecha5: 2023-10-21",
       },
     ];
 
