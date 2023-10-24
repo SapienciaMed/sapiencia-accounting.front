@@ -27,16 +27,12 @@ const EditProperty = () => {
     activeOwner,
   } = useEditProperty();
 
-
   return (
     <>
-      <FormComponent
-        id="editFixedAssets"
-        action={onSubmit}
-      >
-      <div className="container-sections-forms mt-24px ml-12px mr-16px p-0">
-        <div className=" container-sections-forms ml-20px mr-20px">
-          <div className="grid-form-3-container gap-25">
+      <FormComponent id="editFixedAssets" action={onSubmit}>
+        <div className="container-sections-forms mt-24px ml-12px mr-16px p-0">
+          <div className=" container-sections-forms ml-20px mr-20px">
+            <div className="grid-form-3-container gap-25">
               <span className="text-black large bold grid-span-3-columns">
                 Editar bien mueble
               </span>
@@ -45,7 +41,7 @@ const EditProperty = () => {
                 idInput="area"
                 control={control}
                 errors={errors}
-                label={<>Area</>}
+                label={<>Área</>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccionar"
@@ -56,7 +52,7 @@ const EditProperty = () => {
                 idInput="equipmentStatus"
                 control={control}
                 errors={errors}
-                label={<>Estado equipo</>}
+                label={<>Estado </>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccionar"
@@ -67,11 +63,7 @@ const EditProperty = () => {
                 idInput="workerId"
                 control={control}
                 errors={errors}
-                label={
-                  <>
-                    CC usuario 
-                  </>
-                }
+                label={<>CC usuario</>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccionar"
@@ -83,11 +75,7 @@ const EditProperty = () => {
                 idInput="workerId"
                 control={control}
                 errors={errors}
-                label={
-                  <>
-                    Nombres y apellidos 
-                  </>
-                }
+                label={<>Nombres y apellidos</>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccionar"
@@ -98,11 +86,7 @@ const EditProperty = () => {
                 idInput="clerk"
                 control={control}
                 errors={errors}
-                label={
-                  <>
-                    Funcionario
-                  </>
-                }
+                label={<>Funcionario</>}
                 className="select-basic medium"
                 classNameLabel="text-black big bold"
                 placeholder="Seleccionar"
@@ -181,7 +165,6 @@ const EditProperty = () => {
                 placeholder="Seleccionar"
                 data={activeOwner}
                 filter
-                
               />
             </div>
             <div className="mt-20px grid-span-4-columns">

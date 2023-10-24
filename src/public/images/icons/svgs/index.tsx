@@ -137,6 +137,17 @@ const Svgs = ({ svg = "default", width = 24, height = 24 }) => {
         <ellipse cx="10" cy="10.3846" rx="10" ry="10.3846" fill="#533893" />
       </svg>
     ),
+    vectorPoint: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        viewBox="0 0 0.0001 5"
+        fill="none"
+      >
+        <path d="M3 0V5" stroke="#533893" stroke-width="5" />
+      </svg>
+    ),
     default: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

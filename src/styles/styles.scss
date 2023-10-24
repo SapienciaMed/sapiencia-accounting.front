@@ -568,18 +568,22 @@ div[id="single-spa-application:@sapiencia/accounting"] {
 
   .icon-modal {
     display: inline-block;
-    padding: 1px 16px 0px 0px;
+    padding-right: 13px;
+
+  }
+
+  .container-vector {
+    display: grid;
   }
 
   .container-label {
     display: flex;
     align-items: baseline;
     justify-content: space-evenly;
-
   }
 
   .label-container {
-    padding-bottom: 11px;
+    // padding-bottom: 11px;
   }
 
   .title-label-history {

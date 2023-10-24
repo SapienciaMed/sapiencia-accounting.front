@@ -33,7 +33,6 @@ export const useEditProperty = () => {
     observation: "",
   });
 
-
   const {
     control,
     handleSubmit,
@@ -77,7 +76,7 @@ export const useEditProperty = () => {
           setMessage({ show: false });
           navigate(-1);
         },
-        
+
         background: true,
       });
     } catch (error) {
@@ -102,7 +101,6 @@ export const useEditProperty = () => {
       onOk: () => {
         setMessage({ show: false });
         updateProperty(data);
-        
       },
       onClose: () => setMessage({ show: false }),
       background: true,
@@ -111,8 +109,8 @@ export const useEditProperty = () => {
 
   const handleCancel = () => {
     setMessage({
-      title: "Cancelar cambios",
-      description: "¿Está segur@ de cancelar los cambios?",
+      title: "Cancelar edición activo",
+      description: "¿Esta segur@ de cancelar la edición del activo?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -135,13 +133,12 @@ export const useEditProperty = () => {
   useEffect(() => {
     const { brand, description, measure, model, observation } = formWatch;
     if (!brand || !description || !measure || !model || !observation) {
-      return setSubmitDisabled(false)
+      return setSubmitDisabled(false);
     }
-    setSubmitDisabled(true)
+    setSubmitDisabled(true);
   }, [formWatch]);
 
-  useEffect(() => {
-  }, [isValid, submitDisabled])
+  useEffect(() => {}, [isValid, submitDisabled]);
 
   return {
     control,

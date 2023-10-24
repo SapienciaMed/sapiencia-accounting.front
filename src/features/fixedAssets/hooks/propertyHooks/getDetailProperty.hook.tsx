@@ -31,12 +31,12 @@ export const useGetDetailProperty = () => {
       {
         dateInfo: "Otra fecha3: 2020-10-10",
       },
-      {
-        dateInfo: "Otra fecha4: 2020-10-10",
-      },
-      {
-        dateInfo: "Otra fecha5: 2023-10-21",
-      },
+      // {
+      //   dateInfo: "Otra fecha4: 2020-10-10",
+      // },
+      // {
+      //   dateInfo: "Otra fecha5: 2023-10-21",
+      // },
     ];
 
     setMessage({

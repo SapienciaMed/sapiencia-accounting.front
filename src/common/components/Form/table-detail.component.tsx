@@ -94,6 +94,11 @@ export function HistoryDescription({ deployment }) {
               </div>
               <ContainerLabel date={date} />
             </div>
+            <div className="container-verctor">
+              {deployment.length > 1 && index !== deployment.length - 1 && (
+                <Svgs svg="vectorPoint" width={20} height={50} />
+              )}
+            </div>
           </div>
         ))}
       </div>
