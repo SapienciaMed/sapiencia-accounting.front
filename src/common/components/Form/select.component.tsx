@@ -52,7 +52,7 @@ export function SelectComponent({
 }: ISelectProps<any>): React.JSX.Element {
   if (data) {
     const seleccione: IDropdownProps = { name: "Seleccione", value: null };
-    const dataSelect = data.find(
+    const dataSelect = data?.find(
       (item) => item.name === seleccione.name && item.value === seleccione.value
     );
     if (!dataSelect) data.unshift(seleccione);

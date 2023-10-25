@@ -559,10 +559,10 @@ div[id="single-spa-application:@sapiencia/accounting"] {
 }
 
 .HistoryTable {
-  width: 460px;
+  width: 478px;
   overflow-x: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 16px 0;
   column-gap: 56px;
   &__redPoint {
@@ -589,6 +589,13 @@ div[id="single-spa-application:@sapiencia/accounting"] {
     & > div {
       display: flex;
       align-items: center;
+      justify-content: flex-start;
+      & > span {
+        text-align: left;
+        width: 150px;
+        max-height: 20px;
+        overflow: hidden;
+      }
     }
   }
 }
@@ -612,7 +619,7 @@ div[id="single-spa-application:@sapiencia/accounting"] {
     background-color: $main-color;
   }
   &__item {
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     display: flex;
     position: relative;
     &__header {
@@ -642,7 +649,7 @@ div[id="single-spa-application:@sapiencia/accounting"] {
 .custom-history-description {
   display: flex;
   align-items: center;
-  padding: 3px 13px 22px 30px;
+  padding: 24px 13px 0 30px;
   flex-direction: column;
 
   .title-label-history {

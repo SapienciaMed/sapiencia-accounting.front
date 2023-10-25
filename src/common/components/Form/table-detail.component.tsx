@@ -1,25 +1,16 @@
 import "animate.css";
 import React, { memo, useState } from "react";
+import {
+  FURNITURE_NAMES,
+  IFurnitureHistoryData,
+} from "../../../features/fixedAssets/hooks/propertyHooks/getDetailProperty.hook";
 import icono from "../../../public/images/icono.png";
 
-export interface DataItem {
-  title: string | React.JSX.Element;
-  value: string | React.JSX.Element[];
-}
-
-interface Props {
-  data: DataItem[];
-}
-
-export interface ListDateInfo {
+type ListDateInfo = {
   date: string;
   handleClick: () => void;
   showHistoryTable: boolean;
-}
-
-export interface IHistoryDescription {
-  date: string;
-}
+};
 
 export function ContainerLabel({
   date,
@@ -50,27 +41,33 @@ export function ContainerLabel({
   );
 }
 
-const HistoryTable = ({ showHistoryTable }: { showHistoryTable: boolean }) => {
+const HistoryTable = ({
+  showHistoryTable,
+  historyInfo,
+}: {
+  showHistoryTable: boolean;
+  historyInfo: IFurnitureHistoryData;
+}) => {
   return (
     <div
       className={`HistoryTable animate__animated ${
         showHistoryTable ? "animate__fadeIn" : "animate__fadeOut"
       }`}
     >
-      {new Array(20).fill(0).map((data, index) => {
+      {Object.entries(historyInfo?.changes?.oldChanges).map(([key], index) => {
         const isFirst = index === 0;
         return (
-          <div key={index} className="HistoryTable__row">
+          <div key={key} className="HistoryTable__row">
             <strong style={{ marginLeft: isFirst ? 10 : 0 }}>
-              <span>Sede</span>
+              <span>{FURNITURE_NAMES[key]}</span>
             </strong>
             <div>
               {isFirst && <div className="HistoryTable__redPoint"></div>}
-              <span> Principal</span>
+              <span>{historyInfo.changes.oldChanges[key]}</span>
             </div>
             <div>
               {isFirst && <div className="HistoryTable__greenPoint"></div>}
-              <span>Principal</span>
+              <span>{historyInfo.changes.newChanges[key]}</span>
             </div>
           </div>
         );
@@ -84,7 +81,7 @@ const HistoryRow = ({
   dataLength,
   index,
 }: {
-  historyInfo: IHistoryDescription;
+  historyInfo: IFurnitureHistoryData;
   dataLength: number;
   index: number;
 }) => {
@@ -94,17 +91,22 @@ const HistoryRow = ({
     <div className="HistoryDescription__container">
       <div className="HistoryDescription__labelContainer">
         <ContainerLabel
-          date={historyInfo.date}
+          date={historyInfo.createdAt}
           handleClick={handleClick}
           showHistoryTable={showHistoryTable}
         />
       </div>
-      {showHistoryTable && <HistoryTable showHistoryTable={showHistoryTable} />}
+      {showHistoryTable && (
+        <HistoryTable
+          historyInfo={historyInfo}
+          showHistoryTable={showHistoryTable}
+        />
+      )}
       {dataLength > 1 && index !== dataLength - 1 && (
         <div
           className="HistoryDescription__vector"
           style={{
-            height: showHistoryTable ? 170 : 55,
+            height: showHistoryTable ? 160 : 55,
           }}
         ></div>
       )}
@@ -113,20 +115,20 @@ const HistoryRow = ({
 };
 
 export const HistoryDescription = ({
-  data,
+  historyData,
 }: {
-  data: IHistoryDescription[];
+  historyData: IFurnitureHistoryData[];
 }) => {
   return (
     <div className="custom-history-description-container">
       <div className="custom-history-description">
-        {data.map((historyInfo, index) => (
+        {historyData?.map((historyInfo, index) => (
           <div key={index} className="HistoryDescription__item">
             <div className="HistoryDescription__item__header">
               <div className="HistoryDescription__point"></div>
               <HistoryRow
                 index={index}
-                dataLength={data.length}
+                dataLength={historyData.length}
                 historyInfo={historyInfo}
               />
             </div>
