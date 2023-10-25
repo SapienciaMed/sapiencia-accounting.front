@@ -11,12 +11,14 @@ import { ITableAction } from "../../../../common/interfaces/table.interfaces";
 import { consultPropertySchema } from "../../../../common/schemas/fixedAssets.schema";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { jsDateToISODate } from "../../../../common/utils/helpers";
+import { useGetDetailProperty } from "./getDetailProperty.hook";
 import { useGetGenericItems } from "./getGenericItems";
 
 export const useConsultProperty = () => {
   const { data: equipmentStatusData } = useGetGenericItems("ESTADO_EQUIPO");
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
+  useGetDetailProperty();
 
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);

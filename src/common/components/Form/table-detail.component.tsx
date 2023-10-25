@@ -1,6 +1,5 @@
-import React, { Fragment, useState } from "react";
-import Svgs from "../../../public/images/icons/svgs";
-import { Dropdown } from "primereact/dropdown";
+import "animate.css";
+import React, { memo, useState } from "react";
 import icono from "../../../public/images/icono.png";
 
 export interface DataItem {
@@ -11,99 +10,131 @@ export interface DataItem {
 interface Props {
   data: DataItem[];
 }
-export interface Date {
-  dateInfo: string | React.JSX.Element;
-}
 
 export interface ListDateInfo {
-  date: Date;
+  date: string;
+  handleClick: () => void;
+  showHistoryTable: boolean;
 }
 
-export function ContainerLabel({ date }: ListDateInfo): React.JSX.Element {
-  const [isInfoOpen, setIsInfoOpen] = useState(false);
+export interface IHistoryDescription {
+  date: string;
+}
 
-  const toggleInfo = () => {
-    setIsInfoOpen(!isInfoOpen);
-  };
-
+export function ContainerLabel({
+  date,
+  handleClick,
+  showHistoryTable,
+}: ListDateInfo): React.JSX.Element {
   return (
-    <div>
-      <div className="container-label">
-        <div className="title-label-history">
-          <div>{date.dateInfo}</div>
-          <div className="icon-container">
-            <details
-              key={""}
-              className={`collapse-dropdown-modal ${isInfoOpen ? "open" : ""}`}
-            >
-              <summary onClick={toggleInfo}>
-                <span>
-                  <img
-                    className={`icon-dropdown-modal ${
-                      isInfoOpen ? "collapse-dropdown-modal" : ""
-                    }`}
-                    src={icono}
-                    alt=""
-                  />
-                </span>
-              </summary>
-            </details>
-          </div>
-        </div>
+    <div className="title-label-history" onClick={handleClick}>
+      <div className="ContainerLabel__title">
+        <strong>
+          <span>Fecha: </span>
+        </strong>
+        <span>{date}</span>
       </div>
-      {isInfoOpen && (
-        <div className="">
-          <div className="additional-info">
-            {/* Aquí puedes colocar tu tabla o contenido adicional */}
-            {/* Ejemplo de tabla */}
-            <table>
-              <thead>
-                <tr>
-                  <th>Encabezado 1</th>
-                  <th>Encabezado 2</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Dato 1</td>
-                  <td>Dato 2</td>
-                </tr>
-                {/* Agrega más filas según tu necesidad */}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+      <details className="ContainerLabel__icon">
+        <summary>
+          <img
+            src={icono}
+            className={
+              showHistoryTable
+                ? "ContainerLabel__rotateDown"
+                : "ContainerLabel__rotateUp"
+            }
+          />
+        </summary>
+      </details>
     </div>
   );
 }
 
-export function DropdownModal({ toggleInfo }) {
-  return <div></div>;
-}
+const HistoryTable = ({ showHistoryTable }: { showHistoryTable: boolean }) => {
+  return (
+    <div
+      className={`HistoryTable animate__animated ${
+        showHistoryTable ? "animate__fadeIn" : "animate__fadeOut"
+      }`}
+    >
+      {new Array(20).fill(0).map((data, index) => {
+        const isFirst = index === 0;
+        return (
+          <div key={index} className="HistoryTable__row">
+            <strong style={{ marginLeft: isFirst ? 10 : 0 }}>
+              <span>Sede</span>
+            </strong>
+            <div>
+              {isFirst && <div className="HistoryTable__redPoint"></div>}
+              <span> Principal</span>
+            </div>
+            <div>
+              {isFirst && <div className="HistoryTable__greenPoint"></div>}
+              <span>Principal</span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
-export function HistoryDescription({ deployment }) {
+const HistoryRow = ({
+  historyInfo,
+  dataLength,
+  index,
+}: {
+  historyInfo: IHistoryDescription;
+  dataLength: number;
+  index: number;
+}) => {
+  const [showHistoryTable, setShowHistoryTable] = useState(false);
+  const handleClick = () => setShowHistoryTable(!showHistoryTable);
+  return (
+    <div className="HistoryDescription__container">
+      <div className="HistoryDescription__labelContainer">
+        <ContainerLabel
+          date={historyInfo.date}
+          handleClick={handleClick}
+          showHistoryTable={showHistoryTable}
+        />
+      </div>
+      {showHistoryTable && <HistoryTable showHistoryTable={showHistoryTable} />}
+      {dataLength > 1 && index !== dataLength - 1 && (
+        <div
+          className="HistoryDescription__vector"
+          style={{
+            height: showHistoryTable ? 170 : 55,
+          }}
+        ></div>
+      )}
+    </div>
+  );
+};
+
+export const HistoryDescription = ({
+  data,
+}: {
+  data: IHistoryDescription[];
+}) => {
   return (
     <div className="custom-history-description-container">
       <div className="custom-history-description">
-        {deployment.map((date, index) => (
-          <div key={index} className="label-container">
-            <div className="container-label">
-              <div className="icon-modal">
-                <Svgs svg="point" width={18} height={21} />
-              </div>
-              <ContainerLabel date={date} />
-            </div>
-            <div className="container-verctor">
-              {deployment.length > 1 && index !== deployment.length - 1 && (
-                <Svgs svg="vectorPoint" width={20} height={50} />
-              )}
+        {data.map((historyInfo, index) => (
+          <div key={index} className="HistoryDescription__item">
+            <div className="HistoryDescription__item__header">
+              <div className="HistoryDescription__point"></div>
+              <HistoryRow
+                index={index}
+                dataLength={data.length}
+                historyInfo={historyInfo}
+              />
             </div>
           </div>
         ))}
       </div>
     </div>
   );
-}
+};
 
-export default HistoryDescription;
+export default memo(HistoryDescription);

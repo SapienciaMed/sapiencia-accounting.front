@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { usePropertyById } from "./getPropertyById";
 import HistoryDescription from "../../../../common/components/Form/table-detail.component";
 import { AppContext } from "../../../../common/contexts/app.context";
+import { usePropertyById } from "./getPropertyById";
 
 export const useGetDetailProperty = () => {
   const navigate = useNavigate();
@@ -16,34 +16,28 @@ export const useGetDetailProperty = () => {
 
   useEffect(() => {
     reset(property);
+    showHistoryProperty();
   }, [property]);
 
   const showHistoryProperty = async () => {
     setMostrarComponente(true);
     // const id = property.id;
-    const deployment = [
+    const data = [
       {
-        dateInfo: "Otra fecha1: 2020-10-10",
+        date: "2020-10-10",
       },
       {
-        dateInfo: "Otra fecha2: 2020-10-10",
+        date: "2020-10-10",
       },
       {
-        dateInfo: "Otra fecha3: 2020-10-10",
+        date: "2020-10-10",
       },
-      // {
-      //   dateInfo: "Otra fecha4: 2020-10-10",
-      // },
-      // {
-      //   dateInfo: "Otra fecha5: 2023-10-21",
-      // },
     ];
-
     setMessage({
       title: "Históricos",
       show: true,
       okTitle: "Aceptar",
-      description: <HistoryDescription deployment={deployment} />,
+      description: <HistoryDescription data={data} />,
       size: "medium",
       background: true,
     });

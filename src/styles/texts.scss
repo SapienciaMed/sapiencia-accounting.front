@@ -112,7 +112,7 @@
     font-size: 2em;
   }
 
-  &.break-line{
+  &.break-line {
     white-space: pre;
   }
 
@@ -205,22 +205,21 @@
     font-size: 2em;
   }
 }
-.text-span{
-color: #ACABAB;
-font-size: 17px;
-font-style: normal;
-font-weight: 400;
-line-height: 120%;
+.text-span {
+  color: #acabab;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
 }
-.text-links{  
-font-size: 16px;
-color: #533893;
-display: inline-flex;
-justify-content: center;
-align-items: center; 
+.text-links {
+  font-size: 16px;
+  color: #533893;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 
- &.iconConfig{
+  &.iconConfig {
     margin-left: 6.5px;
- }
-} 
-  
+  }
+}
