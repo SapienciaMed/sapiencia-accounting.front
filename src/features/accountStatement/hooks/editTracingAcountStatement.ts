@@ -116,7 +116,10 @@ export const useEditAccountStatementTracking = () => {
     if (!currentAccountStatement) {
       return navigate("/contabilidad/cuenta-de-cobro/seguimiento/");
     }
-    reset(currentAccountStatement);
+    reset({
+      ...currentAccountStatement,
+      paymentType: Number(currentAccountStatement.paymentType),
+    });
   }, []);
 
   useEffect(() => {
