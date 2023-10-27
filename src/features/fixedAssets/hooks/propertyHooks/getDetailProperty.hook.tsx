@@ -7,50 +7,7 @@ import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { usePropertyById } from "./getPropertyById";
-
-export type IFurniture = {
-  plate: string; // BIE_PLACA_ACTIVO
-  description: string; // BIE_TIPO_ACTIVO_DESCRIPCION
-  acquisitionDate: DateTime; // BIE_FECHA_ADQUISICION
-  equipmentStatus: number; // BIE_ESTADO_EQUIPO
-  userIdentification: string; // BIE_CC_USUARIO
-  fullName: string; // BIE_NOMBRE_APELLIDO
-  area: number; // BIE_AREA
-  model: string; // BIE_MODELO
-  brand: string;
-  measure: string; // BIE_MEDIDAS
-  activeOwner: number; // BIE_PROPIETARIO_ACTIVO
-  observation: string; // BIE_OBSERVACION
-  clerk: number; // BIE_FUNCIONARIO
-};
-
-export enum FURNITURE_NAMES {
-  plate = "Placa",
-  description = "Descripción",
-  acquisitionDate = "Fecha adquisición",
-  equipmentStatus = "Estado",
-  userIdentification = "Identificación",
-  fullName = "Nombre",
-  area = "Área",
-  model = "Modelo",
-  brand = "Marca",
-  measure = "Medidas",
-  activeOwner = "Propietario",
-  observation = "Observaciones",
-  clerk = "Funcionario",
-}
-
-type IFurnitureHistoryChanges = {
-  oldChanges: Partial<IFurniture>;
-  newChanges: Partial<IFurniture>;
-};
-
-export type IFurnitureHistoryData = {
-  id: number;
-  furnitureId: number;
-  createdAt: string;
-  changes: IFurnitureHistoryChanges;
-};
+import { IFurnitureHistoryData } from "../../../../common/interfaces/fixedAssets.interface";
 
 export const useGetDetailProperty = () => {
   const navigate = useNavigate();

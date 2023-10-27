@@ -1,10 +1,24 @@
 import "animate.css";
 import React, { memo, useState } from "react";
-import {
-  FURNITURE_NAMES,
-  IFurnitureHistoryData,
-} from "../../../features/fixedAssets/hooks/propertyHooks/getDetailProperty.hook";
+
 import icono from "../../../public/images/icono.png";
+import { IFurnitureHistoryData } from "../../interfaces/fixedAssets.interface";
+
+export enum FURNITURE_NAMES {
+  plate = "Placa",
+  description = "Descripción",
+  acquisitionDate = "Fecha adquisición",
+  equipmentStatus = "Estado",
+  userIdentification = "Identificación",
+  fullName = "Nombre",
+  area = "Área",
+  model = "Modelo",
+  brand = "Marca",
+  measure = "Medidas",
+  activeOwner = "Propietario",
+  observation = "Observaciones",
+  clerk = "Funcionario",
+}
 
 type ListDateInfo = {
   date: string;
