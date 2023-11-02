@@ -10,6 +10,7 @@ import AccountStatementRoutes from "./features/accountStatement/accountStatement
 import "./styles/_app.scss";
 import MasterDataRoutes from "./features/masterData/MasterDataRoutes";
 import FixedAssetsRoutes from "./features/fixedAssets/FixedAssetsRoutes";
+import TechActivesRoutes from "./features/techActives/TechActivesRoutes";
 
 function App() {
   const { publish } = useAppCominicator();
@@ -38,6 +39,10 @@ function App() {
               <Route
                 path="/contabilidad/activos-fijos/*"
                 element={<FixedAssetsRoutes />}
+              />
+              <Route
+                path="/contabilidad/activos-tecnologicos/*"
+                element={<TechActivesRoutes />}
               />
             </Routes>
           </Suspense>

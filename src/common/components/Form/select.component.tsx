@@ -53,12 +53,13 @@ export function SelectComponent({
   if (data) {
     const seleccione: IDropdownProps = { name: "Seleccione", value: null };
     const dataSelect = data?.find(
-      (item) => item.name === seleccione.name && item.value === seleccione.value
+      (item) =>
+        item.name === seleccione?.name && item.value === seleccione.value
     );
-    if (!dataSelect) data.unshift(seleccione);
+    if (!dataSelect) data?.unshift(seleccione);
   }
   const messageError = () => {
-    const keysError = idInput.split(".");
+    const keysError = idInput?.split(".");
     let errs = errors;
     if (fieldArray) {
       const errorKey = `${keysError[0]}[${keysError[1]}].${keysError[2]}`;

@@ -78,6 +78,27 @@ export interface IFurniture {
   observation: string;
   clerk: number;
 }
+
+export interface ITechActives {
+  id: number;
+  act_tipo_equipo: string; //TIPO DE EQUIPO
+  act_sede: string;
+  act_area: string;
+  act_estado: string;
+  act_numero_documento_adquirio: string;
+  act_fecha_adquisicion: Date;
+  date: Date;
+  act_modelo: string;
+  act_placa: string;
+  act_serial: string;
+  act_procesador: string;
+  act_memoria_ram: string;
+  act_disco_duro: string;
+  act_sistema_operativo: String;
+  act_observaciones: String;
+  act_usuario_modifico: string;
+}
+
 export interface IGetContract {
   id?: number;
   contractId: string | number;
@@ -123,8 +144,8 @@ export type ISelectInfo = {
 };
 
 export type IWorkersInfoSelect = {
-  name: string;
-  value: number;
+  name?: string;
+  value?: number;
 };
 
 export type IBusinessInfoSelect = {

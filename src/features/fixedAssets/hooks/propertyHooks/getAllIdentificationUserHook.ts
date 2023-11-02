@@ -12,7 +12,7 @@ export const useGetAllIdentification = () => {
     try {
       const endpoint = "/api/v1/furniture/get-identification-users-select-info";
       const resp: ApiResponse<IWorkersInfoSelect[]> = await get(endpoint);
-      setAllIdentification(resp.data);
+      setAllIdentification(resp?.data);
     } catch (err) {
       console.error(err);
       console.log("Error response:", err.response);
