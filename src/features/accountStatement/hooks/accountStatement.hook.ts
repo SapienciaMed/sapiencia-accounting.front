@@ -74,7 +74,6 @@ export const useAccountStatement = () => {
       expeditionDate: jsDateToSQL(expeditionDate),
       expirationDate: jsDateToSQL(expirationDate),
       accountNum: lastConsecutive,
-      userCreate: "000 0000 0000",
       paymentType: String(paymentType),
     };
     setMessage({
