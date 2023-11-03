@@ -12,19 +12,18 @@ import { TextAreaComponent } from "../../../common/components/Form/input-text-ar
 const CreateTechActive = () => {
   const {
     control,
+    typeActive,
     handleSubmit,
     register,
     errors,
     handleCancel,
     isValid,
-    // identification,
-    // fullName,
-    area,
+    areasData,
     sede,
     equipmentStatus,
     officers,
-    activeOwner,
-    typeDispositive,
+    fullInfo,
+    type,
   } = useCreateTechActive();
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
@@ -41,23 +40,20 @@ const CreateTechActive = () => {
           </div>
           <div className="grid-form-3-container gap-25 mt-28px">
             <SelectComponent
-              idInput="typeDispositive"
+              idInput="type"
               control={control}
               errors={errors}
               label={<>Tipo dispositivo</>}
               className="select-basic medium"
               classNameLabel="text-black big bold"
               placeholder="Seleccionar"
-              data={[
-                { name: "Perifericos u otros dispositivos", value: 0 },
-                { name: "Equipo de computo", value: 1 },
-              ]}
+              data={typeActive}
               filter
             />
           </div>
 
           <div>
-            {typeDispositive === 0 && (
+            {type === "Otros" && (
               <>
                 <div className="grid-form-3-container gap-25 mt-28px">
                   <SelectComponent
@@ -88,7 +84,7 @@ const CreateTechActive = () => {
                     className="select-basic medium"
                     classNameLabel="text-black big bold"
                     placeholder="Seleccionar"
-                    data={area}
+                    data={areasData}
                     filter
                   />
                   <SelectComponent
@@ -107,38 +103,23 @@ const CreateTechActive = () => {
                     filter
                   />
                 </div>
-                <div className="grid-form-3-container gap-25 mt-28px">
-                  <SelectComponent
-                    idInput="workerId"
-                    control={control}
-                    errors={errors}
-                    label={
-                      <>
-                        CC usuario <span>*</span>
-                      </>
-                    }
-                    className="select-basic medium"
-                    classNameLabel="text-black big bold"
-                    placeholder="Seleccionar"
-                    // data={identification}
-                    filter
-                  />
-
+                <div className="grid-form-2-container gap-25 mt-28px">
                   <SelectComponent
                     idInput="ownerId"
                     control={control}
                     errors={errors}
                     label={
                       <>
-                        Nombre y apellidos <span>*</span>
+                        CC usuario - Nombres y apellidos <span>*</span>
                       </>
                     }
                     className="select-basic medium"
                     classNameLabel="text-black big bold"
                     placeholder="Seleccionar"
-                    // data={fullName}
+                    data={fullInfo}
                     filter
                   />
+
                   <SelectComponent
                     idInput="official"
                     control={control}
@@ -219,7 +200,7 @@ const CreateTechActive = () => {
                         Placa activo <span>*</span>
                       </>
                     }
-                    typeInput="number"
+                    typeInput="text"
                     register={register}
                     errors={errors}
                     className="input-basic medium"
@@ -264,11 +245,11 @@ const CreateTechActive = () => {
                 </div>
               </>
             )}
-            {typeDispositive === 1 && (
+            {type === "Computo" && (
               <>
                 <div className="grid-form-3-container gap-25 mt-28px">
                   <SelectComponent
-                    idInput="sede"
+                    idInput="campus"
                     control={control}
                     errors={errors}
                     label={
@@ -295,7 +276,7 @@ const CreateTechActive = () => {
                     className="select-basic medium"
                     classNameLabel="text-black big bold"
                     placeholder="Seleccionar"
-                    data={area}
+                    data={areasData}
                     filter
                   />
                   <SelectComponent
@@ -314,38 +295,23 @@ const CreateTechActive = () => {
                     filter
                   />
                 </div>
-                <div className="grid-form-3-container gap-25 mt-28px">
+                <div className="grid-form-2-container gap-25 mt-28px">
                   <SelectComponent
-                    idInput="workerId"
+                    idInput="ownerId"
                     control={control}
                     errors={errors}
                     label={
                       <>
-                        CC usuario <span>*</span>
+                        CC usuario - Nombres y apellidos <span>*</span>
                       </>
                     }
                     className="select-basic medium"
                     classNameLabel="text-black big bold"
                     placeholder="Seleccionar"
-                    // data={identification}
+                    data={fullInfo}
                     filter
                   />
 
-                  <SelectComponent
-                    idInput="workerId"
-                    control={control}
-                    errors={errors}
-                    label={
-                      <>
-                        Nombre y apellidos <span>*</span>
-                      </>
-                    }
-                    className="select-basic medium"
-                    classNameLabel="text-black big bold"
-                    placeholder="Seleccionar"
-                    // data={fullName}
-                    filter
-                  />
                   <SelectComponent
                     idInput="official"
                     control={control}
@@ -426,7 +392,7 @@ const CreateTechActive = () => {
                         Placa activo <span>*</span>
                       </>
                     }
-                    typeInput="number"
+                    typeInput="text"
                     register={register}
                     errors={errors}
                     className="input-basic medium"
@@ -468,7 +434,7 @@ const CreateTechActive = () => {
                         Memoria Ram <span>*</span>
                       </>
                     }
-                    typeInput="number"
+                    typeInput="text"
                     register={register}
                     errors={errors}
                     className="input-basic medium"

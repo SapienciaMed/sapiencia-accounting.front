@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { EResponseCodes } from "../../../common/constants/api.enum";
@@ -6,28 +6,27 @@ import { AppContext } from "../../../common/contexts/app.context";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import { ITechActives } from "../../../common/interfaces/accountStatement.interface";
-import { createPropertySchema } from "../../../common/schemas/fixedAssets.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
-import { jsDateToSQL } from "../../../common/utils/helpers";
-import { useGetAllIdentification } from "../../fixedAssets/hooks/propertyHooks/getAllIdentificationUserHook";
-import { useGetAllWorkersFullName } from "../../fixedAssets/hooks/propertyHooks/getAllWorkersFullNameHook";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
-import { useAreasBySede } from "./getSedesHook";
+import { useGenericListService } from "../../../common/hooks/generic-list-service.hook";
+import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfoHook";
+import { createTechActiveSchema } from "../../../common/schemas/techActives.schemas";
 
 export const useCreateTechActive = () => {
   const navigate = useNavigate();
+  const [areasData, setAreasData] =
+    useState<{ name: string; value: string }[]>();
+  const { getListByParent } = useGenericListService();
   const { setMessage } = useContext(AppContext);
   const { post } = useCrudService(urlApiAccounting);
-  const resolver = useYupValidationResolver(createPropertySchema);
+  const resolver = useYupValidationResolver(createTechActiveSchema);
   const [selectedType, setSelectedType] = useState("");
-  // const { data: area } = useGetGenericItems("AREA");
   const { data: equipmentStatus } = useGetGenericItems("ESTADO_EQUIPO");
   const { data: officers } = useGetGenericItems("FUNCIONARIO");
   const { data: activeOwner } = useGetGenericItems("PROPIETARIO_ACTIVO");
   const { data: sede } = useGetGenericItems("SEDES");
-  const { identification } = useGetAllIdentification();
-  const { fullName } = useGetAllWorkersFullName();
-  const { data: area } = useAreasBySede();
+  const { data: typeActive } = useGetGenericItems("TIPO_ACTIVOS");
+  const { fullInfo } = useGetAllWorkersAllInfoHook();
   const {
     control,
     handleSubmit,
@@ -37,7 +36,7 @@ export const useCreateTechActive = () => {
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
-  const [typeDispositive] = watch(["typeDispositive"]);
+  const [type, campus] = watch(["type", "campus"]);
   const createTechActive = async (data: ITechActives) => {
     try {
       const endpoint = "/api/v1/asset/create";
@@ -70,7 +69,7 @@ export const useCreateTechActive = () => {
 
   const onSubmit = (data) => {
     const body = {
-      ...data.typeDispositive,
+      ...data,
     };
     setMessage({
       title: "Crear Activo",
@@ -97,7 +96,7 @@ export const useCreateTechActive = () => {
       background: true,
       onOk: () => {
         setMessage({ show: false });
-        navigate("/contabilidad/activos-fijos/consultar");
+        navigate("/contabilidad/activos-tecnologicos/consultar");
       },
       onCancel: () => {
         setMessage({ show: false });
@@ -106,8 +105,28 @@ export const useCreateTechActive = () => {
     });
   };
 
+  const getAreaByCampusCode = async (campus: string) => {
+    if (!campus) return;
+    const resp = await getListByParent({
+      grouper: "AREA",
+      fieldName: "campusId",
+      parentItemCode: campus,
+    });
+    const areasData = resp.data.map((item) => ({
+      name: item.itemDescription,
+      value: item.itemCode,
+    }));
+    console.log(areasData);
+    setAreasData(areasData);
+  };
+
+  useEffect(() => {
+    getAreaByCampusCode(campus);
+  }, [campus]);
+
   return {
-    area,
+    areasData,
+    typeActive,
     sede,
     equipmentStatus,
     officers,
@@ -118,9 +137,8 @@ export const useCreateTechActive = () => {
     errors,
     handleCancel,
     isValid,
-    identification,
-    fullName,
+    fullInfo,
     watch,
-    typeDispositive,
+    type,
   };
 };

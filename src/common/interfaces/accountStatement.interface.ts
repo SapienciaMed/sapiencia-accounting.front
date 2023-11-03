@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 
 export interface IAccountStatement {
-  id: number; // CTC_CODIGO
+  id?: number; // CTC_CODIGO
   contractCode: number; // CTC_CODCTR_CONTRATO
   accountNum: number; // CTC_NUMERO
   expeditionDate: DateTime; // CTC_FECHA_EXPEDICION
@@ -41,7 +41,7 @@ export interface IManageContract {
   dateCreated?: DateTime; // CTR_FECHA_HORA_CREACIÓN_REGISTRO
 }
 export interface IProperty {
-  id: number;
+  id?: number;
   plate: string; // BIE_PLACA_ACTIVO
   description: string; // BIE_TIPO_ACTIVO_DESCRIPCION
   acquisitionDate: DateTime; // BIE_FECHA_ADQUISICION
@@ -56,6 +56,27 @@ export interface IProperty {
   clerk: number; // BIE_FUNCIONARIO
 }
 
+export interface ITechActives {
+  id?: number;
+  type: string; //TIPO_DE_DISPOSITIVO
+  campus: string; //SEDE
+  area: number; // AREA
+  status: number; // ESTADO_EQUIPO_TECNOLOGICO
+  ownerId: Number; // DOCUMENTO_USUARIO
+  ownerDate: Date; // FECHA_DE_ADQUISICION
+  equipmentType: String; // TIPO_DE_EQUIPO
+  brand: string; //BIE_MARCA
+  model: string; //MODELO
+  plate: string; // BIE_PLACA_EQUIPO
+  serial: string; //SERIAL_EQUIPO
+  observations: string; //OBSERVACIONES_ACTIVOS_TECN
+  official: string;
+
+  cpu?: string; // INFORMACION_ACTIVO_TECNOLOGICO_COMPUTO
+  ram?: string; // INFORMACION_ACTIVO_TECNOLOGICO_COMPUTO
+  storage?: string; // INFORMACION_ACTIVO_TECNOLOGICO_COMPUTO
+  os?: string; // INFORMACION_ACTIVO_TECNOLOGICO_COMPUTO
+}
 export interface IPropertyFilters {
   plate: string;
   description: string;
@@ -77,26 +98,6 @@ export interface IFurniture {
   activeOwner: number;
   observation: string;
   clerk: number;
-}
-
-export interface ITechActives {
-  id: number;
-  act_tipo_equipo: string; //TIPO DE EQUIPO
-  act_sede: string;
-  act_area: string;
-  act_estado: string;
-  act_numero_documento_adquirio: string;
-  act_fecha_adquisicion: Date;
-  date: Date;
-  act_modelo: string;
-  act_placa: string;
-  act_serial: string;
-  act_procesador: string;
-  act_memoria_ram: string;
-  act_disco_duro: string;
-  act_sistema_operativo: String;
-  act_observaciones: String;
-  act_usuario_modifico: string;
 }
 
 export interface IGetContract {
@@ -140,7 +141,7 @@ export interface IFurtunite {
 
 export type ISelectInfo = {
   name: string;
-  value: number;
+  value: number | string;
 };
 
 export type IWorkersInfoSelect = {

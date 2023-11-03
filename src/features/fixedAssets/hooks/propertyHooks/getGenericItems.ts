@@ -21,8 +21,9 @@ export const useGetGenericItems = (
       const { data }: ApiResponse<IGenericItem[]> = await get(endpoint);
       const adaptedData = data?.map((item) => {
         const { itemDescription, itemCode } = item;
+        const auxValue = isNaN(Number(itemCode));
         return {
-          value: Number(itemCode),
+          value: auxValue ? itemCode : Number(itemCode),
           name: itemDescription,
         };
       });

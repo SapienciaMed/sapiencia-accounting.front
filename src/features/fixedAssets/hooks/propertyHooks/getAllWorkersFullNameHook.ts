@@ -12,7 +12,7 @@ export const useGetAllWorkersFullName = () => {
     try {
       const endpoint = "/api/v1/furniture/get-workers-full-name-select-info";
       const resp: ApiResponse<IWorkersInfoSelect[]> = await get(endpoint);
-      setAllWorkersFullName(resp.data);
+      setAllWorkersFullName(resp?.data);
     } catch (err) {
       console.error(err);
       console.log("Error response:", err.response);
