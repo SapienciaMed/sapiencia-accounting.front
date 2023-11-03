@@ -77,6 +77,37 @@ export interface ITechActives {
   storage?: string; // INFORMACION_ACTIVO_TECNOLOGICO_COMPUTO
   os?: string; // INFORMACION_ACTIVO_TECNOLOGICO_COMPUTO
 }
+
+export interface ITechActiveColumns {
+  type: string;
+  campus: string;
+  area: string;
+  status: string;
+  ownerId: string;
+  ownerDate: string;
+  equipmentType: string;
+  brand: string;
+  model: string;
+  plate: string;
+  serial: string;
+  cpu: string;
+  ram: string;
+  storage: string;
+  os: string;
+  observations: string;
+  userModified: string;
+  updatedAt: string;
+  userCreated: string;
+  createdAt: string;
+}
+
+export interface ITechActivesFilters {
+  plate: string;
+  serial: string;
+  ownerId: string;
+  type: number;
+  campus: number;
+}
 export interface IPropertyFilters {
   plate: string;
   description: string;

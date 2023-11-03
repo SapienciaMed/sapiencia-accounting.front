@@ -3,7 +3,7 @@ import { useConsultTechActive } from "../hooks/consultTechActive";
 
 const ConsultTechActive = () => {
   const {
-    urlGetConsultFurniture,
+    urlGetConsultTechActive,
     tableComponentRef,
     tableView,
     onSubmit,
@@ -14,7 +14,8 @@ const ConsultTechActive = () => {
     handleClean,
     setPaginateData,
     submitDisabled,
-    equipmentStatusData,
+    sede,
+    typeActive,
     register,
     handleChange,
     downloadCollection,
@@ -26,10 +27,11 @@ const ConsultTechActive = () => {
       downloadCollection={downloadCollection}
       register={register}
       handleChange={handleChange}
-      equipmentStatusData={equipmentStatusData}
+      sede={sede}
+      typeActive={typeActive}
       submitDisabled={submitDisabled}
       setPaginateData={setPaginateData}
-      urlGetConsultFurniture={urlGetConsultFurniture}
+      urlGetConsultTechActive={urlGetConsultTechActive}
       tableComponentRef={tableComponentRef}
       tableView={tableView}
       onSubmit={onSubmit}
