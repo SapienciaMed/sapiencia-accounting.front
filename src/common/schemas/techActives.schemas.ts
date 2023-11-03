@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const createTechActiveSchema = yup.object({
-  type: yup.string().required("Necesitas ingresar una opcion"),
+  type: yup.string().required("Ingresar una opción"),
   campus: yup.string().required("Completar información"),
   area: yup.string().required("Completar información"),
   status: yup.string().required("Completar información"),
@@ -74,4 +74,24 @@ export const createTechActiveSchema = yup.object({
           .required("Completar información")
       : yup.string().max(50, "Solo se permiten 50 caracteres").optional()
   ),
+});
+
+export const consultTechActiveSchema = yup.object({
+  type: yup.string().optional().nullable(),
+  campus: yup.string().optional().nullable(),
+  ownerId: yup.string().optional().nullable(),
+  plate: yup
+    .string()
+    .max(50, "Solo se permiten 50 caracteres")
+    .optional()
+    .nullable(),
+  // equipmentType: yup
+  //   .string()
+  //   .max(50, "Solo se permiten 50 caracteres")
+  //   .required("Completar información"),
+  serial: yup
+    .string()
+    .max(50, "Solo se permiten 50 caracteres")
+    .optional()
+    .nullable(),
 });

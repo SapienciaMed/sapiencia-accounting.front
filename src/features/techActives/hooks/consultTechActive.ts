@@ -3,26 +3,26 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import {
-  IProperty,
-  IPropertyFilters,
+  ITechActives,
+  ITechActivesFilters,
 } from "../../../common/interfaces/accountStatement.interface";
 import { ITableAction } from "../../../common/interfaces/table.interfaces";
-import { consultPropertySchema } from "../../../common/schemas/fixedAssets.schema";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { jsDateToISODate } from "../../../common/utils/helpers";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { AppContext } from "../../../common/contexts/app.context";
+import { consultTechActiveSchema } from "../../../common/schemas/techActives.schemas";
 
 export const useConsultTechActive = () => {
-  const { data: equipmentStatusData } = useGetGenericItems("ESTADO_EQUIPO");
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
-
+  const { data: sede } = useGetGenericItems("SEDES");
+  const { data: typeActive } = useGetGenericItems("TIPO_ACTIVOS");
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
   const { validateActionAccess } = useContext(AppContext);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
-  const resolver = useYupValidationResolver(consultPropertySchema);
+  const resolver = useYupValidationResolver(consultTechActiveSchema);
   const {
     control,
     handleSubmit,
@@ -31,17 +31,15 @@ export const useConsultTechActive = () => {
     watch,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
-  const urlGetConsultFurniture = `${urlApiAccounting}/api/v1/furniture/get-all-paginated`;
+  const urlGetConsultTechActive = `${urlApiAccounting}/api/v1/asset/get-all-paginated`;
   const [formWatch, setFormWatch] = useState({
     plate: "",
-    description: "",
+    serial: "",
+    ownerId: "",
   });
-  const [acquisitionDate, equipmentStatus] = watch([
-    "acquisitionDate",
-    "equipmentStatus",
-  ]);
+  const [type, campus] = watch(["type", "campus"]);
 
-  const tableActions: ITableAction<IProperty>[] = [
+  const tableActions: ITableAction<ITechActives>[] = [
     {
       icon: "Detail",
       onClick: (row) => {
@@ -60,7 +58,7 @@ export const useConsultTechActive = () => {
 
   const downloadCollection = useCallback(() => {
     const { page, perPage } = paginateData;
-    const { plate, description } = formWatch;
+    const { plate, serial, ownerId } = formWatch;
     const url = new URL(`${urlApiAccounting}/api/v1/furniture/generate-xlsx`);
     const params = new URLSearchParams();
     params.append("page", page + 1);
@@ -68,18 +66,21 @@ export const useConsultTechActive = () => {
     if (plate) {
       params.append("plate", plate);
     }
-    if (description) {
-      params.append("description", description);
+    if (serial) {
+      params.append("serial", serial);
     }
-    if (acquisitionDate) {
-      params.append("acquisitionDate", acquisitionDate);
+    if (ownerId) {
+      params.append("ownerId", ownerId);
     }
-    if (equipmentStatus) {
-      params.append("equipmentStatus", equipmentStatus);
+    if (type) {
+      params.append("type", type);
+    }
+    if (campus) {
+      params.append("campus", campus);
     }
     url.search = params.toString();
     window.open(url.toString(), "_blank");
-  }, [paginateData, formWatch, acquisitionDate, equipmentStatus]);
+  }, [paginateData, formWatch, type, campus]);
 
   const handleClean = () => {
     reset();
@@ -88,11 +89,10 @@ export const useConsultTechActive = () => {
     setTableView(false);
   };
 
-  const onSubmit = handleSubmit((filters: IPropertyFilters) => {
+  const onSubmit = handleSubmit((filters: ITechActivesFilters) => {
     setTableView(true);
     tableComponentRef.current?.loadData({
       ...filters,
-      acquisitionDate: jsDateToISODate(filters.acquisitionDate),
     });
   });
 
@@ -105,19 +105,20 @@ export const useConsultTechActive = () => {
   };
 
   useEffect(() => {
-    const { plate, description } = formWatch;
-    if (acquisitionDate || equipmentStatus || description || plate) {
+    const { plate, serial, ownerId } = formWatch;
+    if (type || campus || serial || ownerId || plate) {
       return setSubmitDisabled(false);
     }
     setSubmitDisabled(true);
-  }, [acquisitionDate, equipmentStatus, formWatch]);
+  }, [type, campus, formWatch]);
 
   return {
     downloadCollection,
     tableComponentRef,
     setPaginateData,
-    equipmentStatusData,
-    urlGetConsultFurniture,
+    sede,
+    typeActive,
+    urlGetConsultTechActive,
     tableView,
     onSubmit,
     register,

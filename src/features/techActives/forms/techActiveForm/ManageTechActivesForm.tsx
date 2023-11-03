@@ -9,10 +9,10 @@ import {
 import { DatePickerComponent } from "../../../../common/components/Form/input-date.component";
 import TableComponent from "../../../../common/components/table.component";
 import Svgs from "../../../../public/images/icons/svgs";
-// import { tableColumns } from "../propertyForm/columns";
+import { tableColumns } from "../techActiveForm/columns";
 
 const ManageTechActivesForm = ({
-  urlGetConsultFurniture,
+  urlGetConsultTechActive,
   tableComponentRef,
   tableView,
   onSubmit,
@@ -24,7 +24,8 @@ const ManageTechActivesForm = ({
   submitDisabled,
   register,
   setPaginateData,
-  equipmentStatusData,
+  sede,
+  typeActive,
   handleChange,
   downloadCollection,
   validateActionAccess,
@@ -71,35 +72,31 @@ const ManageTechActivesForm = ({
                 onChange={handleChange}
               />
             </div>
-            <div className="grid-span-2-columns mr-24px">
-              <InputComponent
-                idInput="description"
-                label={<>Serial equipo</>}
-                register={register}
-                typeInput="text"
-                errors={errors}
-                className="input-basic medium"
-                classNameLabel="text-black big bold"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="grid-span-2-columns mr-24px">
-              <SelectComponent
-                idInput="equipmentStatus"
-                control={control}
-                errors={errors}
-                data={equipmentStatusData}
-                label={<> Sede </>}
-                className="select-basic medium"
-                classNameLabel="text-black big bold"
-                placeholder="Seleccionar"
-                filter
-              />
-            </div>
+            <InputComponent
+              idInput="serial"
+              label={<>Serial equipo</>}
+              register={register}
+              typeInput="text"
+              errors={errors}
+              className="input-basic medium"
+              classNameLabel="text-black big bold"
+              onChange={handleChange}
+            />
+            <SelectComponent
+              idInput="campus"
+              control={control}
+              errors={errors}
+              data={sede}
+              label={<> Sede </>}
+              className="select-basic medium"
+              classNameLabel="text-black big bold"
+              placeholder="Seleccionar"
+              filter
+            />
           </div>
           <div className="grid-form-3-container gap-25 mt-24px">
             <InputComponent
-              idInput="plate"
+              idInput="ownerId"
               label={<>CC usuario</>}
               register={register}
               typeInput="number"
@@ -108,8 +105,7 @@ const ManageTechActivesForm = ({
               classNameLabel="text-black big bold"
               onChange={handleChange}
             />
-
-            <InputComponent
+            {/* <InputComponent
               idInput="plate"
               label={<>Nombres y apellidos</>}
               register={register}
@@ -118,12 +114,12 @@ const ManageTechActivesForm = ({
               className="input-basic medium"
               classNameLabel="text-black big bold"
               onChange={handleChange}
-            />
+            /> */}
             <SelectComponent
-              idInput="equipmentStatus"
+              idInput="type"
               control={control}
               errors={errors}
-              data={equipmentStatusData}
+              data={typeActive}
               label={<> Tipo de dispositivo </>}
               className="select-basic medium"
               classNameLabel="text-black big bold"
@@ -152,17 +148,17 @@ const ManageTechActivesForm = ({
       {tableView && (
         <>
           <div className="container-sections-forms ml-20px mr-20px">
-            {/* <TableComponent
+            <TableComponent
               setPaginateData={setPaginateData}
               ref={tableComponentRef}
-              url={urlGetConsultFurniture}
+              url={urlGetConsultTechActive}
               columns={tableColumns}
               actions={tableActions}
               isShowModal={true}
               emptyMessage="Resultado en la búsqueda"
               descriptionModalNoResult="No se generó resultado en la búsqueda"
               titleMessageModalNoResult="Resultado de búsqueda"
-            /> */}
+            />
           </div>
           <div
             style={{
