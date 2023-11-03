@@ -25,6 +25,7 @@ const CreateTechActive = () => {
     fullInfo,
     type,
   } = useCreateTechActive();
+  console.log(type);
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
@@ -33,11 +34,27 @@ const CreateTechActive = () => {
         action={handleSubmit}
       >
         <div className="container-sections-forms ml-20px mr-20px">
-          <div className="grid-form-3-container gap-25">
-            <span className="text-black extra-large bold grid-span-3-columns">
-              Crear bienes mueble
-            </span>
-          </div>
+          {type === "Otros" && (
+            <div className="grid-form-3-container gap-25">
+              <span className="text-black extra-large bold grid-span-3-columns">
+                Crear activo tecnológico
+              </span>
+            </div>
+          )}
+          {type === "Computo" && (
+            <div className="grid-form-3-container gap-25">
+              <span className="text-black extra-large bold grid-span-3-columns">
+                Crear equipo de computo
+              </span>
+            </div>
+          )}
+          {(type === undefined || type === null) && (
+            <div className="grid-form-3-container gap-25">
+              <span className="text-black extra-large bold grid-span-3-columns">
+                Selecciona tipo dispositivo
+              </span>
+            </div>
+          )}
           <div className="grid-form-3-container gap-25 mt-28px">
             <SelectComponent
               idInput="type"
