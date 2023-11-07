@@ -108,39 +108,36 @@ const DetailContract = () => {
               disabled
             />
             <InputComponent
-              idInput="business.email"
+              idInput="email"
               label={<>Correo electrónico</>}
               typeInput="text"
               register={register}
               errors={errors}
               className="input-basic medium"
               classNameLabel="text-black big bold"
-              disabled
             />
           </div>
           <div className="gap-25 mt-25px grid-form-3-container">
             <div className="grid-span-2-columns">
               <InputComponent
-                idInput="business.sender"
+                idInput="sender"
                 label={<>Persona a la que se remite la cuenta</>}
                 typeInput="text"
                 register={register}
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
-                disabled
               />
             </div>
             <div>
               <InputComponent
-                idInput="business.chargeSender"
+                idInput="chargeSender"
                 label={<>Cargo</>}
                 typeInput="text"
                 register={register}
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
-                disabled
               />
             </div>
           </div>

@@ -25,16 +25,4 @@ export const tableColumns: ITableElement<IBusiness>[] = [
     fieldName: "phone",
     header: "Teléfono",
   },
-  {
-    fieldName: "email",
-    header: "Correo Electrónico",
-  },
-  {
-    fieldName: "sender",
-    header: "Persona a la que se remite la cuenta",
-  },
-  {
-    fieldName: "chargeSender",
-    header: "Cargo",
-  },
 ];

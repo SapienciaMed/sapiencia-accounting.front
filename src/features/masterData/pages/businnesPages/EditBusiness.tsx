@@ -53,7 +53,7 @@ const DetailBusiness = () => {
               />
             </div>
           </div>
-          <div className="grid-form-4-container gap-25 mt-25px">
+          <div className="grid-form-3-container gap-25 mt-25px">
             <SelectComponent
               idInput="municipalityCode"
               control={control}
@@ -95,52 +95,8 @@ const DetailBusiness = () => {
               className="input-basic medium"
               classNameLabel="text-black big bold"
             />
-            <InputComponent
-              idInput="email"
-              label={
-                <>
-                  Correo electrónico <span>*</span>
-                </>
-              }
-              typeInput="text"
-              register={register}
-              errors={errors}
-              className="input-basic medium"
-              classNameLabel="text-black big bold"
-            />
           </div>
-          <div className="gap-25 mt-25px grid-form-3-container">
-            <div className="grid-span-2-columns">
-              <InputComponent
-                idInput="sender"
-                label={
-                  <>
-                    Persona a la que se remite la cuenta <span>*</span>
-                  </>
-                }
-                typeInput="text"
-                register={register}
-                errors={errors}
-                className="input-basic medium"
-                classNameLabel="text-black big bold"
-              />
-            </div>
-            <div>
-              <InputComponent
-                idInput="chargeSender"
-                label={
-                  <>
-                    Cargo <span>*</span>
-                  </>
-                }
-                typeInput="text"
-                register={register}
-                errors={errors}
-                className="input-basic medium"
-                classNameLabel="text-black big bold"
-              />
-            </div>
-          </div>
+          <div className="gap-25 mt-25px grid-form-3-container"></div>
         </div>
         <div
           style={{
