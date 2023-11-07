@@ -78,6 +78,18 @@ export interface ITechActives {
   os?: string; // INFORMACION_ACTIVO_TECNOLOGICO_COMPUTO
 }
 
+type ITechActivesHistoryChanges = {
+  oldChanges: Partial<ITechActives>;
+  newChanges: Partial<ITechActives>;
+};
+
+export type ITechActivesHistoryData = {
+  id: number;
+  TechActivesId: number;
+  createdAt: string;
+  changes: ITechActivesHistoryChanges;
+};
+
 export interface ITechActiveColumns {
   type: string;
   campus: string;

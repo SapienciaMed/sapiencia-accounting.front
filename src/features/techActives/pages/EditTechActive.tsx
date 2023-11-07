@@ -1,6 +1,4 @@
 import { memo } from "react";
-
-import { useCreateTechActive } from "../hooks/createTechActive";
 import {
   FormComponent,
   SelectComponent,
@@ -9,11 +7,14 @@ import {
 } from "../../../common/components/Form";
 import { DatePickerComponent } from "../../../common/components/Form/input-date.component";
 import { TextAreaComponent } from "../../../common/components/Form/input-text-area.component";
-const CreateTechActive = () => {
+import { useEditTechActive } from "../hooks/editTechActive";
+
+const EditTechActive = () => {
   const {
+    submitDisabled,
+    onSubmit,
     control,
     typeActive,
-    handleSubmit,
     register,
     errors,
     handleCancel,
@@ -24,14 +25,11 @@ const CreateTechActive = () => {
     officers,
     fullInfo,
     type,
-  } = useCreateTechActive();
+  } = useEditTechActive();
+
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
-      <FormComponent
-        id="CreateTechActive"
-        className="form-signIn"
-        action={handleSubmit}
-      >
+      <FormComponent id="editTechActive" action={onSubmit}>
         <div className="container-sections-forms ml-20px mr-20px">
           {type === "Otros" && (
             <div className="grid-form-3-container gap-25">
@@ -522,15 +520,16 @@ const CreateTechActive = () => {
           />
           <ButtonComponent
             value="Guardar"
-            type="submit"
-            disabled={!isValid || Object.keys(errors).length > 0}
+            disabled={!isValid || submitDisabled}
             className={`button-save ${
-              !isValid || Object.keys(errors).length > 0 ? "disabled-black" : ""
+              !isValid || submitDisabled ? "disabled-black" : ""
             } big`}
+            type="submit"
           />
         </div>
       </FormComponent>
     </div>
   );
 };
-export default memo(CreateTechActive);
+
+export default memo(EditTechActive);

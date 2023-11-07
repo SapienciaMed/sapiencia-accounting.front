@@ -11,7 +11,7 @@ export const tableColumns: ITableElement<ITechActiveColumns>[] = [
   },
   {
     fieldName: "area",
-    header: "Area",
+    header: "Área",
   },
   {
     fieldName: "status",
@@ -62,11 +62,7 @@ export const tableColumns: ITableElement<ITechActiveColumns>[] = [
     header: "Sistema operativo",
   },
   {
-    fieldName: "observation",
+    fieldName: "observations",
     header: "Observaciones",
-  },
-  {
-    fieldName: "userModified",
-    header: "Acciones ",
   },
 ];

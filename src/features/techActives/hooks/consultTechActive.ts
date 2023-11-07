@@ -12,12 +12,14 @@ import { jsDateToISODate } from "../../../common/utils/helpers";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { AppContext } from "../../../common/contexts/app.context";
 import { consultTechActiveSchema } from "../../../common/schemas/techActives.schemas";
+import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
 
 export const useConsultTechActive = () => {
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
   const { data: sede } = useGetGenericItems("SEDES");
   const { data: typeActive } = useGetGenericItems("TIPO_ACTIVOS");
+  const { fullInfo } = useGetAllWorkersAllInfoHook();
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
   const { validateActionAccess } = useContext(AppContext);
@@ -35,22 +37,21 @@ export const useConsultTechActive = () => {
   const [formWatch, setFormWatch] = useState({
     plate: "",
     serial: "",
-    ownerId: "",
   });
-  const [type, campus] = watch(["type", "campus"]);
+  const [type, campus, ownerId] = watch(["type", "campus", "ownerId"]);
 
   const tableActions: ITableAction<ITechActives>[] = [
     {
       icon: "Detail",
       onClick: (row) => {
-        navigate(`/contabilidad/activos-fijos/detalle/${row.id}`);
+        navigate(`/contabilidad/activos-tecnologicos/detalle/${row.id}`);
       },
       // hide: !validateActionAccess("BIEN_MUEBLE_DETALLE"),
     },
     {
       icon: "Edit",
       onClick: (row) => {
-        navigate(`/contabilidad/activos-fijos/editar/${row.id}`);
+        navigate(`/contabilidad/activos-tecnologicos/editar/${row.id}`);
       },
       // hide: !validateActionAccess("BIEN_MUEBLE_EDITAR"),
     },
@@ -58,8 +59,8 @@ export const useConsultTechActive = () => {
 
   const downloadCollection = useCallback(() => {
     const { page, perPage } = paginateData;
-    const { plate, serial, ownerId } = formWatch;
-    const url = new URL(`${urlApiAccounting}/api/v1/furniture/generate-xlsx`);
+    const { plate, serial } = formWatch;
+    const url = new URL(`${urlApiAccounting}/api/v1/asset/generate-xlsx`);
     const params = new URLSearchParams();
     params.append("page", page + 1);
     params.append("perPage", perPage);
@@ -105,18 +106,19 @@ export const useConsultTechActive = () => {
   };
 
   useEffect(() => {
-    const { plate, serial, ownerId } = formWatch;
+    const { plate, serial } = formWatch;
     if (type || campus || serial || ownerId || plate) {
       return setSubmitDisabled(false);
     }
     setSubmitDisabled(true);
-  }, [type, campus, formWatch]);
+  }, [type, campus, ownerId, formWatch]);
 
   return {
     downloadCollection,
     tableComponentRef,
     setPaginateData,
     sede,
+    fullInfo,
     typeActive,
     urlGetConsultTechActive,
     tableView,

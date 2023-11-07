@@ -1,9 +1,10 @@
 import { memo } from "react";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "../../common/components/Guard/auth-private-guard";
-import ManageTechActivesForm from "./forms/techActiveForm/ManageTechActivesForm";
 import ConsultTechActive from "./pages/ConsultTechActive";
 import CreateTechActive from "./pages/CreateTechActive";
+import EditTechActive from "./pages/EditTechActive";
+import DetailsTechActive from "./pages/DetailsTechActive";
 
 const TechActivesRoutes = () => {
   // const CreateAccountStatement = lazy(
@@ -35,6 +36,24 @@ const TechActivesRoutes = () => {
           <PrivateRoute
             element={<CreateTechActive />}
             allowedAction="BIEN_MUEBLE_CREAR"
+          />
+        }
+      />
+      <Route
+        path="/detalle/:id"
+        element={
+          <PrivateRoute
+            element={<DetailsTechActive />}
+            allowedAction="BIEN_MUEBLE_DETALLE"
+          />
+        }
+      />
+      <Route
+        path="/editar/:id"
+        element={
+          <PrivateRoute
+            element={<EditTechActive />}
+            allowedAction="BIEN_MUEBLE_EDITAR"
           />
         }
       />

@@ -25,6 +25,7 @@ const ManageTechActivesForm = ({
   register,
   setPaginateData,
   sede,
+  fullInfo,
   typeActive,
   handleChange,
   downloadCollection,
@@ -43,7 +44,7 @@ const ManageTechActivesForm = ({
               Gestionar activos tecnológicos
             </div>
             {validateActionAccess("BIEN_MUEBLE_CREAR") && (
-              <div className="button-save-container-display mr-33px button-create-business">
+              <div className="button-save-container-display mr-20px button-create-business">
                 <Link
                   to="/contabilidad/activos-tecnologicos/crear"
                   className="text-links"
@@ -95,26 +96,17 @@ const ManageTechActivesForm = ({
             />
           </div>
           <div className="grid-form-3-container gap-25 mt-24px">
-            <InputComponent
+            <SelectComponent
               idInput="ownerId"
-              label={<>CC usuario</>}
-              register={register}
-              typeInput="number"
+              control={control}
               errors={errors}
-              className="input-basic medium"
+              data={fullInfo}
+              label={<> Usuario </>}
+              className="select-basic medium"
               classNameLabel="text-black big bold"
-              onChange={handleChange}
+              placeholder="Seleccionar"
+              filter
             />
-            {/* <InputComponent
-              idInput="plate"
-              label={<>Nombres y apellidos</>}
-              register={register}
-              typeInput="number"
-              errors={errors}
-              className="input-basic medium"
-              classNameLabel="text-black big bold"
-              onChange={handleChange}
-            /> */}
             <SelectComponent
               idInput="type"
               control={control}

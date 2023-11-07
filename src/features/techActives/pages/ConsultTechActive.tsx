@@ -15,6 +15,7 @@ const ConsultTechActive = () => {
     setPaginateData,
     submitDisabled,
     sede,
+    fullInfo,
     typeActive,
     register,
     handleChange,
@@ -28,6 +29,7 @@ const ConsultTechActive = () => {
       register={register}
       handleChange={handleChange}
       sede={sede}
+      fullInfo={fullInfo}
       typeActive={typeActive}
       submitDisabled={submitDisabled}
       setPaginateData={setPaginateData}

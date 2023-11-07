@@ -1,25 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useTechActiveById } from "./getTechActiveById";
+import { createTechActiveaSchema } from "../../../common/schemas/techActives.schemas";
+import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
+import useCrudService from "../../../common/hooks/crud-service.hook";
+import { urlApiAccounting } from "../../../common/utils/base-url";
 import { EResponseCodes } from "../../../common/constants/api.enum";
 import { AppContext } from "../../../common/contexts/app.context";
-import useCrudService from "../../../common/hooks/crud-service.hook";
-import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { ITechActives } from "../../../common/interfaces/accountStatement.interface";
-import { urlApiAccounting } from "../../../common/utils/base-url";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
-import { useGenericListService } from "../../../common/hooks/generic-list-service.hook";
 import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
-import { createTechActiveaSchema } from "../../../common/schemas/techActives.schemas";
+import { useGenericListService } from "../../../common/hooks/generic-list-service.hook";
 
-export const useCreateTechActive = () => {
+export const useEditTechActive = () => {
   const navigate = useNavigate();
-  const [areasData, setAreasData] =
-    useState<{ name: string; value: string }[]>();
-  const { getListByParent } = useGenericListService();
   const { setMessage } = useContext(AppContext);
-  const { post } = useCrudService(urlApiAccounting);
+  const { id, techActive } = useTechActiveById();
+  const { put } = useCrudService(urlApiAccounting);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const resolver = useYupValidationResolver(createTechActiveaSchema);
+  const { getListByParent } = useGenericListService();
 
   const { data: equipmentStatus } = useGetGenericItems("ESTADO_EQUIPO");
   const { data: officers } = useGetGenericItems("FUNCIONARIO");
@@ -27,60 +27,93 @@ export const useCreateTechActive = () => {
   const { data: sede } = useGetGenericItems("SEDES");
   const { data: typeActive } = useGetGenericItems("TIPO_ACTIVOS");
   const { fullInfo } = useGetAllWorkersAllInfoHook();
+  const [areasData, setAreasData] =
+    useState<{ name: string; value: string }[]>();
+
+  const [formWatch, setFormWatch] = useState({
+    equipmentType: "",
+    brand: "",
+    model: "",
+    plate: "",
+    serial: "",
+    observations: "",
+    cpu: "",
+    ram: "",
+    storage: "",
+    os: "",
+  });
 
   const {
     control,
     handleSubmit,
     register,
     reset,
+    setValue,
     watch,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
   const [type, campus] = watch(["type", "campus"]);
-  const createTechActive = async (data: ITechActives) => {
+
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setFormWatch({
+      ...formWatch,
+      [name]: value,
+    });
+  };
+
+  const updateProperty = async (data) => {
     try {
-      const endpoint = "/api/v1/asset/create";
-      const resp = await post<ITechActives>(endpoint, data);
+      const endpoint = `/api/v1/asset/${id}/update`;
+      const resp = await put(endpoint, data);
+
       if (resp.operation.code === EResponseCodes.FAIL) {
         return setMessage({
-          title: "Activo fijo",
+          title: "Editar Activo",
           description: resp.operation.message,
-          onOk: () => setMessage({ show: false }),
           show: true,
           okTitle: "Cerrar",
+          onOk: () => {
+            setMessage({ show: false });
+          },
           background: true,
         });
       }
       setMessage({
         title: "Activo fijo",
-        description: " ¡Creado exitosamente!",
+        description: "¡Editado exitosamente!",
         show: true,
         okTitle: "Cerrar",
         onOk: () => {
-          reset();
           setMessage({ show: false });
+          navigate(-1);
         },
+
         background: true,
       });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
+      setMessage({
+        title: "Activo fijo",
+        description: "Error, por favor intente más tarde",
+        show: true,
+        okTitle: "Cerrar",
+        onOk: () => setMessage({ show: false }),
+        background: true,
+      });
     }
   };
-
-  const onSubmit = (data) => {
-    const body = {
-      ...data,
-    };
+  const onSubmit = async (data) => {
     setMessage({
-      title: "Crear Activo",
-      description: "¿Esta segur@ de crear el  activo?",
+      title: "Editar Activo",
+      description: "¿Esta segur@ de editar activo?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
       onOk: () => {
         setMessage({ show: false });
-        createTechActive(body);
+        updateProperty(data);
       },
       onClose: () => setMessage({ show: false }),
       background: true,
@@ -89,8 +122,8 @@ export const useCreateTechActive = () => {
 
   const handleCancel = () => {
     setMessage({
-      title: "Cancelar creación activo",
-      description: "¿Esta segur@ de cancelar la creación del activo?",
+      title: "Cancelar edición activo",
+      description: "¿Esta segur@ de cancelar la edición del activo?",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
@@ -105,6 +138,42 @@ export const useCreateTechActive = () => {
       onClose: () => setMessage({ show: false }),
     });
   };
+
+  useEffect(() => {
+    reset(techActive);
+  }, [techActive]);
+
+  useEffect(() => {
+    const {
+      brand,
+      equipmentType,
+      plate,
+      model,
+      serial,
+      observations,
+      cpu,
+      ram,
+      storage,
+      os,
+    } = formWatch;
+    if (
+      !brand ||
+      !equipmentType ||
+      !plate ||
+      !model ||
+      !serial ||
+      !observations ||
+      !cpu ||
+      !ram ||
+      !storage ||
+      !os
+    ) {
+      return setSubmitDisabled(false);
+    }
+    setSubmitDisabled(true);
+  }, [formWatch]);
+
+  useEffect(() => {}, [isValid, submitDisabled]);
 
   const getAreaByCampusCode = async (campus: string) => {
     if (!campus) return;
@@ -125,20 +194,22 @@ export const useCreateTechActive = () => {
   }, [campus]);
 
   return {
-    areasData,
-    typeActive,
-    sede,
-    equipmentStatus,
-    officers,
-    activeOwner,
     control,
-    handleSubmit: handleSubmit(onSubmit),
     register,
     errors,
-    handleCancel,
     isValid,
+    handleCancel,
+    handleSubmit,
+    submitDisabled,
+    handleChange,
+    onSubmit: handleSubmit(onSubmit),
+    areasData,
+    equipmentStatus,
+    typeActive,
+    sede,
+    officers,
+    activeOwner,
     fullInfo,
-    watch,
     type,
   };
 };
