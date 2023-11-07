@@ -108,7 +108,7 @@ const DetailsTechActive = () => {
                   classNameLabel="text-black big bold"
                 />
                 <InputComponent
-                  idInput="official"
+                  idInput="clerk"
                   disabled
                   label={<>Funcionario</>}
                   typeInput="text"
@@ -243,7 +243,7 @@ const DetailsTechActive = () => {
                   classNameLabel="text-black big bold"
                 />
                 <InputComponent
-                  idInput="official"
+                  idInput="clerk"
                   disabled
                   label={<>Funcionario</>}
                   typeInput="text"

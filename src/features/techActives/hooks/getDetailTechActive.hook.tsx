@@ -1,4 +1,3 @@
-import { DateTime } from "luxon";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -6,10 +5,12 @@ import { useTechActiveById } from "./getTechActiveById";
 import { HistoryDescription } from "../../../common/components/Form/table-detail.component";
 import { AppContext } from "../../../common/contexts/app.context";
 import useCrudService from "../../../common/hooks/crud-service.hook";
-import { IFurnitureHistoryData } from "../../../common/interfaces/fixedAssets.interface";
+import {
+  ASSET_NAMES,
+  IFurnitureHistoryData,
+} from "../../../common/interfaces/fixedAssets.interface";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
-import tableComponent from "../../../common/components/table.component";
 
 export const useGetDetailTechActive = () => {
   const navigate = useNavigate();
@@ -24,30 +25,31 @@ export const useGetDetailTechActive = () => {
   const handleClose = () =>
     navigate("/contabilidad/activos-tecnologicos/consultar");
 
-  const getFurnitureHistoryById = async () => {
+  const getTechActiveHistoryById = async () => {
     const resp = await get<IFurnitureHistoryData[]>(
-      `/api/v1/furniture-history/${id}/get-furniture-history-by-id`
+      `/api/v1/asset-history/${id}/get-asset-history-by-id`
     );
     setHistoryData(resp.data);
   };
 
   useEffect(() => {
-    getFurnitureHistoryById();
+    getTechActiveHistoryById();
   }, []);
 
   useEffect(() => {
     reset(techActive);
   }, [techActive]);
 
-  useEffect(() => {
-    console.log(type);
-  }, [type]);
-
   const showHistoryTechActive = () => {
     setMessage({
       title: "Históricos",
       show: true,
-      description: <HistoryDescription historyData={historyData} />,
+      description: (
+        <HistoryDescription
+          historyData={historyData}
+          TITLE_ENUM={ASSET_NAMES}
+        />
+      ),
       size: "medium",
       background: true,
     });

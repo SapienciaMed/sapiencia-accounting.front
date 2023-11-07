@@ -7,7 +7,10 @@ import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
 import { usePropertyById } from "./getPropertyById";
-import { IFurnitureHistoryData } from "../../../../common/interfaces/fixedAssets.interface";
+import {
+  FURNITURE_NAMES,
+  IFurnitureHistoryData,
+} from "../../../../common/interfaces/fixedAssets.interface";
 
 export const useGetDetailProperty = () => {
   const navigate = useNavigate();
@@ -38,7 +41,12 @@ export const useGetDetailProperty = () => {
     setMessage({
       title: "Históricos",
       show: true,
-      description: <HistoryDescription historyData={historyData} />,
+      description: (
+        <HistoryDescription
+          historyData={historyData}
+          TITLE_ENUM={FURNITURE_NAMES}
+        />
+      ),
       size: "medium",
       background: true,
     });

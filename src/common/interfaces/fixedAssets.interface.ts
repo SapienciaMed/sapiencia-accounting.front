@@ -44,3 +44,36 @@ export type IFurnitureHistoryData = {
   createdAt: string;
   changes: IFurnitureHistoryChanges;
 };
+
+export enum FURNITURE_NAMES {
+  plate = "Placa",
+  description = "Descripción",
+  acquisitionDate = "Fecha adquisición",
+  equipmentStatus = "Estado",
+  userIdentification = "Identificación",
+  fullName = "Nombre",
+  area = "Área",
+  model = "Modelo",
+  brand = "Marca",
+  measure = "Medidas",
+  activeOwner = "Propietario",
+  observation = "Observaciones",
+  clerk = "Funcionario",
+}
+
+export enum ASSET_NAMES {
+  type = "Tipo",
+  campus = "Sede",
+  area = "Área",
+  status = "Estado equipo",
+  ownerId = "Información",
+  ownerDate = "Fecha de adquisición",
+  equipmentType = "Tipo equipo",
+  brand = "Marca",
+  model = "Modelo",
+  cpu = "CPU",
+  ram = "RAM",
+  storage = "Almacenamiento",
+  os = "Sistema operativo",
+  observations = "Observaciones",
+}

@@ -4,22 +4,6 @@ import React, { memo, useState } from "react";
 import icono from "../../../public/images/icono.png";
 import { IFurnitureHistoryData } from "../../interfaces/fixedAssets.interface";
 
-export enum FURNITURE_NAMES {
-  plate = "Placa",
-  description = "Descripción",
-  acquisitionDate = "Fecha adquisición",
-  equipmentStatus = "Estado",
-  userIdentification = "Identificación",
-  fullName = "Nombre",
-  area = "Área",
-  model = "Modelo",
-  brand = "Marca",
-  measure = "Medidas",
-  activeOwner = "Propietario",
-  observation = "Observaciones",
-  clerk = "Funcionario",
-}
-
 type ListDateInfo = {
   date: string;
   handleClick: () => void;
@@ -58,7 +42,9 @@ export function ContainerLabel({
 const HistoryTable = ({
   showHistoryTable,
   historyInfo,
+  TITLE_ENUM,
 }: {
+  TITLE_ENUM: any;
   showHistoryTable: boolean;
   historyInfo: IFurnitureHistoryData;
 }) => {
@@ -73,7 +59,7 @@ const HistoryTable = ({
         return (
           <div key={key} className="HistoryTable__row">
             <strong style={{ marginLeft: isFirst ? 10 : 0 }}>
-              <span>{FURNITURE_NAMES[key]}</span>
+              <span>{TITLE_ENUM[key]}</span>
             </strong>
             <div>
               {isFirst && <div className="HistoryTable__redPoint"></div>}
@@ -94,10 +80,12 @@ const HistoryRow = ({
   historyInfo,
   dataLength,
   index,
+  TITLE_ENUM,
 }: {
   historyInfo: IFurnitureHistoryData;
   dataLength: number;
   index: number;
+  TITLE_ENUM: any;
 }) => {
   const [showHistoryTable, setShowHistoryTable] = useState(false);
   const handleClick = () => setShowHistoryTable(!showHistoryTable);
@@ -112,6 +100,7 @@ const HistoryRow = ({
       </div>
       {showHistoryTable && (
         <HistoryTable
+          TITLE_ENUM={TITLE_ENUM}
           historyInfo={historyInfo}
           showHistoryTable={showHistoryTable}
         />
@@ -130,8 +119,10 @@ const HistoryRow = ({
 
 export const HistoryDescription = ({
   historyData,
+  TITLE_ENUM,
 }: {
   historyData: IFurnitureHistoryData[];
+  TITLE_ENUM: any;
 }) => {
   return (
     <div className="custom-history-description-container">
@@ -144,6 +135,7 @@ export const HistoryDescription = ({
                 index={index}
                 dataLength={historyData.length}
                 historyInfo={historyInfo}
+                TITLE_ENUM={TITLE_ENUM}
               />
             </div>
           </div>
