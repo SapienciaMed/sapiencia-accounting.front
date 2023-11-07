@@ -80,7 +80,6 @@ export const createTechActiveaSchema = yup.object({
     .required("Completar información"),
   ram: yup.string().max(500).nullable(),
   cpu: yup.string().max(500).nullable(),
-
   storage: yup.string().max(500).nullable(),
   os: yup.string().max(500).nullable(),
 });

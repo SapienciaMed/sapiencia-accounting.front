@@ -9,15 +9,16 @@ import useCrudService from "../../../common/hooks/crud-service.hook";
 import { IFurnitureHistoryData } from "../../../common/interfaces/fixedAssets.interface";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
+import tableComponent from "../../../common/components/table.component";
 
 export const useGetDetailTechActive = () => {
   const navigate = useNavigate();
   const { id, techActive } = useTechActiveById();
-  const { control, register, reset } = useForm();
+  const { control, register, reset, watch } = useForm();
   const [historyData, setHistoryData] = useState<IFurnitureHistoryData[]>(null);
   const { setMessage } = useContext(AppContext);
   const { get } = useCrudService(urlApiAccounting);
-  const [type] = ["type"];
+  const [type] = watch(["type"]);
   const { data: typeActive } = useGetGenericItems("TIPO_ACTIVOS");
 
   const handleClose = () =>
@@ -37,6 +38,10 @@ export const useGetDetailTechActive = () => {
   useEffect(() => {
     reset(techActive);
   }, [techActive]);
+
+  useEffect(() => {
+    console.log(type);
+  }, [type]);
 
   const showHistoryTechActive = () => {
     setMessage({

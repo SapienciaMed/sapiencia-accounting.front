@@ -9,8 +9,8 @@ import { ITechActives } from "../../../common/interfaces/accountStatement.interf
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { useGenericListService } from "../../../common/hooks/generic-list-service.hook";
-import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
 import { createTechActiveaSchema } from "../../../common/schemas/techActives.schemas";
+import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
 
 export const useCreateTechActive = () => {
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ export const useCreateTechActive = () => {
           description: resp.operation.message,
           onOk: () => setMessage({ show: false }),
           show: true,
-          okTitle: "Cerrar",
+          okTitle: "Cancelar",
           background: true,
         });
       }
@@ -58,7 +58,7 @@ export const useCreateTechActive = () => {
         show: true,
         okTitle: "Cerrar",
         onOk: () => {
-          reset();
+          navigate("/contabilidad/activos-tecnologicos/consultar");
           setMessage({ show: false });
         },
         background: true,

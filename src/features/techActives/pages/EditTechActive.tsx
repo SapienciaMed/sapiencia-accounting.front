@@ -34,14 +34,14 @@ const EditTechActive = () => {
           {type === "Otros" && (
             <div className="grid-form-3-container gap-25">
               <span className="text-black extra-large bold grid-span-3-columns">
-                Crear activo tecnológico
+                Editar activo tecnológico
               </span>
             </div>
           )}
           {type === "Computo" && (
             <div className="grid-form-3-container gap-25">
               <span className="text-black extra-large bold grid-span-3-columns">
-                Crear equipo de computo
+                Editar equipo de computo
               </span>
             </div>
           )}
@@ -63,6 +63,7 @@ const EditTechActive = () => {
               placeholder="Seleccionar"
               data={typeActive}
               filter
+              disabled
             />
           </div>
 
@@ -133,21 +134,19 @@ const EditTechActive = () => {
                     data={fullInfo}
                     filter
                   />
-
-                  <SelectComponent
-                    idInput="official"
-                    control={control}
-                    errors={errors}
+                  <InputComponent
+                    idInput="clerk"
+                    disabled
                     label={
                       <>
                         Funcionario <span>*</span>
                       </>
                     }
-                    className="select-basic medium"
+                    typeInput="text"
+                    register={register}
+                    errors={errors}
+                    className="input-basic medium"
                     classNameLabel="text-black big bold"
-                    placeholder="Seleccionar"
-                    data={officers}
-                    filter
                   />
                 </div>
                 <div className="grid-form-3-container gap-25 mt-28px">
@@ -326,20 +325,19 @@ const EditTechActive = () => {
                     filter
                   />
 
-                  <SelectComponent
-                    idInput="official"
-                    control={control}
-                    errors={errors}
+                  <InputComponent
+                    idInput="clerk"
+                    disabled
                     label={
                       <>
                         Funcionario <span>*</span>
                       </>
                     }
-                    className="select-basic medium"
+                    typeInput="text"
+                    register={register}
+                    errors={errors}
+                    className="input-basic medium"
                     classNameLabel="text-black big bold"
-                    placeholder="Seleccionar"
-                    data={officers}
-                    filter
                   />
                 </div>
                 <div className="grid-form-3-container gap-25 mt-28px">
@@ -355,6 +353,7 @@ const EditTechActive = () => {
                     className="dataPicker-basic  medium "
                     dateFormat="dd/mm/yy"
                     maxDate={new Date()}
+                    disabled
                   />
 
                   <InputComponent
@@ -369,6 +368,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
                   <InputComponent
                     idInput="brand"
@@ -382,6 +382,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
                 </div>
                 <div className="grid-form-3-container gap-25 mt-28px">
@@ -397,6 +398,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
 
                   <InputComponent
@@ -411,6 +413,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
                   <InputComponent
                     idInput="serial"
@@ -424,6 +427,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
                 </div>
                 <div className="grid-form-3-container gap-25 mt-28px">

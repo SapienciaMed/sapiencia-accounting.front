@@ -53,7 +53,7 @@ export const useEditTechActive = () => {
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
-  const [type, campus] = watch(["type", "campus"]);
+  const [type, campus, ownerId] = watch(["type", "campus", "ownerId"]);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -192,6 +192,23 @@ export const useEditTechActive = () => {
   useEffect(() => {
     getAreaByCampusCode(campus);
   }, [campus]);
+
+  useEffect(() => {
+    if (!techActive) return;
+    reset({
+      ...techActive,
+      ownerId: Number(techActive.ownerId),
+      status: Number(techActive.status),
+    });
+  }, [techActive]);
+
+  useEffect(() => {
+    if (!fullInfo || !ownerId) return;
+    const workerFound = fullInfo?.find(
+      (worker) => worker.value === Number(ownerId)
+    );
+    setValue("clerk", String(workerFound?.clerk));
+  }, [ownerId, fullInfo]);
 
   return {
     control,

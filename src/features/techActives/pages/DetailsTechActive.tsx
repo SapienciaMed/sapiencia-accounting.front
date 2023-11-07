@@ -26,21 +26,21 @@ const DetailsTechActive = () => {
         {type === "Otros" && (
           <div className="grid-form-3-container gap-25">
             <span className="text-black extra-large bold grid-span-3-columns">
-              Consulta detalle activo tecnológico
+              Visualizar activo tecnológico
             </span>
           </div>
         )}
         {type === "Computo" && (
           <div className="grid-form-3-container gap-25">
             <span className="text-black extra-large bold grid-span-3-columns">
-              Crear equipo de computo
+              Visualizar equipo de computo
             </span>
           </div>
         )}
         {(type === undefined || type === null) && (
           <div className="grid-form-3-container gap-25">
             <span className="text-black extra-large bold grid-span-3-columns">
-              Selecciona tipo dispositivo
+              tipo dispositivo no seleccionado
             </span>
           </div>
         )}
@@ -61,6 +61,7 @@ const DetailsTechActive = () => {
             classNameLabel="text-black big bold"
             placeholder="Seleccionar"
             data={typeActive}
+            disabled
           />
         </div>
 
