@@ -1,31 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import { EDirection } from "../../constants/input.enum";
 import { LabelComponent } from "./label.component";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { Dropdown } from 'primereact/dropdown';
 
-interface IDropdownProps {
-  name: string,
-  value: string
-}
+import { Dropdown } from "primereact/dropdown";
+import { Control, Controller } from "react-hook-form";
+import { IDropdownProps } from "../../interfaces/select.interface";
 
 interface ISelectProps<T> {
   idInput: string;
-  register?: UseFormRegister<T>;
+  control: Control<any>;
   className?: string;
   placeholder?: string;
   data?: Array<IDropdownProps>;
-  value?: string;
-  label?: string;
+  label?: string | React.JSX.Element;
   classNameLabel?: string;
   direction?: EDirection;
   children?: React.JSX.Element | React.JSX.Element[];
-  errors?: FieldErrors<any>;
-  setValue?: React.Dispatch<any>;
-  stateProps?: {
-    state: any,
-    setState: React.Dispatch<any>
-  }
+  errors?: any;
+  disabled?: boolean;
+  fieldArray?: boolean;
+  filter?: boolean;
+  emptyMessage?: string;
 }
 
 function LabelElement({ label, idInput, classNameLabel }): React.JSX.Element {
@@ -39,50 +34,51 @@ function LabelElement({ label, idInput, classNameLabel }): React.JSX.Element {
   );
 }
 
-function SelectElement({
-  idInput,
-  className,
-  placeholder,
-  data,
-  value,
-  register,
-  setValue,
-  stateProps
-}): React.JSX.Element {
-  const [selectedCity, setSelectedCity] = useState(value);
-  const registerProp = register ? register : () => {};
-  return (
-    <Dropdown {...registerProp(idInput)} value={stateProps ? stateProps.state : selectedCity} onChange={(e) =>{ if (setValue) {
-      setValue(e.value);
-      setSelectedCity(e.value)
-    }
-    stateProps ? stateProps.setState(e.value) : setSelectedCity(e.value);
-  }} options={data} optionLabel="name" 
-      placeholder={placeholder} className={className} />
-  );
-}
-
 export function SelectComponent({
   idInput,
-  register,
+  control,
   className = "select-basic",
   placeholder = "Seleccione",
   data = [{} as IDropdownProps],
-  value = null,
   label,
   classNameLabel = "text-main",
   direction = EDirection.column,
   children,
   errors = {},
-  stateProps,
-  setValue
+  disabled,
+  fieldArray,
+  filter,
+  emptyMessage = "Sin resultados.",
 }: ISelectProps<any>): React.JSX.Element {
+  if (data) {
+    const seleccione: IDropdownProps = { name: "Seleccione", value: null };
+    const dataSelect = data?.find(
+      (item) =>
+        item.name === seleccione?.name && item.value === seleccione.value
+    );
+    if (!dataSelect) data?.unshift(seleccione);
+  }
+  const messageError = () => {
+    const keysError = idInput?.split(".");
+    let errs = errors;
+    if (fieldArray) {
+      const errorKey = `${keysError[0]}[${keysError[1]}].${keysError[2]}`;
+      return errors[errorKey]?.message;
+    } else {
+      for (let key of keysError) {
+        errs = errs?.[key];
+        if (!errs) {
+          break;
+        }
+      }
+      return errs?.message ?? null;
+    }
+  };
+
   return (
     <div
       className={
-        errors[idInput]?.message
-          ? `${direction} container-icon_error`
-          : direction
+        messageError() ? `${direction} container-icon_error` : direction
       }
     >
       <LabelElement
@@ -91,12 +87,34 @@ export function SelectComponent({
         classNameLabel={classNameLabel}
       />
       <div>
-        <SelectElement idInput={idInput} className={className} setValue={setValue} placeholder={placeholder} data={data} value={value} register={register} stateProps={stateProps}/>
-        {errors[idInput]?.message && <span className="icon-error"></span>}
+        <Controller
+          name={idInput}
+          control={control}
+          render={({ field }) => (
+            <Dropdown
+              id={field.name}
+              value={
+                data
+                  ? data.find((row) => row.value === field.value)?.value
+                  : null
+              }
+              onChange={(e) => field.onChange(e.value)}
+              options={data}
+              optionLabel="name"
+              placeholder={placeholder}
+              className={`${className} ${messageError() ? "p-invalid" : ""}`}
+              disabled={disabled}
+              filter={filter}
+              emptyMessage={emptyMessage}
+              emptyFilterMessage={emptyMessage}
+            />
+          )}
+        />
+        {messageError() && <span className="icon-error"></span>}
       </div>
-      {errors[idInput]?.message && (
+      {messageError() && (
         <p className="error-message bold not-margin-padding">
-          {errors[idInput]?.message}
+          {messageError()}
         </p>
       )}
       {children}

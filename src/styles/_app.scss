@@ -1,4 +1,16 @@
-
+@import "./variables.scss";
+@import "./mixins.scss";
+@import "./table.scss";
+@import "./font-family.scss";
+@import "./inputs.scss";
+@import "./button.scss";
+@import "./aling.scss";
+@import "./grid.scss";
+@import "./texts.scss";
+@import "./modal.scss";
+@import "./spacing.scss";
+@import "./styles.scss";
+@import "./alerts.scss";
 // :root {
 //   --color-black: #0b060e;
 //   --color-gray: #535353;
@@ -57,4 +69,15 @@ hr {
 
 .pointer {
   cursor: pointer;
+}
+
+div[id="single-spa-application:@sapiencia/accounting"] {
+  height: 100%;
+}
+.grid {
+  display: grid;
+
+  &.gap-25 {
+    gap: 25px;
+  }
 }
