@@ -40,6 +40,7 @@ interface IProps<T> {
   titleMessageModalNoResult?: string;
   descriptionModalNoResult?: string;
   setPaginateData?: ({}) => {};
+  setShowFooterActions?: ({}) => {};
 }
 
 interface IRef {
@@ -53,6 +54,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     actions,
     url,
     titleMessageModalNoResult,
+    setShowFooterActions,
     descriptionModalNoResult,
     isShowModal,
     emptyMessage = "No hay resultados.",
@@ -69,6 +71,12 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
   const [searchCriteria, setSearchCriteria] = useState<object>();
   const { width } = useWidth();
   const { setMessage } = useContext(AppContext);
+
+  useEffect(() => {
+    if (!setShowFooterActions) return;
+    const thereAreData = resultData?.array?.length > 0;
+    setShowFooterActions(thereAreData);
+  }, [resultData]);
 
   // ============================================
   // REMOVE THIS BECAUSE IS ONLY PARTIAL SOLUTION

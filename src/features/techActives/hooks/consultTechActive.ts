@@ -23,6 +23,7 @@ export const useConsultTechActive = () => {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
   const { validateActionAccess } = useContext(AppContext);
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const resolver = useYupValidationResolver(consultTechActiveSchema);
   const {
@@ -116,6 +117,7 @@ export const useConsultTechActive = () => {
   return {
     downloadCollection,
     tableComponentRef,
+    setShowFooterActions,
     setPaginateData,
     sede,
     fullInfo,
@@ -129,6 +131,7 @@ export const useConsultTechActive = () => {
     isValid,
     tableActions,
     submitDisabled,
+    showFooterActions,
     handleChange,
     handleClean,
     validateActionAccess,

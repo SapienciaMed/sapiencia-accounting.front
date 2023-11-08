@@ -27,6 +27,8 @@ const ManageTechActivesForm = ({
   sede,
   fullInfo,
   typeActive,
+  showFooterActions,
+  setShowFooterActions,
   handleChange,
   downloadCollection,
   validateActionAccess,
@@ -147,6 +149,7 @@ const ManageTechActivesForm = ({
               columns={tableColumns}
               actions={tableActions}
               isShowModal={true}
+              setShowFooterActions={setShowFooterActions}
               emptyMessage="Resultado en la búsqueda"
               descriptionModalNoResult="No se generó resultado en la búsqueda"
               titleMessageModalNoResult="Resultado de búsqueda"
@@ -159,25 +162,27 @@ const ManageTechActivesForm = ({
               backgroundColor: "#e0e0e0",
             }}
           ></div>
-          <div className="button-save-container-display mr-24px">
-            <ButtonComponent
-              value={
-                <>
-                  <div className="container-buttonText">
-                    <span>Descargar</span>
-                    <Svgs svg="excel" width={23.593} height={28.505} />
-                  </div>
-                </>
-              }
-              className="button-download large "
-              action={downloadCollection}
-            />
-            <ButtonComponent
-              value="Cerrar"
-              className="button-save big"
-              action={handleClean}
-            />
-          </div>
+          {showFooterActions && (
+            <div className="button-save-container-display mr-24px">
+              <ButtonComponent
+                value={
+                  <>
+                    <div className="container-buttonText">
+                      <span>Descargar</span>
+                      <Svgs svg="excel" width={23.593} height={28.505} />
+                    </div>
+                  </>
+                }
+                className="button-download large "
+                action={downloadCollection}
+              />
+              <ButtonComponent
+                value="Cerrar"
+                className="button-save big"
+                action={handleClean}
+              />
+            </div>
+          )}
         </>
       )}
     </div>
