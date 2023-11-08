@@ -78,10 +78,10 @@ export const createTechActiveaSchema = yup.object({
     .string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  ram: yup.string().max(500).nullable(),
-  cpu: yup.string().max(500).nullable(),
-  storage: yup.string().max(500).nullable(),
-  os: yup.string().max(500).nullable(),
+  ram: yup.string().max(50).required("Completar información").nullable(),
+  cpu: yup.string().max(50).required("Completar información").nullable(),
+  storage: yup.string().max(50).required("Completar información").nullable(),
+  os: yup.string().max(50).required("Completar información").nullable(),
 });
 
 export const editTechActiveaSchema = yup.object({
@@ -89,7 +89,7 @@ export const editTechActiveaSchema = yup.object({
   campus: yup.string().required("Completar información"),
   area: yup.string().required("Completar información"),
   status: yup.string().required("Completar información"),
-  ownerId: yup.number().required("Completar información"),
+  ownerId: yup.string().required("Completar información"),
   ownerDate: yup
     .date()
     .required("Completar información")

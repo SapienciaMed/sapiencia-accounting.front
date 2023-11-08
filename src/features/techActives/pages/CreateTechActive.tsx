@@ -216,7 +216,7 @@ const CreateTechActive = () => {
                         Placa activo <span>*</span>
                       </>
                     }
-                    typeInput="number"
+                    typeInput="text"
                     register={register}
                     errors={errors}
                     className="input-basic medium"
@@ -408,7 +408,7 @@ const CreateTechActive = () => {
                         Placa activo <span>*</span>
                       </>
                     }
-                    typeInput="number"
+                    typeInput="text"
                     register={register}
                     errors={errors}
                     className="input-basic medium"
