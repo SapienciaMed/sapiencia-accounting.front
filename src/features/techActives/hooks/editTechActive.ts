@@ -206,11 +206,11 @@ export const useEditTechActive = () => {
   }, [techActive]);
 
   useEffect(() => {
-    if (!fullInfo || !ownerId) return;
-    const workerFound = fullInfo?.find(
-      (worker) => worker.value === Number(ownerId)
-    );
-    setValue("clerk", String(workerFound?.clerk));
+    if (!fullInfo) return;
+    const workerFound = ownerId
+      ? fullInfo.find((worker) => worker.value === Number(ownerId))
+      : undefined;
+    setValue("clerk", String(workerFound?.clerk ?? ""));
   }, [ownerId, fullInfo]);
 
   return {
@@ -227,7 +227,6 @@ export const useEditTechActive = () => {
     equipmentStatus,
     typeActive,
     sede,
-
     fullInfo,
     type,
   };

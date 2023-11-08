@@ -89,7 +89,7 @@ export const editTechActiveaSchema = yup.object({
   campus: yup.string().required("Completar información"),
   area: yup.string().required("Completar información"),
   status: yup.string().required("Completar información"),
-  ownerId: yup.string().required("Completar información"),
+  ownerId: yup.number().required("Completar información"),
   ownerDate: yup
     .date()
     .required("Completar información")
