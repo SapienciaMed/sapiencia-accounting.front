@@ -22,7 +22,6 @@ const EditTechActive = () => {
     areasData,
     sede,
     equipmentStatus,
-    officers,
     fullInfo,
     type,
   } = useEditTechActive();

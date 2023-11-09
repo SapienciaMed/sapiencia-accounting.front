@@ -19,7 +19,7 @@ import { EResponseCodes } from "../../../../common/constants/api.enum";
 export const useConsultContract = () => {
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
-  const { contract } = useGetContract();
+  const { contract, setReload: setReloadContracts } = useGetContract();
   const { validateActionAccess } = useContext(AppContext);
   const { business, setReload } = useGetBusiness();
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -78,6 +78,7 @@ export const useConsultContract = () => {
       const endpoint = `/api/v1/contract/${row.id}/delete-by-id`;
       const resp = await deleted<null>(endpoint);
       setReload(new Date());
+      setReloadContracts(new Date());
       handleClean();
       setMessage({
         title: "Contrato",

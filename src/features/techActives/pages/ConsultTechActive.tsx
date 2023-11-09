@@ -14,6 +14,8 @@ const ConsultTechActive = () => {
     handleClean,
     setPaginateData,
     submitDisabled,
+    showFooterActions,
+    setShowFooterActions,
     sede,
     fullInfo,
     typeActive,
@@ -31,9 +33,11 @@ const ConsultTechActive = () => {
       sede={sede}
       fullInfo={fullInfo}
       typeActive={typeActive}
-      submitDisabled={submitDisabled}
       setPaginateData={setPaginateData}
+      submitDisabled={submitDisabled}
       urlGetConsultTechActive={urlGetConsultTechActive}
+      setShowFooterActions={setShowFooterActions}
+      showFooterActions={showFooterActions}
       tableComponentRef={tableComponentRef}
       tableView={tableView}
       onSubmit={onSubmit}

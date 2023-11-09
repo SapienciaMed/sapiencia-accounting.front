@@ -70,10 +70,9 @@ const CreateManageContract = () => {
               errors={errors}
               className="input-basic medium"
               classNameLabel="text-black big bold"
-              disabled
             />
             <InputComponent
-              idInput="data.address"
+              idInput="address"
               label={
                 <>
                   Dirección <span>*</span>
@@ -84,10 +83,9 @@ const CreateManageContract = () => {
               errors={errors}
               className="input-basic medium"
               classNameLabel="text-black big bold"
-              disabled
             />
             <InputComponent
-              idInput="data.phone"
+              idInput="phone"
               label={
                 <>
                   Teléfono <span>*</span>
@@ -98,10 +96,9 @@ const CreateManageContract = () => {
               errors={errors}
               className="input-basic medium"
               classNameLabel="text-black big bold"
-              disabled
             />
             <InputComponent
-              idInput="data.email"
+              idInput="email"
               label={
                 <>
                   Correo electrónico <span>*</span>
@@ -112,13 +109,12 @@ const CreateManageContract = () => {
               errors={errors}
               className="input-basic medium"
               classNameLabel="text-black big bold"
-              disabled
             />
           </div>
           <div className="gap-25 mt-25px grid-form-3-container">
             <div className="grid-span-2-columns">
               <InputComponent
-                idInput="data.sender"
+                idInput="sender"
                 label={
                   <>
                     Persona a la que se remite la cuenta <span>*</span>
@@ -129,12 +125,11 @@ const CreateManageContract = () => {
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
-                disabled
               />
             </div>
             <div>
               <InputComponent
-                idInput="data.chargeSender"
+                idInput="chargeSender"
                 label={
                   <>
                     Cargo <span>*</span>
@@ -145,7 +140,6 @@ const CreateManageContract = () => {
                 errors={errors}
                 className="input-basic medium"
                 classNameLabel="text-black big bold"
-                disabled
               />
             </div>
           </div>

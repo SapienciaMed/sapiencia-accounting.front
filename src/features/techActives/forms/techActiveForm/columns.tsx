@@ -22,9 +22,18 @@ export const tableColumns: ITableElement<ITechActiveColumns>[] = [
     header: "CC usuario",
   },
   {
+    fieldName: "ownerFullName",
+    header: "Nombres y apellidos",
+  },
+  {
+    fieldName: "clerk",
+    header: "Funcionario",
+  },
+  {
     fieldName: "ownerDate",
     header: "Fecha de adquisición",
   },
+
   {
     fieldName: "equipmentType",
     header: "Tipo equipo",
@@ -46,6 +55,11 @@ export const tableColumns: ITableElement<ITechActiveColumns>[] = [
     header: "Serial",
   },
   {
+    fieldName: "observations",
+    header: "Observaciones",
+  },
+
+  {
     fieldName: "cpu",
     header: "Procesador",
   },
@@ -60,9 +74,5 @@ export const tableColumns: ITableElement<ITechActiveColumns>[] = [
   {
     fieldName: "os",
     header: "Sistema operativo",
-  },
-  {
-    fieldName: "observations",
-    header: "Observaciones",
   },
 ];

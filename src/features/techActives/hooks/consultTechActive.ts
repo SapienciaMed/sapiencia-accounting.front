@@ -13,6 +13,7 @@ import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGen
 import { AppContext } from "../../../common/contexts/app.context";
 import { consultTechActiveSchema } from "../../../common/schemas/techActives.schemas";
 import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
+import useAuthService from "../../../common/hooks/auth-service.hook";
 
 export const useConsultTechActive = () => {
   const navigate = useNavigate();
@@ -22,7 +23,9 @@ export const useConsultTechActive = () => {
   const { fullInfo } = useGetAllWorkersAllInfoHook();
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
+  const { getAuthorization } = useAuthService();
   const { validateActionAccess } = useContext(AppContext);
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const resolver = useYupValidationResolver(consultTechActiveSchema);
   const {
@@ -64,6 +67,8 @@ export const useConsultTechActive = () => {
     const params = new URLSearchParams();
     params.append("page", page + 1);
     params.append("perPage", perPage);
+    const token = localStorage.getItem("token");
+    params.append("authorization", token);
     if (plate) {
       params.append("plate", plate);
     }
@@ -116,6 +121,7 @@ export const useConsultTechActive = () => {
   return {
     downloadCollection,
     tableComponentRef,
+    setShowFooterActions,
     setPaginateData,
     sede,
     fullInfo,
@@ -129,6 +135,7 @@ export const useConsultTechActive = () => {
     isValid,
     tableActions,
     submitDisabled,
+    showFooterActions,
     handleChange,
     handleClean,
     validateActionAccess,

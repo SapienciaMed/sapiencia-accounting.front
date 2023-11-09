@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useTechActiveById } from "./getTechActiveById";
-import { createTechActiveaSchema } from "../../../common/schemas/techActives.schemas";
+import { editTechActiveaSchema } from "../../../common/schemas/techActives.schemas";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import { urlApiAccounting } from "../../../common/utils/base-url";
@@ -11,19 +11,18 @@ import { AppContext } from "../../../common/contexts/app.context";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
 import { useGenericListService } from "../../../common/hooks/generic-list-service.hook";
+import { useTechActiveByIdRaw } from "./getTechActiveByIdRaw";
 
 export const useEditTechActive = () => {
   const navigate = useNavigate();
   const { setMessage } = useContext(AppContext);
-  const { id, techActive } = useTechActiveById();
+  const { id, techActive } = useTechActiveByIdRaw();
   const { put } = useCrudService(urlApiAccounting);
   const [submitDisabled, setSubmitDisabled] = useState(true);
-  const resolver = useYupValidationResolver(createTechActiveaSchema);
+  const resolver = useYupValidationResolver(editTechActiveaSchema);
   const { getListByParent } = useGenericListService();
 
   const { data: equipmentStatus } = useGetGenericItems("ESTADO_EQUIPO");
-  const { data: officers } = useGetGenericItems("FUNCIONARIO");
-  const { data: activeOwner } = useGetGenericItems("PROPIETARIO_ACTIVO");
   const { data: sede } = useGetGenericItems("SEDES");
   const { data: typeActive } = useGetGenericItems("TIPO_ACTIVOS");
   const { fullInfo } = useGetAllWorkersAllInfoHook();
@@ -66,7 +65,11 @@ export const useEditTechActive = () => {
   const updateProperty = async (data) => {
     try {
       const endpoint = `/api/v1/asset/${id}/update`;
-      const resp = await put(endpoint, data);
+      const body = {
+        ...data,
+        ownerId: String(data.ownerId),
+      };
+      const resp = await put(endpoint, body);
 
       if (resp.operation.code === EResponseCodes.FAIL) {
         return setMessage({
@@ -203,11 +206,11 @@ export const useEditTechActive = () => {
   }, [techActive]);
 
   useEffect(() => {
-    if (!fullInfo || !ownerId) return;
-    const workerFound = fullInfo?.find(
-      (worker) => worker.value === Number(ownerId)
-    );
-    setValue("clerk", String(workerFound?.clerk));
+    if (!fullInfo) return;
+    const workerFound = ownerId
+      ? fullInfo.find((worker) => worker.value === Number(ownerId))
+      : undefined;
+    setValue("clerk", String(workerFound?.clerk ?? ""));
   }, [ownerId, fullInfo]);
 
   return {
@@ -224,8 +227,6 @@ export const useEditTechActive = () => {
     equipmentStatus,
     typeActive,
     sede,
-    officers,
-    activeOwner,
     fullInfo,
     type,
   };
