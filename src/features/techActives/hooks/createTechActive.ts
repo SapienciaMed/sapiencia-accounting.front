@@ -124,6 +124,10 @@ export const useCreateTechActive = () => {
     getAreaByCampusCode(campus);
   }, [campus]);
 
+  useEffect(() => {
+    console.log(type);
+  }, [type]);
+
   return {
     areasData,
     typeActive,
