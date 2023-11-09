@@ -11,6 +11,7 @@ import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGen
 import { useGenericListService } from "../../../common/hooks/generic-list-service.hook";
 import { createTechActiveaSchema } from "../../../common/schemas/techActives.schemas";
 import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
+import { ASSET_TYPES } from "../../../common/constants/asset";
 
 export const useCreateTechActive = () => {
   const navigate = useNavigate();
@@ -19,25 +20,26 @@ export const useCreateTechActive = () => {
   const { getListByParent } = useGenericListService();
   const { setMessage } = useContext(AppContext);
   const { post } = useCrudService(urlApiAccounting);
-  const resolver = useYupValidationResolver(createTechActiveaSchema);
 
   const { data: equipmentStatus } = useGetGenericItems("ESTADO_EQUIPO");
-  const { data: officers } = useGetGenericItems("FUNCIONARIO");
   const { data: activeOwner } = useGetGenericItems("PROPIETARIO_ACTIVO");
   const { data: sede } = useGetGenericItems("SEDES");
   const { data: typeActive } = useGetGenericItems("TIPO_ACTIVOS");
   const { fullInfo } = useGetAllWorkersAllInfoHook();
+  const [assetType, setAssetType] = useState(null);
+  const resolver = useYupValidationResolver(createTechActiveaSchema(assetType));
 
   const {
     control,
     handleSubmit,
     register,
-    reset,
+    setValue,
+    clearErrors,
     watch,
     formState: { errors, isValid },
   } = useForm({ resolver, mode: "all" });
 
-  const [type, campus] = watch(["type", "campus"]);
+  const [type, campus, ownerId] = watch(["type", "campus", "ownerId"]);
   const createTechActive = async (data: ITechActives) => {
     try {
       const endpoint = "/api/v1/asset/create";
@@ -69,9 +71,6 @@ export const useCreateTechActive = () => {
   };
 
   const onSubmit = (data) => {
-    const body = {
-      ...data,
-    };
     setMessage({
       title: "Crear Activo",
       description: "¿Esta segur@ de crear el  activo?",
@@ -80,7 +79,7 @@ export const useCreateTechActive = () => {
       cancelTitle: "Cancelar",
       onOk: () => {
         setMessage({ show: false });
-        createTechActive(body);
+        createTechActive(data);
       },
       onClose: () => setMessage({ show: false }),
       background: true,
@@ -125,7 +124,16 @@ export const useCreateTechActive = () => {
   }, [campus]);
 
   useEffect(() => {
-    console.log(type);
+    if (!fullInfo) return;
+    const workerFound = ownerId
+      ? fullInfo.find((worker) => worker.value === Number(ownerId))
+      : undefined;
+    setValue("clerk", String(workerFound?.clerk ?? ""));
+  }, [ownerId, fullInfo]);
+
+  useEffect(() => {
+    setAssetType(type);
+    clearErrors();
   }, [type]);
 
   return {
@@ -133,7 +141,6 @@ export const useCreateTechActive = () => {
     typeActive,
     sede,
     equipmentStatus,
-    officers,
     activeOwner,
     control,
     handleSubmit: handleSubmit(onSubmit),

@@ -1,168 +1,112 @@
-import * as yup from "yup";
+// @ts-ignore
+import { string, date, number, object } from "yup";
+import { ASSET_TYPES } from "../constants/asset";
 
-// export const createTechActiveSchema = yup.object({
-//   type: yup.string().required("Ingresar una opción"),
-//   campus: yup.string().required("Completar información"),
-//   area: yup.string().required("Completar información"),
-//   status: yup.string().required("Completar información"),
-//   ownerId: yup.string().required("Completar información"),
-//   ownerDate: yup
-//     .date()
-//     .required("Completar información")
-//     .typeError("Fecha inválida"),
-//   equipmentType: yup
-//     .string()
-//     .max(50, "Solo se permiten 50 caracteres")
-//     .required("Completar información"),
-//   brand: yup
-//     .string()
-//     .max(50, "Solo se permiten 50 caracteres")
-//     .required("Completar información"),
-//   model: yup
-//     .string()
-//     .max(50, "Solo se permiten 50 caracteres")
-//     .required("Completar información"),
-//   plate: yup
-//     .string()
-//     .max(50, "Solo se permiten 50 caracteres")
-//     .required("Completar información"),
-//   serial: yup
-//     .string()
-//     .max(50, "Solo se permiten 50 caracteres")
-//     .required("Completar información"),
-//   observations: yup
-//     .string()
-//     .max(500, "Solo se permiten 500 caracteres")
-//     .required("Completar información"),
-//   official: yup
-//     .string()
-//     .max(50, "Solo se permiten 50 caracteres")
-//     .required("Completar información"),
-// });
-
-export const createTechActiveaSchema = yup.object({
-  type: yup.string().required("Ingresar una opción"),
-  campus: yup.string().required("Completar información"),
-  area: yup.string().required("Completar información"),
-  status: yup.string().required("Completar información"),
-  ownerId: yup.string().required("Completar información"),
-  ownerDate: yup
-    .date()
+const otherAssetTypeSchema = {
+  type: string().required("Ingresar una opción"),
+  campus: string().required("Completar información"),
+  area: string().required("Completar información"),
+  status: string().required("Completar información"),
+  ownerId: string().required("Completar información"),
+  ownerDate: date()
     .required("Completar información")
     .typeError("Fecha inválida"),
-  equipmentType: yup
-    .string()
+  equipmentType: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  brand: yup
-    .string()
+  brand: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  model: yup
-    .string()
+  model: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  plate: yup
-    .string()
+  plate: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  serial: yup
-    .string()
+  serial: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  observations: yup
-    .string()
+  observations: string()
     .max(500, "Solo se permiten 500 caracteres")
     .required("Completar información"),
-  official: yup
-    .string()
-    .max(50, "Solo se permiten 50 caracteres")
+};
+
+const computeAssetTypeSchema = {
+  ram: string()
+    .max(50, "Es necesario 50 caracteres ")
     .required("Completar información"),
-  ram: yup.string().max(50).optional().nullable(),
+  cpu: string()
+    .max(50, "Es necesario 50 caracteres ")
+    .required("Completar información"),
+  storage: string()
+    .max(50, "Es necesario 50 caracteres ")
+    .required("Completar información"),
+  os: string()
+    .max(50, "Es necesario 50 caracteres ")
+    .required("Completar información"),
+};
 
-  // ram: yup
-  // .string()
-  // .when( 'type', {
-  //   is: 'Computo',
-  //   then: yup.string().optional(therwise: yup.string().nullable(),
-  // })
+export const createTechActiveaSchema = (assetType: ASSET_TYPES) => {
+  let schema = {};
+  if (assetType === ASSET_TYPES.OTROS) {
+    schema = otherAssetTypeSchema;
+  } else if (assetType === ASSET_TYPES.COMPUTO) {
+    schema = {
+      ...otherAssetTypeSchema,
+      ...computeAssetTypeSchema,
+    };
+  }
+  return object(schema);
+};
 
-  cpu: yup.string().max(50).optional().nullable(),
-  storage: yup.string().max(50).optional().nullable(),
-  os: yup.string().max(50).optional().nullable(),
-});
-
-export const editTechActiveaSchema = yup.object({
-  type: yup.string().required("Ingresar una opción"),
-  campus: yup.string().required("Completar información"),
-  area: yup.string().required("Completar información"),
-  status: yup.string().required("Completar información"),
-  ownerId: yup.number().required("Completar información"),
-  ownerDate: yup
-    .date()
+export const editTechActiveaSchema = object({
+  type: string().required("Ingresar una opción"),
+  campus: string().required("Completar información"),
+  area: string().required("Completar información"),
+  status: string().required("Completar información"),
+  ownerId: number().required("Completar información"),
+  ownerDate: date()
     .required("Completar información")
     .typeError("Fecha inválida"),
-  equipmentType: yup
-    .string()
+  equipmentType: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  brand: yup
-    .string()
+  brand: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  model: yup
-    .string()
+  model: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  plate: yup
-    .string()
+  plate: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  serial: yup
-    .string()
+  serial: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  observations: yup
-    .string()
+  observations: string()
     .max(500, "Solo se permiten 500 caracteres")
     .required("Completar información"),
-  clerk: yup
-    .string()
+  clerk: string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  ram: yup
-    .string()
+  ram: string().max(50, "Solo se permiten 50 caracteres").optional().nullable(),
+  cpu: string().max(50, "Solo se permiten 50 caracteres").optional().nullable(),
+  storage: string()
     .max(50, "Solo se permiten 50 caracteres")
     .optional()
     .nullable(),
-  cpu: yup
-    .string()
-    .max(50, "Solo se permiten 50 caracteres")
-    .optional()
-    .nullable(),
-  storage: yup
-    .string()
-    .max(50, "Solo se permiten 50 caracteres")
-    .optional()
-    .nullable(),
-  os: yup
-    .string()
-    .max(50, "Solo se permiten 50 caracteres")
-    .optional()
-    .nullable(),
+  os: string().max(50, "Solo se permiten 50 caracteres").optional().nullable(),
 });
 
-export const consultTechActiveSchema = yup.object({
-  type: yup.string().optional().nullable(),
-  campus: yup.string().optional().nullable(),
-  ownerId: yup.string().optional().nullable(),
-  plate: yup
-    .string()
+export const consultTechActiveSchema = object({
+  type: string().optional().nullable(),
+  campus: string().optional().nullable(),
+  ownerId: string().optional().nullable(),
+  plate: string()
     .max(50, "Solo se permiten 50 caracteres")
     .optional()
     .nullable(),
-  serial: yup
-    .string()
+  serial: string()
     .max(50, "Solo se permiten 50 caracteres")
     .optional()
     .nullable(),
