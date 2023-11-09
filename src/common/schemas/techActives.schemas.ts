@@ -78,10 +78,18 @@ export const createTechActiveaSchema = yup.object({
     .string()
     .max(50, "Solo se permiten 50 caracteres")
     .required("Completar información"),
-  ram: yup.string().max(50).required("Completar información").nullable(),
-  cpu: yup.string().max(50).required("Completar información").nullable(),
-  storage: yup.string().max(50).required("Completar información").nullable(),
-  os: yup.string().max(50).required("Completar información").nullable(),
+  ram: yup.string().max(50).optional().nullable(),
+
+  // ram: yup
+  // .string()
+  // .when( 'type', {
+  //   is: 'Computo',
+  //   then: yup.string().optional(therwise: yup.string().nullable(),
+  // })
+
+  cpu: yup.string().max(50).optional().nullable(),
+  storage: yup.string().max(50).optional().nullable(),
+  os: yup.string().max(50).optional().nullable(),
 });
 
 export const editTechActiveaSchema = yup.object({
@@ -124,20 +132,24 @@ export const editTechActiveaSchema = yup.object({
     .required("Completar información"),
   ram: yup
     .string()
-    .max(500, "Solo se permiten 500 caracteres")
-    .required("Completar información"),
+    .max(50, "Solo se permiten 50 caracteres")
+    .optional()
+    .nullable(),
   cpu: yup
     .string()
-    .max(500, "Solo se permiten 500 caracteres")
-    .required("Completar información"),
+    .max(50, "Solo se permiten 50 caracteres")
+    .optional()
+    .nullable(),
   storage: yup
     .string()
-    .max(500, "Solo se permiten 500 caracteres")
-    .required("Completar información"),
+    .max(50, "Solo se permiten 50 caracteres")
+    .optional()
+    .nullable(),
   os: yup
     .string()
-    .max(500, "Solo se permiten 500 caracteres")
-    .required("Completar información"),
+    .max(50, "Solo se permiten 50 caracteres")
+    .optional()
+    .nullable(),
 });
 
 export const consultTechActiveSchema = yup.object({

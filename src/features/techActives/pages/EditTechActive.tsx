@@ -161,6 +161,7 @@ const EditTechActive = () => {
                     className="dataPicker-basic  medium "
                     dateFormat="dd/mm/yy"
                     maxDate={new Date()}
+                    disabled
                   />
 
                   <InputComponent
@@ -175,6 +176,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
                   <InputComponent
                     idInput="brand"
@@ -188,6 +190,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
                 </div>
                 <div className="grid-form-3-container gap-25 mt-28px">
@@ -203,6 +206,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
 
                   <InputComponent
@@ -217,6 +221,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
                   <InputComponent
                     idInput="serial"
@@ -230,6 +235,7 @@ const EditTechActive = () => {
                     errors={errors}
                     className="input-basic medium"
                     classNameLabel="text-black big bold"
+                    disabled
                   />
                 </div>
                 <div className="grid-span-4-columns mt-28px">
