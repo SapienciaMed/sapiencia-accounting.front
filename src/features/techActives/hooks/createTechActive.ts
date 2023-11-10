@@ -26,7 +26,7 @@ export const useCreateTechActive = () => {
   const { data: sede } = useGetGenericItems("SEDES");
   const { data: typeActive } = useGetGenericItems("TIPO_ACTIVOS");
   const { fullInfo } = useGetAllWorkersAllInfoHook();
-  const [assetType, setAssetType] = useState(null);
+  const [assetType, setAssetType] = useState(undefined);
   const resolver = useYupValidationResolver(createTechActiveaSchema(assetType));
 
   const {

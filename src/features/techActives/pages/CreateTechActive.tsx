@@ -327,14 +327,18 @@ const CreateTechActive = () => {
             type="button"
             action={handleCancel}
           />
-          <ButtonComponent
-            value="Guardar"
-            type="submit"
-            disabled={!isValid || Object.keys(errors).length > 0}
-            className={`button-save ${
-              !isValid || Object.keys(errors).length > 0 ? "disabled-black" : ""
-            } big`}
-          />
+          {(type === ASSET_TYPES.COMPUTO || type === ASSET_TYPES.OTROS) && (
+            <ButtonComponent
+              value="Guardar"
+              type="submit"
+              disabled={!isValid || Object.keys(errors).length > 0}
+              className={`button-save ${
+                !isValid || Object.keys(errors).length > 0
+                  ? "disabled-black"
+                  : ""
+              } big`}
+            />
+          )}
         </div>
       </FormComponent>
     </div>
