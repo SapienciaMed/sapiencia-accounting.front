@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../../common/contexts/app.context";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { useWidth } from "../../../common/hooks/use-width";
 import {
   IAccountStatement,
   IFilterAccountStatement,
@@ -15,11 +15,9 @@ import {
   jsDateToSQLDate,
 } from "../../../common/utils/helpers";
 import { useGetContract } from "../../masterData/hooks/manageContractHooks/getContract";
-import { AppContext } from "../../../common/contexts/app.context";
 
 export const useConsultAccountStatement = () => {
   const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
-  const { width } = useWidth();
   const navigate = useNavigate();
   const { validateActionAccess } = useContext(AppContext);
   const tableComponentRef = useRef(null);
@@ -64,9 +62,7 @@ export const useConsultAccountStatement = () => {
     {
       icon: "Pdf",
       onClick: (row) => {
-        const pdfUrl = `${urlApiAccounting}/api/v1/account-statement/${
-          row.id
-        }/generate-account-statement-pdf?responsive=${width < 830}`;
+        const pdfUrl = `${urlApiAccounting}/api/v1/account-statement/${row.id}/generate-account-statement-pdf`;
         window.open(pdfUrl, "_blank");
       },
       hide: !validateActionAccess("CUENTA_COBRO_PDF"),
