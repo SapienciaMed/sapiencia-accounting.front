@@ -1,19 +1,17 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../../common/contexts/app.context";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
 import {
   ITechActives,
   ITechActivesFilters,
 } from "../../../common/interfaces/accountStatement.interface";
 import { ITableAction } from "../../../common/interfaces/table.interfaces";
-import { urlApiAccounting } from "../../../common/utils/base-url";
-import { jsDateToISODate } from "../../../common/utils/helpers";
-import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
-import { AppContext } from "../../../common/contexts/app.context";
 import { consultTechActiveSchema } from "../../../common/schemas/techActives.schemas";
+import { urlApiAccounting } from "../../../common/utils/base-url";
+import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
-import useAuthService from "../../../common/hooks/auth-service.hook";
 
 export const useConsultTechActive = () => {
   const navigate = useNavigate();
@@ -23,7 +21,6 @@ export const useConsultTechActive = () => {
   const { fullInfo } = useGetAllWorkersAllInfoHook();
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
-  const { getAuthorization } = useAuthService();
   const { validateActionAccess } = useContext(AppContext);
   const [showFooterActions, setShowFooterActions] = useState(false);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
