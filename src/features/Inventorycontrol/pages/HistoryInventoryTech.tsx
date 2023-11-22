@@ -1,53 +1,47 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import {
   FormComponent,
   ButtonComponent,
 } from "../../../common/components/Form";
-import { useManageProperty } from "../../fixedAssets/hooks/propertyHooks/createProperty";
 import { TriStateCheckboxComponent } from "../../../common/components/Form/checkbox.component";
-import { classNames } from "primereact/utils";
+import Svgs from "../../../public/images/icons/svgs";
+import { useHistoryInventoryTechActive } from "../hooks/historyInventoryTechActive";
 
-const HistoryInventoryTech = () => {
-  const { control, handleSubmit, errors, handleCancel, isValid } =
-    useManageProperty();
-
-  const [fechasSeleccionadas, setFechasSeleccionadas] = useState([]);
-
-  const handleCheckboxChange = (fecha, isChecked) => {
-    if (isChecked) {
-      // Agregar fecha al array de fechas seleccionadas
-      setFechasSeleccionadas((prevFechas) => [...prevFechas, fecha]);
-    } else {
-      // Remover fecha del array de fechas seleccionadas
-      setFechasSeleccionadas((prevFechas) =>
-        prevFechas.filter((f) => f !== fecha)
-      );
-    }
-  };
-
-  const fechas = ["2023-12-01", "2023-12-15", "2023-12-31"];
-  console.log(fechasSeleccionadas);
+const HistoryInventoryTechActive = () => {
+  const {
+    downloadCollection,
+    dates,
+    dateSelect,
+    handleCheckboxChange,
+    handleClose,
+  } = useHistoryInventoryTechActive();
+  const titleInventory = <span className="bold">Fecha inventario : </span>;
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent
-        id="HistoryInventoryTech"
+        id="HistoryInventoryTechActive"
         className="form-signIn"
-        action={handleSubmit}
+        action={downloadCollection}
       >
         <span className="text-black extra-large bold grid-span-3-columns p-20px">
-          Control inventario tecnológico
+          Control inventario activo tecnológico
         </span>
         <div className="container-sections-forms ml-5px mr-20px">
           <div>
-            {fechas.map((fecha) => (
-              <div key={fecha}>
+            {dates.map((datesInventory) => (
+              <div key={datesInventory}>
                 <TriStateCheckboxComponent
-                  id={fecha}
-                  value={fechasSeleccionadas.includes(fecha)}
+                  id={dates}
+                  value={dateSelect.includes(datesInventory)}
                   onChange={(isChecked) =>
-                    handleCheckboxChange(fecha, isChecked)
+                    handleCheckboxChange(datesInventory, isChecked)
                   }
-                  titleName={fecha}
+                  titleName={
+                    <>
+                      {titleInventory}
+                      {datesInventory}
+                    </>
+                  }
                 />
               </div>
             ))}
@@ -55,19 +49,24 @@ const HistoryInventoryTech = () => {
         </div>
 
         <div className="button-save-container-display mr-24px">
+          {/* {validateActionAccess("CUENTA_COBRO_EXCEL") && ( */}
           <ButtonComponent
-            value="Cancelar"
-            className="button-clean bold"
-            type="button"
-            action={handleCancel}
-          />
-          <ButtonComponent
-            value="Guardar"
+            value={
+              <>
+                <div className="container-buttonText">
+                  <span>Descargar</span>
+                  <Svgs svg="excel" width={23.593} height={28.505} />
+                </div>
+              </>
+            }
+            className="button-download large "
             type="submit"
-            disabled={!isValid || Object.keys(errors).length > 0}
-            className={`button-save ${
-              !isValid || Object.keys(errors).length > 0 ? "disabled-black" : ""
-            } big`}
+          />
+          {/* )} */}
+          <ButtonComponent
+            value="Cerrar"
+            className="button-save big"
+            action={handleClose}
           />
         </div>
       </FormComponent>
@@ -75,4 +74,4 @@ const HistoryInventoryTech = () => {
   );
 };
 
-export default memo(HistoryInventoryTech);
+export default memo(HistoryInventoryTechActive);

@@ -4,13 +4,13 @@ import { IDatesInventory } from "../../../common/interfaces/fixedAssets.interfac
 import { ApiResponse } from "../../../common/utils/api-response";
 import { urlApiAccounting } from "../../../common/utils/base-url";
 
-export const useGetAllDatesFurnituresInventory = () => {
+export const useGetAllDatesTechActiveInventory = () => {
   const { get } = useCrudService(urlApiAccounting);
   const [datesInventory, setAllDatesInventory] = useState<any>([]);
 
   const getAllDatesInventory = async () => {
     try {
-      const endpoint = "/api/v1/furniture-inventory/get-inventory-dates";
+      const endpoint = "/api/v1/asset-inventory/get-inventory-dates";
       const resp: ApiResponse<IDatesInventory[]> = await get(endpoint);
       setAllDatesInventory(resp?.data);
     } catch (err) {

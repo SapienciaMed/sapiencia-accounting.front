@@ -1,20 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useGetAllDatesFurnituresInventory } from "./getFurnitureInventoryDateHook";
 import { IDatesInventory } from "../../../common/interfaces/fixedAssets.interface";
 import { urlApiAccounting } from "../../../common/utils/base-url";
+import { useGetAllDatesTechActiveInventory } from "./getTechActiveInventoryDateHook";
 
-export const useHistoryInventoryFurniture = () => {
+export const useHistoryInventoryTechActive = () => {
   const navigate = useNavigate();
-  const { datesInventory } = useGetAllDatesFurnituresInventory();
+  const { datesInventory } = useGetAllDatesTechActiveInventory();
   const [dateSelect, setDateSelect] = useState([]);
   const dates = datesInventory.map((item: IDatesInventory) => item.createdAt);
 
   const handleCheckboxChange = (date, isChecked) => {
     if (isChecked) {
       setDateSelect((prevFechas) => [...prevFechas, date]);
-      console.log(date);
     } else {
       setDateSelect((prevFechas) => prevFechas.filter((f) => f !== date));
     }
@@ -22,7 +21,7 @@ export const useHistoryInventoryFurniture = () => {
   console.log(dateSelect);
 
   const handleClose = () => {
-    navigate(`/contabilidad/control-inventario/bienes-muebles`);
+    navigate(`/contabilidad/control-inventario/activos-tecnologicos`);
   };
 
   const downloadCollection = async (ev) => {

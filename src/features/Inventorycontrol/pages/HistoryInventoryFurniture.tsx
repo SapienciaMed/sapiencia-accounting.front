@@ -13,7 +13,6 @@ const HistoryInventoryFurniture = () => {
     dates,
     dateSelect,
     handleCheckboxChange,
-    handleSubmit,
     handleClose,
   } = useHistoryInventoryFurniture();
   const titleInventory = <span className="bold">Fecha inventario : </span>;
@@ -22,7 +21,7 @@ const HistoryInventoryFurniture = () => {
       <FormComponent
         id="HistoryInventoryFurniture"
         className="form-signIn"
-        action={handleSubmit}
+        action={downloadCollection}
       >
         <span className="text-black extra-large bold grid-span-3-columns p-20px">
           Control inventario bien mueble
@@ -61,7 +60,7 @@ const HistoryInventoryFurniture = () => {
               </>
             }
             className="button-download large "
-            action={downloadCollection}
+            type="submit"
           />
           {/* )} */}
           <ButtonComponent
