@@ -111,3 +111,9 @@ export const consultTechActiveSchema = object({
     .optional()
     .nullable(),
 });
+
+export const inventoryControlSchema = object({
+  plate: string()
+    .max(12, "Solo se permiten 12 caracteres")
+    .required("Completar información"),
+});

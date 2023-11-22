@@ -85,7 +85,7 @@ div[id="single-spa-application:@sapiencia/accounting"] {
 }
 
 
-@for $inx from 1 through 100 {
+@for $inx from -18 through 100 {
   $current-margin: 1px * $inx;
   $current-padding: 1px * $inx;
 
