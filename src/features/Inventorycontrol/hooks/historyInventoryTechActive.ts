@@ -17,8 +17,6 @@ export const useHistoryInventoryTechActive = () => {
       setDateSelect((prevFechas) => prevFechas.filter((f) => f !== date));
     }
   };
-  console.log(dateSelect);
-
   const handleClose = () => {
     navigate(`/contabilidad/control-inventario/activos-tecnologicos`);
   };
@@ -28,7 +26,7 @@ export const useHistoryInventoryTechActive = () => {
       ev.preventDefault();
       const requestDataid = dateSelect;
       const url = new URL(
-        `${urlApiAccounting}/api/v1/furniture-inventory/generate-inventory-xlsx`
+        `${urlApiAccounting}/api/v1/asset-inventory/generate-inventory-xlsx`
       );
       const params = new URLSearchParams();
       const token = localStorage.getItem("token");

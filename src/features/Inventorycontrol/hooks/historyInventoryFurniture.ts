@@ -18,7 +18,6 @@ export const useHistoryInventoryFurniture = () => {
       setDateSelect((prevFechas) => prevFechas.filter((f) => f !== date));
     }
   };
-  console.log(dateSelect);
 
   const handleClose = () => {
     navigate(`/contabilidad/control-inventario/bienes-muebles`);
