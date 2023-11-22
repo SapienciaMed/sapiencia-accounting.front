@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetAllDatesFurnituresInventory } from "./getFurnitureInventoryDateHook";
 import { IDatesInventory } from "../../../common/interfaces/fixedAssets.interface";
 import { urlApiAccounting } from "../../../common/utils/base-url";
+import { AppContext } from "../../../common/contexts/app.context";
 
 export const useHistoryInventoryFurniture = () => {
   const navigate = useNavigate();
+  const { setMessage } = useContext(AppContext);
   const { datesInventory } = useGetAllDatesFurnituresInventory();
   const [dateSelect, setDateSelect] = useState([]);
   const dates = datesInventory.map((item: IDatesInventory) => item.createdAt);
@@ -13,7 +15,6 @@ export const useHistoryInventoryFurniture = () => {
   const handleCheckboxChange = (date, isChecked) => {
     if (isChecked) {
       setDateSelect((prevFechas) => [...prevFechas, date]);
-      console.log(date);
     } else {
       setDateSelect((prevFechas) => prevFechas.filter((f) => f !== date));
     }
@@ -26,6 +27,19 @@ export const useHistoryInventoryFurniture = () => {
   const downloadCollection = async (ev) => {
     try {
       ev.preventDefault();
+      if (dateSelect.length === 0) {
+        setMessage({
+          title: "Control inventario",
+          show: true,
+          description: "Selecciona una fecha para descargar",
+          okTitle: "Aceptar",
+          background: true,
+          onOk: () => {
+            setMessage({ show: false });
+          },
+        });
+        return;
+      }
       const requestDataid = dateSelect;
       const url = new URL(
         `${urlApiAccounting}/api/v1/furniture-inventory/generate-inventory-xlsx`
@@ -37,7 +51,7 @@ export const useHistoryInventoryFurniture = () => {
       url.search = params.toString();
       window.open(url.toString(), "_blank");
     } catch (err) {
-      console.log(err);
+      console.error("Error al descargar la colección:", err);
     }
   };
 
