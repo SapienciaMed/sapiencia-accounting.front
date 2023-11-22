@@ -42,7 +42,7 @@ const InventoryControlTechForm = ({
               to="/contabilidad/control-inventario/activos-tecnologicos/inventario-tecnologico"
               className="text-links"
             >
-              Historico inventario
+              Histórico inventario
             </Link>
           </div>
         </div>
@@ -82,7 +82,7 @@ const InventoryControlTechForm = ({
             isShowModal={true}
             emptyMessage="No se generó resultado en la búsqueda"
             descriptionModalNoResult="No se generó resultado en la búsqueda"
-            titleMessageModalNoResult="Resultado de búsqueda"
+            titleMessageModalNoResult="Control inventario"
           />
         </div>
         <div

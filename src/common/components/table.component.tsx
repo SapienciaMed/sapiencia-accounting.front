@@ -95,6 +95,19 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     loadData: loadData,
   }));
 
+  let leftContent = (
+    <p className="header-information text-black bold biggest">
+      Resultados de búsqueda
+    </p>
+  );
+  if (useCustomRendering) {
+    leftContent = (
+      <p className="header-information text-black bold biggest">
+        Control inventario
+      </p>
+    );
+  }
+
   // Metodo que hace la peticion para realizar la carga de datos
   async function loadData(
     newSearchCriteria?: object,
@@ -353,11 +366,6 @@ function getIconElement(icon: string, element: "name" | "src") {
   }
 }
 
-let leftContent = (
-  <p className="header-information text-black bold biggest">
-    Resultados de búsqueda
-  </p>
-);
 // Metodo que retorna el icono o nombre de la accion
 
 const paginatorHeader: PaginatorTemplateOptions = {

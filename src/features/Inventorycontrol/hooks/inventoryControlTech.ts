@@ -54,16 +54,25 @@ export const useInventoryControlTech = () => {
 
       if (resp.operation.code === EResponseCodes.FAIL) {
         setMessage({
-          title: "Resultado de Búsqueda",
+          title: "Control inventario",
           show: true,
           description: resp.operation.message,
           okTitle: "Aceptar",
           background: true,
-          onOk: () => setMessage({ show: false }),
+          onOk: () => {
+            setFormWatch({ plate: "" });
+            reset();
+            if (searchResults.length === 0) {
+              setTableView(false);
+            }
+            setMessage({ show: false });
+          },
         });
       } else {
         // Add result to array
         setSearchResults((prevResults) => [...prevResults, resp.data]);
+        reset();
+        setFormWatch({ plate: "" });
       }
     } catch (err) {
       console.log(err);
@@ -82,9 +91,12 @@ export const useInventoryControlTech = () => {
         title: "Control de inventario",
         show: true,
         description: "Se creo control de inventario",
-        okTitle: "Aceptar",
+        okTitle: "Cerrar",
         background: true,
-        onOk: () => setMessage({ show: false }),
+        onOk: () => {
+          handleClean();
+          setMessage({ show: false });
+        },
       });
 
       if (resp.operation.code === EResponseCodes.FAIL) {
@@ -105,11 +117,15 @@ export const useInventoryControlTech = () => {
   const downloadCollection = async () => {
     try {
       const requestDataid = searchResults.map((result) => result.id);
-      const endpoint = "/api/v1/asset-inventory/generate-xlsx";
-      const requestData = {
-        assetIds: requestDataid,
-      };
-      await post(endpoint, requestData);
+      const url = new URL(
+        `${urlApiAccounting}/api/v1/asset-inventory/generate-xlsx`
+      );
+      const params = new URLSearchParams();
+      const token = localStorage.getItem("token");
+      params.append("authorization", token);
+      params.append("assetIds", JSON.stringify(requestDataid));
+      url.search = params.toString();
+      window.open(url.toString(), "_blank");
     } catch (err) {
       console.log(err);
     }
@@ -125,7 +141,7 @@ export const useInventoryControlTech = () => {
 
   const handleClose = () => {
     handleClean();
-    navigate(`/contabilidad/control-inventario/bienes-muebles`);
+    navigate(`/contabilidad`);
   };
 
   const handleChange = ({ target }) => {

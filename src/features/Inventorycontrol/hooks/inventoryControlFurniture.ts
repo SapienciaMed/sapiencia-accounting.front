@@ -54,16 +54,26 @@ export const useInventoryControlFurniture = () => {
 
       if (resp.operation.code === EResponseCodes.FAIL) {
         setMessage({
-          title: "Resultado de Búsqueda",
+          title: "Control inventario",
           show: true,
           description: resp.operation.message,
           okTitle: "Aceptar",
           background: true,
-          onOk: () => setMessage({ show: false }),
+          onOk: () => {
+            setFormWatch({ plate: "" });
+            reset();
+
+            if (searchResults.length === 0) {
+              setTableView(false);
+            }
+            setMessage({ show: false });
+          },
         });
       } else {
         // Add result to array
         setSearchResults((prevResults) => [...prevResults, resp.data]);
+        reset();
+        setFormWatch({ plate: "" });
       }
     } catch (err) {
       console.log(err);
@@ -82,9 +92,12 @@ export const useInventoryControlFurniture = () => {
         title: "Control de inventario",
         show: true,
         description: "Se creo control de inventario",
-        okTitle: "Aceptar",
+        okTitle: "Cerrar",
         background: true,
-        onOk: () => setMessage({ show: false }),
+        onOk: () => {
+          handleClean();
+          setMessage({ show: false });
+        },
       });
 
       if (resp.operation.code === EResponseCodes.FAIL) {
@@ -129,7 +142,7 @@ export const useInventoryControlFurniture = () => {
 
   const handleClose = () => {
     handleClean();
-    navigate(`/contabilidad/activos-fijos/consultar`);
+    navigate(`/contabilidad`);
   };
 
   const handleChange = ({ target }) => {
