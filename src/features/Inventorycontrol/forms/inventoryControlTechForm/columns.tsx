@@ -1,7 +1,6 @@
 import { DateTime } from "luxon";
 import { IFilterPlate } from "../../../../common/interfaces/fixedAssets.interface";
 import { ITableElement } from "../../../../common/interfaces/table.interfaces";
-import { formaterNumberToCurrency } from "../../../../common/utils/helpers";
 
 export const tableColumns: ITableElement<IFilterPlate>[] = [
   {

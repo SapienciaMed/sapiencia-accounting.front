@@ -17,7 +17,6 @@ const InventoryControlFurnitureForm = ({
   register,
   errors,
   isValid,
-  handleClean,
   handleChange,
   submitDisabled,
   setPaginateData,

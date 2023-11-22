@@ -7,7 +7,6 @@ import useYupValidationResolver from "../../../common/hooks/form-validator.hook"
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { inventoryControlSchema } from "../../../common/schemas/techActives.schemas";
 import { IFilterPlate } from "../../../common/interfaces/fixedAssets.interface";
-import { jsDateToISODate } from "../../../common/utils/helpers";
 import { useNavigate } from "react-router-dom";
 
 type IPlate = {
@@ -15,7 +14,7 @@ type IPlate = {
 };
 
 export const useInventoryControlTech = () => {
-  const { setMessage, setCurrentAccountStatement } = useContext(AppContext);
+  const { setMessage } = useContext(AppContext);
   const [searchResults, setSearchResults] = useState<IFilterPlate[]>([]);
   //   const { validateActionAccess } = useContext(AppContext);
   const navigate = useNavigate();

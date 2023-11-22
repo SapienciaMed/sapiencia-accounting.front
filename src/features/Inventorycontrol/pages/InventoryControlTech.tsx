@@ -8,7 +8,6 @@ const InventoryControlTech = () => {
     onSubmit,
     register,
     tableView,
-    handleClean,
     handleChange,
     submitDisabled,
     setPaginateData,
@@ -27,7 +26,6 @@ const InventoryControlTech = () => {
       onSubmit={onSubmit}
       register={register}
       tableView={tableView}
-      handleClean={handleClean}
       handleChange={handleChange}
       submitDisabled={submitDisabled}
       setPaginateData={setPaginateData}

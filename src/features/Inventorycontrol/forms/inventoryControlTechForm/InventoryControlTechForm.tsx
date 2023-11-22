@@ -17,7 +17,6 @@ const InventoryControlTechForm = ({
   register,
   errors,
   isValid,
-  handleClean,
   handleChange,
   submitDisabled,
   setPaginateData,
