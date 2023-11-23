@@ -1,13 +1,14 @@
+import { DateTime } from "luxon";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { EResponseCodes } from "../../../common/constants/api.enum";
 import { AppContext } from "../../../common/contexts/app.context";
 import useCrudService from "../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../common/hooks/form-validator.hook";
-import { urlApiAccounting } from "../../../common/utils/base-url";
-import { inventoryControlSchema } from "../../../common/schemas/techActives.schemas";
 import { IFilterPlate } from "../../../common/interfaces/fixedAssets.interface";
-import { useNavigate } from "react-router-dom";
+import { inventoryControlSchema } from "../../../common/schemas/techActives.schemas";
+import { urlApiAccounting } from "../../../common/utils/base-url";
 
 type IPlate = {
   plate: string;
@@ -91,7 +92,7 @@ export const useInventoryControlFurniture = () => {
       setMessage({
         title: "Control de inventario",
         show: true,
-        description: "Se creo control de inventario",
+        description: `Se creó control de inventario ${DateTime.now().toSQLDate()}`,
         okTitle: "Cerrar",
         background: true,
         onOk: () => {
