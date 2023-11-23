@@ -76,7 +76,7 @@ const DetailContract = () => {
               disabled
             />
           </div>
-          <div className="grid-form-4-container gap-25 mt-25px">
+          <div className="grid-form-3-container gap-25 mt-25px">
             <InputComponent
               idInput="business.municipality"
               label={<>Ciudad</>}
@@ -107,18 +107,9 @@ const DetailContract = () => {
               classNameLabel="text-black big bold"
               disabled
             />
-            <InputComponent
-              idInput="email"
-              label={<>Correo electrónico</>}
-              typeInput="text"
-              register={register}
-              errors={errors}
-              className="input-basic medium"
-              classNameLabel="text-black big bold"
-            />
           </div>
           <div className="gap-25 mt-25px grid-form-3-container">
-            <div className="grid-span-2-columns">
+            <div>
               <InputComponent
                 idInput="sender"
                 label={<>Persona a la que se remite la cuenta</>}
@@ -133,6 +124,17 @@ const DetailContract = () => {
               <InputComponent
                 idInput="chargeSender"
                 label={<>Cargo</>}
+                typeInput="text"
+                register={register}
+                errors={errors}
+                className="input-basic medium"
+                classNameLabel="text-black big bold"
+              />
+            </div>
+            <div>
+              <InputComponent
+                idInput="email"
+                label={<>Correo electrónico</>}
                 typeInput="text"
                 register={register}
                 errors={errors}
