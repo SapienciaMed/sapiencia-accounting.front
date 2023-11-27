@@ -30,7 +30,7 @@ import { ITableAction, ITableElement } from "../interfaces/table.interfaces";
 import { IPagingData } from "../utils/api-response";
 
 interface IProps<T> {
-  url: string;
+  url?: string;
   emptyMessage?: string;
   title?: string;
   columns: ITableElement<T>[];
@@ -41,6 +41,8 @@ interface IProps<T> {
   descriptionModalNoResult?: string;
   setPaginateData?: ({}) => {};
   setShowFooterActions?: ({}) => {};
+  useCustomRendering?: boolean;
+  dataArray?: T[]; // Nueva prop para el array de datos
 }
 
 interface IRef {
@@ -59,6 +61,8 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     isShowModal,
     emptyMessage = "No hay resultados.",
     setPaginateData,
+    useCustomRendering = false,
+    dataArray, // Nueva prop para el array de datos
   } = props;
 
   // States
@@ -91,12 +95,36 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     loadData: loadData,
   }));
 
+  let leftContent = (
+    <p className="header-information text-black bold biggest">
+      Resultados de búsqueda
+    </p>
+  );
+  if (useCustomRendering) {
+    leftContent = (
+      <p className="header-information text-black bold biggest">
+        Control inventario
+      </p>
+    );
+  }
+
   // Metodo que hace la peticion para realizar la carga de datos
   async function loadData(
     newSearchCriteria?: object,
     currentPage?: number
   ): Promise<void> {
     setLoading(true);
+
+    if (useCustomRendering) {
+      // Si se está utilizando el rendereo personalizado, simplemente usar dataArray
+      setResultData({
+        array: dataArray || [],
+        meta: { total: dataArray?.length || 0 },
+      });
+      setLoading(false);
+      return;
+    }
+
     if (newSearchCriteria) {
       setSearchCriteria(newSearchCriteria);
     }
@@ -109,6 +137,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
     try {
       if (res.operation.code === EResponseCodes.OK) {
         setResultData(res.data);
+
         if (res.data.array.length <= 0 && isShowModal) {
           setMessage({
             title: `${titleMessageModalNoResult || ""}`,
@@ -146,7 +175,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
 
   useEffect(() => {
     if (charged) loadData(undefined, page + 1);
-  }, [perPage, first, page]);
+  }, [perPage, first, page, dataArray]);
 
   useEffect(() => {
     setCharged(true);
@@ -337,11 +366,6 @@ function getIconElement(icon: string, element: "name" | "src") {
   }
 }
 
-let leftContent = (
-  <p className="header-information text-black bold biggest">
-    Resultados de búsqueda
-  </p>
-);
 // Metodo que retorna el icono o nombre de la accion
 
 const paginatorHeader: PaginatorTemplateOptions = {

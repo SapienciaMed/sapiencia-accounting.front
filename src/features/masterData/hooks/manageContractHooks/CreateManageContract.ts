@@ -1,7 +1,8 @@
 // useManageContract.js
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { EResponseCodes } from "../../../../common/constants/api.enum";
 import { AppContext } from "../../../../common/contexts/app.context";
 import useCrudService from "../../../../common/hooks/crud-service.hook";
 import useYupValidationResolver from "../../../../common/hooks/form-validator.hook";
@@ -11,7 +12,6 @@ import {
 } from "../../../../common/interfaces/accountStatement.interface";
 import { createContractSchema } from "../../../../common/schemas/accountStatement.schema";
 import { urlApiAccounting } from "../../../../common/utils/base-url";
-import { EResponseCodes } from "../../../../common/constants/api.enum";
 import { useGetBusinessInfo } from "./getbusinessInfo";
 
 export const useManageContract = () => {
@@ -100,6 +100,7 @@ export const useManageContract = () => {
     const businessFound = businessData.find(
       ({ value }) => value === businessValue
     );
+    console.log({ businessFound });
     reset(businessFound);
   }, [businessValue]);
 

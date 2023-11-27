@@ -104,12 +104,17 @@ export const useConsultAccountStatement = () => {
     setTableView(false);
   };
 
-  const onSubmit = handleSubmit((filters: IFilterAccountStatement) => {
+  const onSubmit = handleSubmit(async (filters: IFilterAccountStatement) => {
     setTableView(true);
-    tableComponentRef.current?.loadData({
-      ...filters,
-      expeditionDate: jsDateToISODate(expeditionDate),
-    });
+    try {
+      const resp = await tableComponentRef.current?.loadData({
+        ...filters,
+        expeditionDate: jsDateToISODate(expeditionDate),
+      });
+    } catch (err) {
+      console.log(err);
+      handleClean();
+    }
   });
 
   const handleChange = ({ target }) => {

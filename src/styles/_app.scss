@@ -8,9 +8,9 @@
 @import "./grid.scss";
 @import "./texts.scss";
 @import "./modal.scss";
-@import "./spacing.scss";
 @import "./styles.scss";
 @import "./alerts.scss";
+
 // :root {
 //   --color-black: #0b060e;
 //   --color-gray: #535353;
@@ -32,6 +32,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+
   .link {
     color: var(--color-theme-1) !important;
     text-decoration: underline !important;
@@ -74,10 +75,58 @@ hr {
 div[id="single-spa-application:@sapiencia/accounting"] {
   height: 100%;
 }
+
 .grid {
   display: grid;
 
   &.gap-25 {
     gap: 25px;
   }
+}
+
+
+@for $inx from -18 through 100 {
+  $current-margin: 1px * $inx;
+  $current-padding: 1px * $inx;
+
+  .mt-#{$inx}px {
+    margin-top: $current-margin;
+  }
+
+  .mb-#{$inx}px {
+    margin-bottom: $current-margin;
+  }
+
+  .mr-#{$inx}px {
+    margin-right: $current-margin;
+  }
+
+  .ml-#{$inx}px {
+    margin-left: $current-margin;
+  }
+
+  .m-#{$inx}px {
+    margin: $current-margin;
+  }
+
+  .p-#{$inx}px {
+    padding: $current-padding;
+  }
+
+  .pt-#{$inx}px {
+    padding-top: $current-padding;
+  }
+
+  .pr-#{$inx}px {
+    padding-right: $current-padding;
+  }
+
+  .pb-#{$inx}px {
+    padding-bottom: $current-padding;
+  }
+
+  .pl-#{$inx}px {
+    padding-left: $current-padding;
+  }
+
 }

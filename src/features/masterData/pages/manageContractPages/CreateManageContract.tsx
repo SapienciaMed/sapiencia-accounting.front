@@ -57,8 +57,9 @@ const CreateManageContract = () => {
               />
             </div>
           </div>
-          <div className="grid-form-4-container gap-25 mt-25px">
+          <div className="grid-form-3-container gap-25 mt-25px">
             <InputComponent
+              disabled
               idInput="data.municipality"
               label={
                 <>
@@ -72,7 +73,8 @@ const CreateManageContract = () => {
               classNameLabel="text-black big bold"
             />
             <InputComponent
-              idInput="address"
+              disabled
+              idInput="data.address"
               label={
                 <>
                   Dirección <span>*</span>
@@ -85,7 +87,8 @@ const CreateManageContract = () => {
               classNameLabel="text-black big bold"
             />
             <InputComponent
-              idInput="phone"
+              disabled
+              idInput="data.phone"
               label={
                 <>
                   Teléfono <span>*</span>
@@ -97,22 +100,9 @@ const CreateManageContract = () => {
               className="input-basic medium"
               classNameLabel="text-black big bold"
             />
-            <InputComponent
-              idInput="email"
-              label={
-                <>
-                  Correo electrónico <span>*</span>
-                </>
-              }
-              typeInput="text"
-              register={register}
-              errors={errors}
-              className="input-basic medium"
-              classNameLabel="text-black big bold"
-            />
           </div>
           <div className="gap-25 mt-25px grid-form-3-container">
-            <div className="grid-span-2-columns">
+            <div>
               <InputComponent
                 idInput="sender"
                 label={
@@ -133,6 +123,21 @@ const CreateManageContract = () => {
                 label={
                   <>
                     Cargo <span>*</span>
+                  </>
+                }
+                typeInput="text"
+                register={register}
+                errors={errors}
+                className="input-basic medium"
+                classNameLabel="text-black big bold"
+              />
+            </div>
+            <div>
+              <InputComponent
+                idInput="email"
+                label={
+                  <>
+                    Correo electrónico <span>*</span>
                   </>
                 }
                 typeInput="text"

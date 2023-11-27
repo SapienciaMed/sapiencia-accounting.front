@@ -38,6 +38,20 @@ export type IFurniture = {
   clerk: number; // BIE_FUNCIONARIO
 };
 
+export interface IFilterPlate {
+  id?: number;
+  plate?: string;
+  ownerDate?: DateTime;
+  status?: string;
+  ownerFullName?: string;
+  userCreated?: string;
+  createdAt?: DateTime;
+}
+
+export interface IDatesInventory {
+  createdAt: DateTime;
+}
+
 export type IFurnitureHistoryData = {
   id: number;
   furnitureId: number;
