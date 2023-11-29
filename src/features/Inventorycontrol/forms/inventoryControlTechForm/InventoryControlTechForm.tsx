@@ -34,7 +34,7 @@ const InventoryControlTechForm = ({
       <div className=" container-sections-forms ml-20px mr-20px">
         <div className="pb-40px">
           <span className="text-black huge bold grid-span-4-columns">
-            Control de inventario activos tecnológicos
+            Histórico inventario activo tecnológicos
           </span>
 
           <div className="button-save-container-display mr-33px mt--18px button-create-business">
