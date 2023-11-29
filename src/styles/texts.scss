@@ -112,6 +112,10 @@
     font-size: 2em;
   }
 
+  &.jumbo {
+    font-size: 2.35em;
+  }
+
   &.break-line {
     white-space: pre;
   }
@@ -205,6 +209,7 @@
     font-size: 2em;
   }
 }
+
 .text-span {
   color: #acabab;
   font-size: 17px;
@@ -212,6 +217,7 @@
   font-weight: 400;
   line-height: 120%;
 }
+
 .text-links {
   font-size: 16px;
   color: #533893;
