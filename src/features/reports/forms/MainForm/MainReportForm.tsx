@@ -3,7 +3,8 @@ import { SelectComponent } from "../../../../common/components/Form";
 import { REPORTS_TYPES } from "../../../../common/constants/asset";
 import CausationReportPage from "../../pages/CausationReportPage";
 import PaymentReportPage from "../../pages/PaymentReportPage";
-import ManagementReportPage from "../../pages/ManagementReport";
+import ManagementReportPage from "../../pages/ManagementReportPage";
+import DefeatedReportPage from "../../pages/DefeatedReportPage";
 
 export const Title = ({ title }: { title: string }) => (
   <div className="grid-form-3-container gap-25">
@@ -41,7 +42,12 @@ const MainReportForm = ({ errors, control, selectData, typeReportSelect }) => {
           <PaymentReportPage></PaymentReportPage>
         </>
       )}
-      {typeReportSelect === REPORTS_TYPES.INFORME_CARTERA_VENCIDA && <></>}
+      {typeReportSelect === REPORTS_TYPES.INFORME_CARTERA_VENCIDA && (
+        <>
+          <DefeatedReportPage></DefeatedReportPage>
+        </>
+      )}
+
       {typeReportSelect ===
         REPORTS_TYPES.INFORME_RADICACIÓN_GESTION_DOCUMENTAL && (
         <>

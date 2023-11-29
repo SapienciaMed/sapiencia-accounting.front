@@ -7,7 +7,7 @@ import DetailAccountStatement from "./pages/DetailAccountStatement";
 import EditAccountStatement from "./pages/EditAccountStatement";
 import EditTracingAccountStatement from "./pages/EditTracingAccountStatement";
 import TracingAccountStatement from "./pages/TracingAccountStatement";
-import ConsultMainReport from "../reports/pages/ConsultMainReport";
+import ConsultMainReport from "../reports/pages/ConsultMainReportPage";
 
 const AccountStatementRoutes = () => (
   <Routes>

@@ -1,5 +1,5 @@
 import ManagementReportForm from "../forms/ManagementForm/ManagementReportForm";
-import { useManagementReport } from "../hooks/managementReport";
+import { useDefeatedReport } from "../hooks/defeatedReport";
 
 const ManagementReportPage = () => {
   const {
@@ -17,7 +17,7 @@ const ManagementReportPage = () => {
     setShowFooterActions,
     downloadCollection,
     validateActionAccess,
-  } = useManagementReport();
+  } = useDefeatedReport();
   return (
     <ManagementReportForm
       validateActionAccess={validateActionAccess}

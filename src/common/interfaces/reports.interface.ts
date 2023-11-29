@@ -42,3 +42,22 @@ export interface IPaymentFilters {
   paymentDateFrom: Date;
   paymentDateUntil: Date;
 }
+
+export interface IDefeatedTable {
+  accountStatement: {
+    accountNum: number;
+    expirationDate: Date;
+    contract: {
+      sender: string;
+
+      business: {
+        nit: string;
+        name: string;
+      };
+    };
+  };
+}
+
+export interface IDefeatedFilters {
+  statusId: number;
+}
