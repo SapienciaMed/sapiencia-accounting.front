@@ -16,9 +16,13 @@ const ConsultBusiness = () => {
     submitDisabled,
     business,
     validateActionAccess,
+    setShowFooterActions,
+    showFooterActions,
   } = useConsultBusiness();
   return (
     <BusinessForm
+      showFooterActions={showFooterActions}
+      setShowFooterActions={setShowFooterActions}
       business={business}
       validateActionAccess={validateActionAccess}
       setPaginateData={setPaginateData}

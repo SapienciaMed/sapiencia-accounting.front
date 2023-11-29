@@ -20,6 +20,7 @@ export const useInventoryControlFurniture = () => {
   //   const { validateActionAccess } = useContext(AppContext);
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const [tableView, setTableView] = useState<boolean>(false);
   const { get } = useCrudService(urlApiAccounting);
@@ -179,5 +180,7 @@ export const useInventoryControlFurniture = () => {
     handleSave,
     searchResults,
     downloadCollection,
+    showFooterActions,
+    setShowFooterActions,
   };
 };

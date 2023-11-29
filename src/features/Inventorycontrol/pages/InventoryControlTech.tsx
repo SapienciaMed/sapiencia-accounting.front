@@ -16,9 +16,13 @@ const InventoryControlTech = () => {
     handleClose,
     handleSave,
     downloadCollection,
+    setShowFooterActions,
+    showFooterActions,
   } = useInventoryControlTech();
   return (
     <InventoryControlTechForm
+      showFooterActions={showFooterActions}
+      setShowFooterActions={setShowFooterActions}
       errors={errors}
       handleSave={handleSave}
       handleClose={handleClose}

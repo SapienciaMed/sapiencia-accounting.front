@@ -19,6 +19,7 @@ export const useInventoryControlTech = () => {
   const [searchResults, setSearchResults] = useState<IFilterPlate[]>([]);
   //   const { validateActionAccess } = useContext(AppContext);
   const navigate = useNavigate();
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const tableComponentRef = useRef(null);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const [tableView, setTableView] = useState<boolean>(false);
@@ -178,5 +179,7 @@ export const useInventoryControlTech = () => {
     handleSave,
     searchResults,
     downloadCollection,
+    showFooterActions,
+    setShowFooterActions,
   };
 };

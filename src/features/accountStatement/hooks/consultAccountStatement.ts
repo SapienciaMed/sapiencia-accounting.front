@@ -21,6 +21,7 @@ export const useConsultAccountStatement = () => {
   const navigate = useNavigate();
   const { validateActionAccess } = useContext(AppContext);
   const tableComponentRef = useRef(null);
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
   const { contract: contractData } = useGetContract();
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
@@ -150,5 +151,7 @@ export const useConsultAccountStatement = () => {
     downloadCollection,
     urlGetAccountStatement,
     validateActionAccess,
+    showFooterActions,
+    setShowFooterActions,
   };
 };

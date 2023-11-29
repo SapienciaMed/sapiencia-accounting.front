@@ -23,6 +23,8 @@ const InventoryControlTechForm = ({
   handleClose,
   handleSave,
   downloadCollection,
+  showFooterActions,
+  setShowFooterActions,
   // validateActionAccess,
 }) => (
   <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
@@ -80,6 +82,7 @@ const InventoryControlTechForm = ({
             columns={tableColumns}
             useCustomRendering={true}
             isShowModal={true}
+            setShowFooterActions={setShowFooterActions}
             emptyMessage="No se generó resultado en la búsqueda"
             descriptionModalNoResult="No se generó resultado en la búsqueda"
             titleMessageModalNoResult="Control inventario"
@@ -92,32 +95,34 @@ const InventoryControlTechForm = ({
             backgroundColor: "#e0e0e0",
           }}
         ></div>
-        <div className="button-save-container-display mr-24px">
-          <ButtonComponent
-            value="Cerrar"
-            className="button-save big"
-            action={handleClose}
-          />
-          <ButtonComponent
-            value="Guardar"
-            className="button-save big"
-            action={handleSave}
-          />
-          {/* {validateActionAccess("CUENTA_COBRO_EXCEL") && ( */}
-          <ButtonComponent
-            value={
-              <>
-                <div className="container-buttonText">
-                  <span>Descargar</span>
-                  <Svgs svg="excel" width={23.593} height={28.505} />
-                </div>
-              </>
-            }
-            className="button-download large "
-            action={downloadCollection}
-          />
-          {/* )} */}
-        </div>
+        {showFooterActions && (
+          <div className="button-save-container-display mr-24px">
+            <ButtonComponent
+              value="Cerrar"
+              className="button-save big"
+              action={handleClose}
+            />
+            <ButtonComponent
+              value="Guardar"
+              className="button-save big"
+              action={handleSave}
+            />
+            {/* {validateActionAccess("CUENTA_COBRO_EXCEL") && ( */}
+            <ButtonComponent
+              value={
+                <>
+                  <div className="container-buttonText">
+                    <span>Descargar</span>
+                    <Svgs svg="excel" width={23.593} height={28.505} />
+                  </div>
+                </>
+              }
+              className="button-download large "
+              action={downloadCollection}
+            />
+            {/* )} */}
+          </div>
+        )}
       </>
     )}
   </div>

@@ -17,9 +17,13 @@ const ConsultManageContract = () => {
     contract,
     submitDisabled,
     validateActionAccess,
+    setShowFooterActions,
+    showFooterActions,
   } = useConsultContract();
   return (
     <ManageContractForm
+      showFooterActions={showFooterActions}
+      setShowFooterActions={setShowFooterActions}
       validateActionAccess={validateActionAccess}
       business={business}
       contract={contract}

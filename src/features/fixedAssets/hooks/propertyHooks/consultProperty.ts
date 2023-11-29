@@ -17,7 +17,7 @@ export const useConsultProperty = () => {
   const { data: equipmentStatusData } = useGetGenericItems("ESTADO_EQUIPO");
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
-
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
   const { validateActionAccess } = useContext(AppContext);
@@ -129,5 +129,7 @@ export const useConsultProperty = () => {
     handleChange,
     handleClean,
     validateActionAccess,
+    showFooterActions,
+    setShowFooterActions,
   };
 };

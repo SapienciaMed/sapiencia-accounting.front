@@ -18,6 +18,8 @@ import { EResponseCodes } from "../../../../common/constants/api.enum";
 export const useConsultBusiness = () => {
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
+  const [showFooterActions, setShowFooterActions] = useState(false);
+
   const { contract } = useGetContract();
   const { business, setReload } = useGetBusiness();
   const { validateActionAccess } = useContext(AppContext);
@@ -158,5 +160,7 @@ export const useConsultBusiness = () => {
     handleChange,
     submitDisabled,
     validateActionAccess,
+    showFooterActions,
+    setShowFooterActions,
   };
 };
