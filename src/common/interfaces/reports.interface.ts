@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 export interface ICausationTable {
   accountNum: number;
   expeditionDate: Date;
@@ -46,7 +48,8 @@ export interface IPaymentFilters {
 export interface IDefeatedTable {
   accountStatement: {
     accountNum: number;
-    expirationDate: Date;
+    expeditionDate: DateTime;
+    expirationDate: DateTime;
     contract: {
       sender: string;
 

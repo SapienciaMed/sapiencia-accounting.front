@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { IDefeatedTable } from "../../../../common/interfaces/reports.interface";
 import { ITableElement } from "../../../../common/interfaces/table.interfaces";
 export const tableColumns: ITableElement<IDefeatedTable>[] = [
@@ -20,13 +21,15 @@ export const tableColumns: ITableElement<IDefeatedTable>[] = [
   {
     fieldName: "accountStatement.expirationDate",
     header: "Fecha de vencimiento",
+    renderCell: () => <>{DateTime.now().toFormat("yyyy/MM/dd")}</>,
+  },
+
+  {
+    fieldName: "",
+    header: "Días de vencimiento",
   },
   {
     fieldName: "",
-    header: "Dias de vencimiento",
-  },
-  {
-    fieldName: "",
-    header: "Gestion",
+    header: "Gestión",
   },
 ];

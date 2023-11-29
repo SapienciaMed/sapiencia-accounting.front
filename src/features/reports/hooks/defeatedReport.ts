@@ -30,7 +30,7 @@ export const useDefeatedReport = () => {
   } = useForm({
     resolver,
     mode: "all",
-    defaultValues: { statusId: "3" },
+    defaultValues: { statusId: 3 },
   });
   const urlGet = `${urlApiAccounting}/api/v1/account-statement/report/defeated-portfolio`;
   const [statusId] = watch(["statusId"]);
