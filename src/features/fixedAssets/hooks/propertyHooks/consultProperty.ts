@@ -36,9 +36,11 @@ export const useConsultProperty = () => {
     plate: "",
     description: "",
   });
-  const [acquisitionDate, equipmentStatus] = watch([
+  const [acquisitionDate, equipmentStatus, createdFrom, createdUntil] = watch([
     "acquisitionDate",
     "equipmentStatus",
+    "createdFrom",
+    "createdUntil",
   ]);
 
   const tableActions: ITableAction<IProperty>[] = [
@@ -77,9 +79,23 @@ export const useConsultProperty = () => {
     if (equipmentStatus) {
       params.append("equipmentStatus", equipmentStatus);
     }
+    if (createdFrom) {
+      params.append("createdFrom", createdFrom);
+    }
+    if (createdUntil) {
+      params.append("createdUntil", createdUntil);
+    }
+
     url.search = params.toString();
     window.open(url.toString(), "_blank");
-  }, [paginateData, formWatch, acquisitionDate, equipmentStatus]);
+  }, [
+    paginateData,
+    formWatch,
+    acquisitionDate,
+    equipmentStatus,
+    createdUntil,
+    createdFrom,
+  ]);
 
   const handleClean = () => {
     reset();
@@ -93,6 +109,8 @@ export const useConsultProperty = () => {
     tableComponentRef.current?.loadData({
       ...filters,
       acquisitionDate: jsDateToISODate(filters.acquisitionDate),
+      createdFrom: jsDateToISODate(filters.createdFrom),
+      createdUntil: jsDateToISODate(filters.createdUntil),
     });
   });
 
@@ -106,11 +124,18 @@ export const useConsultProperty = () => {
 
   useEffect(() => {
     const { plate, description } = formWatch;
-    if (acquisitionDate || equipmentStatus || description || plate) {
+    if (
+      acquisitionDate ||
+      equipmentStatus ||
+      description ||
+      plate ||
+      createdFrom ||
+      createdUntil
+    ) {
       return setSubmitDisabled(false);
     }
     setSubmitDisabled(true);
-  }, [acquisitionDate, equipmentStatus, formWatch]);
+  }, [acquisitionDate, equipmentStatus, formWatch, createdFrom, createdUntil]);
 
   return {
     downloadCollection,

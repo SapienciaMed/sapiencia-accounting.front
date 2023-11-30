@@ -125,6 +125,8 @@ export interface IPropertyFilters {
   description: string;
   acquisitionDate: Date;
   equipmentStatus: number;
+  createdFrom: Date;
+  createdUntil: Date;
 }
 
 export interface IFurniture {

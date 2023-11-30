@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { IDefeatedTable } from "../../../../common/interfaces/reports.interface";
 import { ITableElement } from "../../../../common/interfaces/table.interfaces";
+import moment from "moment";
 export const tableColumns: ITableElement<IDefeatedTable>[] = [
   {
     fieldName: "accountStatement.accountNum",
@@ -25,8 +26,14 @@ export const tableColumns: ITableElement<IDefeatedTable>[] = [
   },
 
   {
-    fieldName: "",
+    fieldName: "expiratioDays",
     header: "Días de vencimiento",
+    renderCell: (el) => {
+      moment.locale("es");
+      return (
+        <>{moment(el.accountStatement.expirationDate.toString()).fromNow()}</>
+      );
+    },
   },
   {
     fieldName: "",

@@ -113,6 +113,32 @@ const ManagePropertyForm = ({
               />
             </div>
           </div>
+          <div className="grid-form-2-container gap-25 mt-24px">
+            <div>
+              <DatePickerComponent
+                idInput="createdFrom"
+                errors={errors}
+                control={control}
+                label={<>Fecha de creación desde</>}
+                classNameLabel="text-black big bold"
+                className="dataPicker-basic  medium "
+                dateFormat="dd/mm/yy"
+                maxDate={new Date()}
+              />
+            </div>
+            <div className="grid-span-2-columns mr-24px">
+              <DatePickerComponent
+                idInput="createdUntil"
+                errors={errors}
+                control={control}
+                label={<>Fecha de creación hasta</>}
+                classNameLabel="text-black big bold"
+                className="dataPicker-basic  medium "
+                dateFormat="dd/mm/yy"
+                maxDate={new Date()}
+              />
+            </div>
+          </div>
           <div className="button-save-container-display mr-24px mt-20px button-save-bussiness">
             <ButtonComponent
               value="Limpiar campos"
