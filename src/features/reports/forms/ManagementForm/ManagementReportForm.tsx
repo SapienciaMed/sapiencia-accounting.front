@@ -64,6 +64,12 @@ const ManagementReport = ({
 
           <div className="button-save-container-display mr-24px mt-20px button-save-bussiness">
             <ButtonComponent
+              value="Limpiar campos"
+              className="button-clean bold"
+              type="button"
+              action={handleClean}
+            />
+            <ButtonComponent
               value="Buscar"
               className={`button-save ${
                 !isValid || submitDisabled ? "disabled-black" : ""

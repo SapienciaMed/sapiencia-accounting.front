@@ -7,6 +7,7 @@ import ConsultManageContract from "./pages/manageContractPages/ConsultManageCont
 import CreateManageContract from "./pages/manageContractPages/CreateManageContract";
 import DetailContract from "./pages/manageContractPages/EditContract";
 import PrivateRoute from "../../common/components/Guard/auth-private-guard";
+import ConsultMainReport from "../reports/pages/ConsultMainReportPage";
 
 const MasterDataRoutes = () => {
   // const CreateAccountStatement = lazy(
@@ -79,6 +80,7 @@ const MasterDataRoutes = () => {
           />
         }
       />
+      <Route path="/informes" element={<ConsultMainReport />} />
     </Routes>
   );
 };
