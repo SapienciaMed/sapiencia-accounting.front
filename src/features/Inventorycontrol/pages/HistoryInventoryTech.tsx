@@ -24,7 +24,7 @@ const HistoryInventoryTechActive = () => {
         action={downloadCollection}
       >
         <span className="text-black extra-large bold grid-span-3-columns p-20px">
-          Control inventario activo tecnológico
+          Histórico inventario activo tecnologico
         </span>
         <div className="container-sections-forms ml-5px mr-20px">
           <div>
