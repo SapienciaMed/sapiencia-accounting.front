@@ -32,28 +32,30 @@ const MainReportForm = ({ errors, control, selectData, typeReportSelect }) => {
           />
         </div>
       </div>
-      {typeReportSelect === REPORTS_TYPES.INFORME_CAUSACION_CTAS_COBRO && (
-        <>
-          <CausationReportPage></CausationReportPage>
-        </>
-      )}
-      {typeReportSelect === REPORTS_TYPES.INFORME_PAGO_CTAS_COBRO && (
-        <>
-          <PaymentReportPage></PaymentReportPage>
-        </>
-      )}
-      {typeReportSelect === REPORTS_TYPES.INFORME_CARTERA_VENCIDA && (
-        <>
-          <DefeatedReportPage></DefeatedReportPage>
-        </>
-      )}
+      <div>
+        {typeReportSelect === REPORTS_TYPES.INFORME_CAUSACION_CTAS_COBRO && (
+          <div>
+            <CausationReportPage></CausationReportPage>
+          </div>
+        )}
+        {typeReportSelect === REPORTS_TYPES.INFORME_PAGO_CTAS_COBRO && (
+          <div>
+            <PaymentReportPage></PaymentReportPage>
+          </div>
+        )}
+        {typeReportSelect === REPORTS_TYPES.INFORME_CARTERA_VENCIDA && (
+          <div>
+            <DefeatedReportPage></DefeatedReportPage>
+          </div>
+        )}
 
-      {typeReportSelect ===
-        REPORTS_TYPES.INFORME_RADICACIÓN_GESTION_DOCUMENTAL && (
-        <>
-          <ManagementReportPage></ManagementReportPage>
-        </>
-      )}
+        {typeReportSelect ===
+          REPORTS_TYPES.INFORME_RADICACIÓN_GESTION_DOCUMENTAL && (
+          <div>
+            <ManagementReportPage></ManagementReportPage>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
