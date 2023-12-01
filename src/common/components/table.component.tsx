@@ -195,7 +195,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
             properties.length >= 2 &&
               properties.forEach((prop, index) => {
                 if (index === 0) return;
-                field = field?.[prop];
+                field = field[prop];
               });
             return (
               <div key={item} className="item-value-container">
@@ -206,7 +206,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
           })}
         </div>
         <div className="card-footer">
-          {actions.map((action, index) => (
+          {actions?.map((action, index) => (
             <div key={index} onClick={() => action.onClick(item)}>
               {action.customIcon ? (
                 <div className="button grid-button button-link">
