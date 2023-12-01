@@ -195,7 +195,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
             properties.length >= 2 &&
               properties.forEach((prop, index) => {
                 if (index === 0) return;
-                field = field[prop];
+                field = field?.[prop];
               });
             return (
               <div key={item} className="item-value-container">

@@ -12,6 +12,7 @@ import { consultTechActiveSchema } from "../../../common/schemas/techActives.sch
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
+import { jsDateToISODate } from "../../../common/utils/helpers";
 
 export const useConsultTechActive = () => {
   const navigate = useNavigate();
@@ -38,7 +39,13 @@ export const useConsultTechActive = () => {
     plate: "",
     serial: "",
   });
-  const [type, campus, ownerId] = watch(["type", "campus", "ownerId"]);
+  const [type, campus, ownerId, createdFrom, createdUntil] = watch([
+    "type",
+    "campus",
+    "ownerId",
+    "createdFrom",
+    "createdUntil",
+  ]);
 
   const tableActions: ITableAction<ITechActives>[] = [
     {
@@ -81,9 +88,15 @@ export const useConsultTechActive = () => {
     if (campus) {
       params.append("campus", campus);
     }
+    if (createdFrom) {
+      params.append("createdFrom", createdFrom);
+    }
+    if (createdUntil) {
+      params.append("createdUntil", createdUntil);
+    }
     url.search = params.toString();
     window.open(url.toString(), "_blank");
-  }, [paginateData, formWatch, type, campus]);
+  }, [paginateData, formWatch, type, , createdUntil, createdFrom]);
 
   const handleClean = () => {
     reset();
@@ -96,6 +109,8 @@ export const useConsultTechActive = () => {
     setTableView(true);
     tableComponentRef.current?.loadData({
       ...filters,
+      createdFrom: jsDateToISODate(filters.createdFrom),
+      createdUntil: jsDateToISODate(filters.createdUntil),
     });
   });
 
@@ -109,11 +124,19 @@ export const useConsultTechActive = () => {
 
   useEffect(() => {
     const { plate, serial } = formWatch;
-    if (type || campus || serial || ownerId || plate) {
+    if (
+      type ||
+      campus ||
+      serial ||
+      ownerId ||
+      plate ||
+      createdFrom ||
+      createdUntil
+    ) {
       return setSubmitDisabled(false);
     }
     setSubmitDisabled(true);
-  }, [type, campus, ownerId, formWatch]);
+  }, [type, campus, ownerId, formWatch, createdFrom, createdUntil]);
 
   return {
     downloadCollection,

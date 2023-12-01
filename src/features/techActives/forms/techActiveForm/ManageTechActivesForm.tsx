@@ -124,7 +124,7 @@ const ManageTechActivesForm = ({
           <div className="grid-form-3-container gap-25 mt-24px">
             <div>
               <DatePickerComponent
-                idInput=""
+                idInput="createdFrom"
                 errors={errors}
                 control={control}
                 label={<>Fecha de creación desde</>}
@@ -135,7 +135,7 @@ const ManageTechActivesForm = ({
               />
             </div>
             <DatePickerComponent
-              idInput=""
+              idInput="createdUntil"
               errors={errors}
               control={control}
               label={<>Fecha de creación hasta</>}
