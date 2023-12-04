@@ -19,7 +19,7 @@ import { useGetContract } from "../../masterData/hooks/manageContractHooks/getCo
 export const useConsultAccountStatement = () => {
   const urlGetAccountStatement = `${urlApiAccounting}/api/v1/account-statement/get-paginated`;
   const navigate = useNavigate();
-  const { validateActionAccess } = useContext(AppContext);
+  const { validateActionAccess, authorization } = useContext(AppContext);
   const tableComponentRef = useRef(null);
   const [showFooterActions, setShowFooterActions] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
@@ -63,13 +63,15 @@ export const useConsultAccountStatement = () => {
     {
       icon: "Pdf",
       onClick: (row) => {
-        const pdfUrl = `${urlApiAccounting}/api/v1/account-statement/${row.id}/generate-account-statement-pdf`;
+        const token = localStorage.getItem("token");
+        const pdfUrl = `${urlApiAccounting}/api/v1/account-statement/${row.id}/generate-account-statement-pdf?authorization=${token}&permissions=${authorization.encryptedAccess}`;
         window.open(pdfUrl, "_blank");
       },
       hide: !validateActionAccess("CUENTA_COBRO_PDF"),
     },
   ];
   const downloadCollection = useCallback(() => {
+    const token = localStorage.getItem("token");
     const { page, perPage } = paginateData;
     const { accountNum, nit } = formWatch;
     const url = new URL(
@@ -78,6 +80,8 @@ export const useConsultAccountStatement = () => {
     const params = new URLSearchParams();
     params.append("page", page + 1);
     params.append("perPage", perPage);
+    params.append("authorization", token);
+    params.append("permissions", authorization.encryptedAccess);
     if (contractCode) {
       params.append("contractCode", contractCode);
     }

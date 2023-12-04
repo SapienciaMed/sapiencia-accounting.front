@@ -18,9 +18,11 @@ const InventoryControlTech = () => {
     downloadCollection,
     setShowFooterActions,
     showFooterActions,
+    validateActionAccess,
   } = useInventoryControlTech();
   return (
     <InventoryControlTechForm
+      validateActionAccess={validateActionAccess}
       showFooterActions={showFooterActions}
       setShowFooterActions={setShowFooterActions}
       errors={errors}

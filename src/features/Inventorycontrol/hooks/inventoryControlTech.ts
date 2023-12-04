@@ -17,7 +17,7 @@ type IPlate = {
 export const useInventoryControlTech = () => {
   const { setMessage } = useContext(AppContext);
   const [searchResults, setSearchResults] = useState<IFilterPlate[]>([]);
-  //   const { validateActionAccess } = useContext(AppContext);
+  const { validateActionAccess, authorization } = useContext(AppContext);
   const navigate = useNavigate();
   const [showFooterActions, setShowFooterActions] = useState(false);
   const tableComponentRef = useRef(null);
@@ -125,6 +125,8 @@ export const useInventoryControlTech = () => {
       const params = new URLSearchParams();
       const token = localStorage.getItem("token");
       params.append("authorization", token);
+      params.append("permissions", authorization.encryptedAccess);
+
       params.append("assetIds", JSON.stringify(requestDataid));
       url.search = params.toString();
       window.open(url.toString(), "_blank");
@@ -181,5 +183,6 @@ export const useInventoryControlTech = () => {
     downloadCollection,
     showFooterActions,
     setShowFooterActions,
+    validateActionAccess,
   };
 };

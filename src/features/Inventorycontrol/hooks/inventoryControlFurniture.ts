@@ -17,9 +17,9 @@ type IPlate = {
 export const useInventoryControlFurniture = () => {
   const { setMessage } = useContext(AppContext);
   const [searchResults, setSearchResults] = useState<IFilterPlate[]>([]);
-  //   const { validateActionAccess } = useContext(AppContext);
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
+  const { validateActionAccess, authorization } = useContext(AppContext);
   const [showFooterActions, setShowFooterActions] = useState(false);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const [tableView, setTableView] = useState<boolean>(false);
@@ -126,6 +126,8 @@ export const useInventoryControlFurniture = () => {
       const params = new URLSearchParams();
       const token = localStorage.getItem("token");
       params.append("authorization", token);
+      params.append("permissions", authorization.encryptedAccess);
+
       params.append("furnitureIds", JSON.stringify(requestDataid));
       url.search = params.toString();
       window.open(url.toString(), "_blank");
@@ -182,5 +184,6 @@ export const useInventoryControlFurniture = () => {
     downloadCollection,
     showFooterActions,
     setShowFooterActions,
+    validateActionAccess,
   };
 };

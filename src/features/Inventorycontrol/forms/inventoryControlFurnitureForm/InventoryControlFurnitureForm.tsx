@@ -23,7 +23,7 @@ const InventoryControlFurnitureForm = ({
   handleClose,
   handleSave,
   downloadCollection,
-  // validateActionAccess,
+  validateActionAccess,
   showFooterActions,
   setShowFooterActions,
 }) => (
@@ -107,20 +107,20 @@ const InventoryControlFurnitureForm = ({
               className="button-save big"
               action={handleSave}
             />
-            {/* {validateActionAccess("CUENTA_COBRO_EXCEL") && ( */}
-            <ButtonComponent
-              value={
-                <>
-                  <div className="container-buttonText">
-                    <span>Descargar</span>
-                    <Svgs svg="excel" width={23.593} height={28.505} />
-                  </div>
-                </>
-              }
-              className="button-download large "
-              action={downloadCollection}
-            />
-            {/* )} */}
+            {validateActionAccess("BIEN_MUEBLE_INVENTARIO") && (
+              <ButtonComponent
+                value={
+                  <>
+                    <div className="container-buttonText">
+                      <span>Descargar</span>
+                      <Svgs svg="excel" width={23.593} height={28.505} />
+                    </div>
+                  </>
+                }
+                className="button-download large "
+                action={downloadCollection}
+              />
+            )}
           </div>
         )}
       </>

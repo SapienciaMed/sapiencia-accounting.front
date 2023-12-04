@@ -104,18 +104,20 @@ const PaymentReportForm = ({
           ></div>
           {showFooterActions && (
             <div className="button-save-container-display mr-24px">
-              <ButtonComponent
-                value={
-                  <>
-                    <div className="container-buttonText">
-                      <span>Descargar</span>
-                      <Svgs svg="excel" width={23.593} height={28.505} />
-                    </div>
-                  </>
-                }
-                className="button-download large "
-                action={downloadCollection}
-              />
+              {validateActionAccess("CUENTA_COBRO_INFORMES") && (
+                <ButtonComponent
+                  value={
+                    <>
+                      <div className="container-buttonText">
+                        <span>Descargar</span>
+                        <Svgs svg="excel" width={23.593} height={28.505} />
+                      </div>
+                    </>
+                  }
+                  className="button-download large "
+                  action={downloadCollection}
+                />
+              )}
               <ButtonComponent
                 value="Cerrar"
                 className="button-save big"

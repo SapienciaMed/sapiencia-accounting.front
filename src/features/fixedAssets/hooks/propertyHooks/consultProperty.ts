@@ -20,7 +20,7 @@ export const useConsultProperty = () => {
   const [showFooterActions, setShowFooterActions] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
-  const { validateActionAccess } = useContext(AppContext);
+  const { validateActionAccess, authorization } = useContext(AppContext);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const resolver = useYupValidationResolver(consultPropertySchema);
   const {
@@ -61,12 +61,15 @@ export const useConsultProperty = () => {
   ];
 
   const downloadCollection = useCallback(() => {
+    const token = localStorage.getItem("token");
     const { page, perPage } = paginateData;
     const { plate, description } = formWatch;
     const url = new URL(`${urlApiAccounting}/api/v1/furniture/generate-xlsx`);
     const params = new URLSearchParams();
     params.append("page", page + 1);
     params.append("perPage", perPage);
+    params.append("authorization", token);
+    params.append("permissions", authorization.encryptedAccess);
     if (plate) {
       params.append("plate", plate);
     }

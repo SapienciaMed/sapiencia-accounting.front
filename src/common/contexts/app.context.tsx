@@ -51,7 +51,7 @@ export function AppContextProvider({ children }: IProps) {
 
   const [currentBusiness, setCurrentBusiness] = useState<IGetBusiness>(null);
 
-  // Metodo que verifica si el usuario posee permisos sobre un accion
+  // Metodo que verifica si el usuario posee permisos sobre una accion
   function validateActionAccess(indicator: string): boolean {
     return authorization.allowedActions?.findIndex((i) => i === indicator) >= 0;
   }

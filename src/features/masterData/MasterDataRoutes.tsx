@@ -80,7 +80,15 @@ const MasterDataRoutes = () => {
           />
         }
       />
-      <Route path="/informes" element={<ConsultMainReport />} />
+      <Route
+        path="/informes"
+        element={
+          <PrivateRoute
+            element={<ConsultMainReport />}
+            allowedAction="CUENTA_COBRO_INFORMES"
+          />
+        }
+      />
     </Routes>
   );
 };

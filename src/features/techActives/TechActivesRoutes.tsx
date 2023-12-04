@@ -26,7 +26,7 @@ const TechActivesRoutes = () => {
         element={
           <PrivateRoute
             element={<ConsultTechActive />}
-            allowedAction="BIEN_MUEBLE_CONSULTAR"
+            allowedAction="ACTIVO_FIJO_CONSULTAR"
           />
         }
       />
@@ -35,7 +35,7 @@ const TechActivesRoutes = () => {
         element={
           <PrivateRoute
             element={<CreateTechActive />}
-            allowedAction="BIEN_MUEBLE_CREAR"
+            allowedAction="ACTIVO_FIJO_CREAR"
           />
         }
       />
@@ -44,7 +44,7 @@ const TechActivesRoutes = () => {
         element={
           <PrivateRoute
             element={<DetailsTechActive />}
-            allowedAction="BIEN_MUEBLE_DETALLE"
+            allowedAction="ACTIVO_FIJO_DETALLE"
           />
         }
       />
@@ -53,7 +53,7 @@ const TechActivesRoutes = () => {
         element={
           <PrivateRoute
             element={<EditTechActive />}
-            allowedAction="BIEN_MUEBLE_EDITAR"
+            allowedAction="ACTIVO_FIJO_EDITAR"
           />
         }
       />

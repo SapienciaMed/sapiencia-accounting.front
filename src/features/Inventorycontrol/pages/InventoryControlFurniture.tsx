@@ -18,9 +18,11 @@ const InventoryControlFurniture = () => {
     downloadCollection,
     setShowFooterActions,
     showFooterActions,
+    validateActionAccess,
   } = useInventoryControlFurniture();
   return (
     <InventoryControlFurnitureForm
+      validateActionAccess={validateActionAccess}
       showFooterActions={showFooterActions}
       setShowFooterActions={setShowFooterActions}
       errors={errors}

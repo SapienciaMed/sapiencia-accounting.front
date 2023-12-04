@@ -14,6 +14,7 @@ const HistoryInventoryFurniture = () => {
     dateSelect,
     handleCheckboxChange,
     handleClose,
+    validateActionAccess,
   } = useHistoryInventoryFurniture();
   const titleInventory = <span className="bold">Fecha inventario : </span>;
   return (
@@ -49,20 +50,20 @@ const HistoryInventoryFurniture = () => {
         </div>
 
         <div className="button-save-container-display mr-24px">
-          {/* {validateActionAccess("CUENTA_COBRO_EXCEL") && ( */}
-          <ButtonComponent
-            value={
-              <>
-                <div className="container-buttonText">
-                  <span>Descargar</span>
-                  <Svgs svg="excel" width={23.593} height={28.505} />
-                </div>
-              </>
-            }
-            className="button-download large "
-            type="submit"
-          />
-          {/* )} */}
+          {validateActionAccess("BIEN_MUEBLE_INVENTARIO") && (
+            <ButtonComponent
+              value={
+                <>
+                  <div className="container-buttonText">
+                    <span>Descargar</span>
+                    <Svgs svg="excel" width={23.593} height={28.505} />
+                  </div>
+                </>
+              }
+              className="button-download large "
+              type="submit"
+            />
+          )}
           <ButtonComponent
             value="Cerrar"
             className="button-save big"

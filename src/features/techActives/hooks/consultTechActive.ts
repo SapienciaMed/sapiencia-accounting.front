@@ -22,7 +22,7 @@ export const useConsultTechActive = () => {
   const { fullInfo } = useGetAllWorkersAllInfoHook();
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
-  const { validateActionAccess } = useContext(AppContext);
+  const { validateActionAccess, authorization } = useContext(AppContext);
   const [showFooterActions, setShowFooterActions] = useState(false);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const resolver = useYupValidationResolver(consultTechActiveSchema);
@@ -53,14 +53,14 @@ export const useConsultTechActive = () => {
       onClick: (row) => {
         navigate(`/contabilidad/activos-tecnologicos/detalle/${row.id}`);
       },
-      // hide: !validateActionAccess("BIEN_MUEBLE_DETALLE"),
+      hide: !validateActionAccess("ACTIVO_FIJO_DETALLE"),
     },
     {
       icon: "Edit",
       onClick: (row) => {
         navigate(`/contabilidad/activos-tecnologicos/editar/${row.id}`);
       },
-      // hide: !validateActionAccess("BIEN_MUEBLE_EDITAR"),
+      hide: !validateActionAccess("ACTIVO_FIJO_EDITAR"),
     },
   ];
 
@@ -73,6 +73,7 @@ export const useConsultTechActive = () => {
     params.append("perPage", perPage);
     const token = localStorage.getItem("token");
     params.append("authorization", token);
+    params.append("permissions", authorization.encryptedAccess);
     if (plate) {
       params.append("plate", plate);
     }

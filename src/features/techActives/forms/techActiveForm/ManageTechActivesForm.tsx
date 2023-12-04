@@ -45,7 +45,7 @@ const ManageTechActivesForm = ({
             <div className="text-black large bold grid-span-2-columns pb-14px">
               Gestionar activos tecnológicos
             </div>
-            {validateActionAccess("BIEN_MUEBLE_CREAR") && (
+            {validateActionAccess("ACTIVO_FIJO_CREAR") && (
               <div className="button-save-container-display mr-20px button-create-business">
                 <Link
                   to="/contabilidad/activos-tecnologicos/crear"
@@ -188,18 +188,20 @@ const ManageTechActivesForm = ({
           ></div>
           {showFooterActions && (
             <div className="button-save-container-display mr-24px">
-              <ButtonComponent
-                value={
-                  <>
-                    <div className="container-buttonText">
-                      <span>Descargar</span>
-                      <Svgs svg="excel" width={23.593} height={28.505} />
-                    </div>
-                  </>
-                }
-                className="button-download large "
-                action={downloadCollection}
-              />
+              {validateActionAccess("ACTIVO_FIJO_CONSULTAR") && (
+                <ButtonComponent
+                  value={
+                    <>
+                      <div className="container-buttonText">
+                        <span>Descargar</span>
+                        <Svgs svg="excel" width={23.593} height={28.505} />
+                      </div>
+                    </>
+                  }
+                  className="button-download large "
+                  action={downloadCollection}
+                />
+              )}
               <ButtonComponent
                 value="Cerrar"
                 className="button-save big"

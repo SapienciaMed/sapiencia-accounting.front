@@ -14,7 +14,7 @@ export const useManagementReport = () => {
   const tableComponentRef = useRef(null);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
-  const { validateActionAccess } = useContext(AppContext);
+  const { validateActionAccess, authorization } = useContext(AppContext);
   const [showFooterActions, setShowFooterActions] = useState(false);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const resolver = useYupValidationResolver(consultTechActiveSchema);
@@ -51,6 +51,7 @@ export const useManagementReport = () => {
       );
     }
     params.append("authorization", token);
+    params.append("permissions", authorization.encryptedAccess);
     url.search = params.toString();
     window.open(url.toString(), "_blank");
   }, [paginateData, expeditionDateFrom, expeditionDateUntil]);

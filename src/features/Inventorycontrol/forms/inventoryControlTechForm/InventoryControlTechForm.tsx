@@ -25,7 +25,7 @@ const InventoryControlTechForm = ({
   downloadCollection,
   showFooterActions,
   setShowFooterActions,
-  // validateActionAccess,
+  validateActionAccess,
 }) => (
   <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
     <FormComponent
@@ -107,20 +107,20 @@ const InventoryControlTechForm = ({
               className="button-save big"
               action={handleSave}
             />
-            {/* {validateActionAccess("CUENTA_COBRO_EXCEL") && ( */}
-            <ButtonComponent
-              value={
-                <>
-                  <div className="container-buttonText">
-                    <span>Descargar</span>
-                    <Svgs svg="excel" width={23.593} height={28.505} />
-                  </div>
-                </>
-              }
-              className="button-download large "
-              action={downloadCollection}
-            />
-            {/* )} */}
+            {validateActionAccess("ACTIVO_FIJO_INVENTARIO") && (
+              <ButtonComponent
+                value={
+                  <>
+                    <div className="container-buttonText">
+                      <span>Descargar</span>
+                      <Svgs svg="excel" width={23.593} height={28.505} />
+                    </div>
+                  </>
+                }
+                className="button-download large "
+                action={downloadCollection}
+              />
+            )}
           </div>
         )}
       </>
