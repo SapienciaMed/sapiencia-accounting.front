@@ -1,6 +1,8 @@
 // @ts-ignore
 import { string, date, number, object } from "yup";
+import * as yup from "yup";
 import { ASSET_TYPES } from "../constants/asset";
+import moment from "moment";
 
 const otherAssetTypeSchema = {
   type: string().required("Ingresar una opción"),
@@ -110,6 +112,22 @@ export const consultTechActiveSchema = object({
     .max(50, "Solo se permiten 50 caracteres")
     .optional()
     .nullable(),
+  createdFrom: yup
+    .date()
+    .optional()
+    .nullable()
+    .test("", "", async (value, context) => {
+      if (!value || !context.parent.createdUntil) return true;
+      return moment(value).isBefore(moment(context.parent.createdUntil));
+    }),
+  createdUntil: yup
+    .date()
+    .optional()
+    .nullable()
+    .test("", "", async (value, context) => {
+      if (!value || !context.parent.createdFrom) return true;
+      return moment(value).isAfter(moment(context.parent.createdFrom));
+    }),
 });
 
 export const inventoryControlSchema = object({
