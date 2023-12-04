@@ -97,10 +97,16 @@ export const createContractSchema = yup.object({
   debitAccount: yup
     .string()
     .max(20, "Solo se permiten 20 caracteres")
+    .matches(/^\d+$/, {
+      message: "Formato de cuenta inválido",
+    })
     .required("Completar información"),
   creditAccount: yup
     .string()
     .max(20, "Solo se permiten 20 caracteres")
+    .matches(/^\d+$/, {
+      message: "Formato de cuenta inválido",
+    })
     .required("Completar información"),
   sender: yup
     .string()
