@@ -146,9 +146,9 @@ export const useInventoryControlFurniture = () => {
 
   const handleClose = () => {
     setMessage({
-      title: "cerrar control inventario",
+      title: "Control inventario",
       description:
-        "¿Está segur@ de cerrar los cambios? Si cierras podrías perder los inventarios guardados ",
+        "¿Está segur@ de cerrar los cambios? \n Si cierras podrías perder los inventarios guardados ",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
