@@ -145,10 +145,25 @@ export const useInventoryControlFurniture = () => {
   };
 
   const handleClose = () => {
-    handleClean();
-    navigate(`/contabilidad`);
+    setMessage({
+      title: "cerrar control inventario",
+      description:
+        "¿Está segur@ de cerrar los cambios? Si cierras podrías perder los inventarios guardados ",
+      show: true,
+      okTitle: "Aceptar",
+      cancelTitle: "Cancelar",
+      background: true,
+      onOk: () => {
+        setMessage({ show: false });
+        navigate(`/contabilidad`);
+        handleClean();
+      },
+      onCancel: () => {
+        setMessage({ show: false });
+      },
+      onClose: () => setMessage({ show: false }),
+    });
   };
-
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setFormWatch({
