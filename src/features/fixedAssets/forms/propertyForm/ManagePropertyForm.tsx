@@ -182,7 +182,7 @@ const ManagePropertyForm = ({
           ></div>
           {showFooterActions && (
             <div className="button-save-container-display mr-24px">
-              {validateActionAccess("BIEN_MUEBLE_EXCEL") && (
+              {validateActionAccess("BIEN_MUEBLE_XLSX") && (
                 <ButtonComponent
                   value={
                     <>
