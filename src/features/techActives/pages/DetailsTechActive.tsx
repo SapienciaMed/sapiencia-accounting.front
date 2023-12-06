@@ -18,6 +18,7 @@ const DetailsTechActive = () => {
     showHistoryTechActive,
     type,
     typeActive,
+    validateActionAccess,
   } = useGetDetailTechActive();
 
   return (
@@ -44,14 +45,16 @@ const DetailsTechActive = () => {
             </span>
           </div>
         )}
-        <div className="button-save-container-display mr-33px button-create-business">
-          <Link to="#" className="text-links" onClick={showHistoryTechActive}>
-            Ver Historico
-            <div className="text-links ml-5px">
-              <Svgs svg="view" width={16} height={17} />
-            </div>
-          </Link>
-        </div>
+        {validateActionAccess("ACTIVO_FIJO_HISTORICO") && (
+          <div className="button-save-container-display mr-33px button-create-business">
+            <Link to="#" className="text-links" onClick={showHistoryTechActive}>
+              Ver Historico
+              <div className="text-links ml-5px">
+                <Svgs svg="view" width={16} height={17} />
+              </div>
+            </Link>
+          </div>
+        )}
         <div className="grid-form-3-container gap-25 mt-28px">
           <SelectComponent
             idInput="type"

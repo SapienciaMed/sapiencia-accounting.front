@@ -11,8 +11,13 @@ import Svgs from "../../../../public/images/icons/svgs";
 import { Link } from "react-router-dom";
 
 const DetailProperty = () => {
-  const { register, control, handleClose, showHistoryProperty } =
-    useGetDetailProperty();
+  const {
+    register,
+    control,
+    handleClose,
+    showHistoryProperty,
+    validateActionAccess,
+  } = useGetDetailProperty();
 
   return (
     <>
@@ -22,14 +27,20 @@ const DetailProperty = () => {
             <span className="text-black large bold grid-span-2-columns">
               Consulta detalle bien inmueble
             </span>
-            <div className="button-save-container-display mr-33px button-create-business">
-              <Link to="#" className="text-links" onClick={showHistoryProperty}>
-                Ver Historico
-                <div className="text-links ml-5px">
-                  <Svgs svg="view" width={16} height={17} />
-                </div>
-              </Link>
-            </div>
+            {validateActionAccess("BIEN_MUEBLE_HISTORICO") && (
+              <div className="button-save-container-display mr-33px button-create-business">
+                <Link
+                  to="#"
+                  className="text-links"
+                  onClick={showHistoryProperty}
+                >
+                  Ver Historico
+                  <div className="text-links ml-5px">
+                    <Svgs svg="view" width={16} height={17} />
+                  </div>
+                </Link>
+              </div>
+            )}
 
             <InputComponent
               idInput="area"

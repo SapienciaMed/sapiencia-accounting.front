@@ -188,7 +188,7 @@ const ManageTechActivesForm = ({
           ></div>
           {showFooterActions && (
             <div className="button-save-container-display mr-24px">
-              {validateActionAccess("ACTIVO_FIJO_CONSULTAR") && (
+              {validateActionAccess("ACTIVO_FIJO_EXCEL") && (
                 <ButtonComponent
                   value={
                     <>
