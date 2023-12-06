@@ -76,7 +76,8 @@ export const useEditAccountStatementTracking = () => {
     const body = {
       observation: data.tracking.observation,
       statusId: data.tracking.statusId,
-      trackingDate: data.trackingDate ?? data.tracking.trackingDate,
+      trackingDate:
+        data.trackingDate ?? data.tracking.trackingDate.replace(/\//g, "-"),
     };
     setMessage({
       title: "Guardar Cambios",
