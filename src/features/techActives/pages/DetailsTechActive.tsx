@@ -75,7 +75,11 @@ const DetailsTechActive = () => {
                 <InputComponent
                   idInput="campus"
                   disabled
-                  label={<>Sede</>}
+                  label={
+                    <>
+                      Sede <span>*</span>
+                    </>
+                  }
                   typeInput="text"
                   register={register}
                   className="input-basic medium"
@@ -84,7 +88,11 @@ const DetailsTechActive = () => {
                 <InputComponent
                   idInput="area"
                   disabled
-                  label={<>Área</>}
+                  label={
+                    <>
+                      Área <span>*</span>
+                    </>
+                  }
                   typeInput="text"
                   register={register}
                   className="input-basic medium"
