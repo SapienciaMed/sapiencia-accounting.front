@@ -34,12 +34,16 @@ const InventoryControlFurnitureForm = ({
       action={onSubmit}
     >
       <div className=" container-sections-forms ml-20px mr-20px">
-        <div className="pb-40px">
+        <div className="pb-40px" style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap"
+        }}>
           <span className="text-black huge bold grid-span-4-columns">
             Control inventario bien mueble
           </span>
 
-          <div className="button-save-container-display mr-33px mt--18px button-create-business">
+          <div className="button-save-container-display mr-33px button-create-business">
             <Link
               to="/contabilidad/control-inventario/activos-bien-mueble/inventario-bien-mueble"
               className="text-links"

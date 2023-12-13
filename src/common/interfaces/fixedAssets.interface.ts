@@ -80,7 +80,7 @@ export enum ASSET_NAMES {
   campus = "Sede",
   area = "Área",
   status = "Estado equipo",
-  ownerId = "Información",
+  ownerId = "CC usuario",
   ownerDate = "Fecha de adquisición",
   equipmentType = "Tipo equipo",
   brand = "Marca",
