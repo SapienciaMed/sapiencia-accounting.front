@@ -32,7 +32,7 @@ const ManagePropertyForm = ({
   setShowFooterActions,
 }) => {
   return (
-    <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
+    <div className="container-sections-forms mt-24px ml-16px mr-16px p-0 container-width">
       <FormComponent
         id="BusinessForm"
         className="form-signIn"
@@ -159,7 +159,7 @@ const ManagePropertyForm = ({
       </FormComponent>
       {tableView && (
         <>
-          <div className="container-sections-forms ml-20px mr-20px">
+          <div className=" ml-20px mr-20px">
             <TableComponent
               setPaginateData={setPaginateData}
               ref={tableComponentRef}

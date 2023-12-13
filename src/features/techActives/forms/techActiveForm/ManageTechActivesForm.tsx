@@ -34,7 +34,7 @@ const ManageTechActivesForm = ({
   validateActionAccess,
 }) => {
   return (
-    <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
+    <div className="container-sections-forms mt-24px ml-16px mr-16px p-0 container-width">
       <FormComponent
         id="BusinessForm"
         className="form-signIn"

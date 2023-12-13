@@ -27,7 +27,7 @@ const DefeatedPorfolioForm = ({
   validateActionAccess,
 }) => {
   return (
-    <div className=" mt-24px ml-16px mr-16px p-0">
+    <div className="mt-24px ml-16px mr-16px p-0 container-width">
       <FormComponent
         id="BusinessForm"
         className="form-signIn"

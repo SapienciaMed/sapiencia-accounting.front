@@ -674,3 +674,13 @@ div[id="single-spa-application:@sapiencia/accounting"] {
     transition: transform 0.3s ease-in-out;
   }
 }
+
+.container-width {
+  max-width: none;
+}
+
+@media (min-width: 1024px) {
+  .container-width {
+    max-width: calc(100vw - 316px);
+  }
+}
