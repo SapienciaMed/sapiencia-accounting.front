@@ -146,7 +146,7 @@ export const useInventoryControlTech = () => {
     setMessage({
       title: "Control inventario",
       description:
-        "¿Está segur@ de cerrar los cambios? \n Si cierras podrías perder los inventarios guardados ",
+        "¿Está segur@ de cerrar los cambios? \n Si cierras podrías perder los inventarios no guardados ",
       show: true,
       okTitle: "Aceptar",
       cancelTitle: "Cancelar",
