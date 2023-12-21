@@ -34,7 +34,7 @@ const ManageTechActivesForm = ({
   validateActionAccess,
 }) => {
   return (
-    <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
+    <div className="container-sections-forms mt-24px ml-16px mr-16px p-0 container-width">
       <FormComponent
         id="BusinessForm"
         className="form-signIn"
@@ -45,7 +45,7 @@ const ManageTechActivesForm = ({
             <div className="text-black large bold grid-span-2-columns pb-14px">
               Gestionar activos tecnológicos
             </div>
-            {validateActionAccess("BIEN_MUEBLE_CREAR") && (
+            {validateActionAccess("ACTIVO_FIJO_CREAR") && (
               <div className="button-save-container-display mr-20px button-create-business">
                 <Link
                   to="/contabilidad/activos-tecnologicos/crear"
@@ -121,6 +121,30 @@ const ManageTechActivesForm = ({
               filter
             />
           </div>
+          <div className="grid-form-3-container gap-25 mt-24px">
+            <div>
+              <DatePickerComponent
+                idInput="createdFrom"
+                errors={errors}
+                control={control}
+                label={<>Fecha de creación desde</>}
+                classNameLabel="text-black big bold"
+                className="dataPicker-basic  medium "
+                dateFormat="dd/mm/yy"
+                maxDate={new Date()}
+              />
+            </div>
+            <DatePickerComponent
+              idInput="createdUntil"
+              errors={errors}
+              control={control}
+              label={<>Fecha de creación hasta</>}
+              classNameLabel="text-black big bold"
+              className="dataPicker-basic  medium "
+              dateFormat="dd/mm/yy"
+              maxDate={new Date()}
+            />
+          </div>
           <div className="button-save-container-display mr-24px mt-20px button-save-bussiness">
             <ButtonComponent
               value="Limpiar campos"
@@ -164,18 +188,20 @@ const ManageTechActivesForm = ({
           ></div>
           {showFooterActions && (
             <div className="button-save-container-display mr-24px">
-              <ButtonComponent
-                value={
-                  <>
-                    <div className="container-buttonText">
-                      <span>Descargar</span>
-                      <Svgs svg="excel" width={23.593} height={28.505} />
-                    </div>
-                  </>
-                }
-                className="button-download large "
-                action={downloadCollection}
-              />
+              {validateActionAccess("ACTIVO_FIJO_EXCEL") && (
+                <ButtonComponent
+                  value={
+                    <>
+                      <div className="container-buttonText">
+                        <span>Descargar</span>
+                        <Svgs svg="excel" width={23.593} height={28.505} />
+                      </div>
+                    </>
+                  }
+                  className="button-download large "
+                  action={downloadCollection}
+                />
+              )}
               <ButtonComponent
                 value="Cerrar"
                 className="button-save big"

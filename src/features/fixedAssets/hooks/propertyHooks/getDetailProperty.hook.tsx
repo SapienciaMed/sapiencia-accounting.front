@@ -19,6 +19,7 @@ export const useGetDetailProperty = () => {
   const [historyData, setHistoryData] = useState<IFurnitureHistoryData[]>(null);
   const { setMessage } = useContext(AppContext);
   const { get } = useCrudService(urlApiAccounting);
+  const { validateActionAccess } = useContext(AppContext);
 
   const handleClose = () => navigate("/contabilidad/activos-fijos/consultar");
 
@@ -52,5 +53,11 @@ export const useGetDetailProperty = () => {
     });
   };
 
-  return { control, register, handleClose, showHistoryProperty };
+  return {
+    control,
+    register,
+    handleClose,
+    showHistoryProperty,
+    validateActionAccess,
+  };
 };

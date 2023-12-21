@@ -26,7 +26,7 @@ const InventoryControlRoutes = () => {
         element={
           <PrivateRoute
             element={<InventoryControlTech />}
-            allowedAction="SEGUIMIENTO_CUENTA_COBRO_CONSULTAR"
+            allowedAction="ACTIVO_FIJO_INVENTARIO"
           />
         }
       />
@@ -35,7 +35,7 @@ const InventoryControlRoutes = () => {
         element={
           <PrivateRoute
             element={<HistoryInventoryTech />}
-            allowedAction="SEGUIMIENTO_CUENTA_COBRO_CONSULTAR"
+            allowedAction="ACTIVO_FIJO_INVENTARIO"
           />
         }
       />
@@ -44,7 +44,7 @@ const InventoryControlRoutes = () => {
         element={
           <PrivateRoute
             element={<InventoryControlFurniture />}
-            allowedAction="SEGUIMIENTO_CUENTA_COBRO_CONSULTAR"
+            allowedAction="BIEN_MUEBLE_INVENTARIO"
           />
         }
       />
@@ -53,7 +53,7 @@ const InventoryControlRoutes = () => {
         element={
           <PrivateRoute
             element={<HistoryInventoryFurniture />}
-            allowedAction="SEGUIMIENTO_CUENTA_COBRO_CONSULTAR"
+            allowedAction="BIEN_MUEBLE_INVENTARIO"
           />
         }
       />

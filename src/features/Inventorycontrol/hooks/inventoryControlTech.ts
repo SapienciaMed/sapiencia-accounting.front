@@ -17,8 +17,9 @@ type IPlate = {
 export const useInventoryControlTech = () => {
   const { setMessage } = useContext(AppContext);
   const [searchResults, setSearchResults] = useState<IFilterPlate[]>([]);
-  //   const { validateActionAccess } = useContext(AppContext);
+  const { validateActionAccess, authorization } = useContext(AppContext);
   const navigate = useNavigate();
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const tableComponentRef = useRef(null);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const [tableView, setTableView] = useState<boolean>(false);
@@ -124,6 +125,8 @@ export const useInventoryControlTech = () => {
       const params = new URLSearchParams();
       const token = localStorage.getItem("token");
       params.append("authorization", token);
+      params.append("permissions", authorization.encryptedAccess);
+
       params.append("assetIds", JSON.stringify(requestDataid));
       url.search = params.toString();
       window.open(url.toString(), "_blank");
@@ -139,10 +142,25 @@ export const useInventoryControlTech = () => {
     tableComponentRef.current?.emptyData();
     setTableView(false);
   };
-
   const handleClose = () => {
-    handleClean();
-    navigate(`/contabilidad`);
+    setMessage({
+      title: "Control inventario",
+      description:
+        "¿Está segur@ de cerrar los cambios? \n Si cierras podrías perder los inventarios no guardados ",
+      show: true,
+      okTitle: "Aceptar",
+      cancelTitle: "Cancelar",
+      background: true,
+      onOk: () => {
+        setMessage({ show: false });
+        navigate(`/contabilidad`);
+        handleClean();
+      },
+      onCancel: () => {
+        setMessage({ show: false });
+      },
+      onClose: () => setMessage({ show: false }),
+    });
   };
 
   const handleChange = ({ target }) => {
@@ -178,5 +196,8 @@ export const useInventoryControlTech = () => {
     handleSave,
     searchResults,
     downloadCollection,
+    showFooterActions,
+    setShowFooterActions,
+    validateActionAccess,
   };
 };

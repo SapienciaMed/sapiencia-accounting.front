@@ -17,10 +17,10 @@ export const useConsultProperty = () => {
   const { data: equipmentStatusData } = useGetGenericItems("ESTADO_EQUIPO");
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
-
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
-  const { validateActionAccess } = useContext(AppContext);
+  const { validateActionAccess, authorization } = useContext(AppContext);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const resolver = useYupValidationResolver(consultPropertySchema);
   const {
@@ -36,9 +36,11 @@ export const useConsultProperty = () => {
     plate: "",
     description: "",
   });
-  const [acquisitionDate, equipmentStatus] = watch([
+  const [acquisitionDate, equipmentStatus, createdFrom, createdUntil] = watch([
     "acquisitionDate",
     "equipmentStatus",
+    "createdFrom",
+    "createdUntil",
   ]);
 
   const tableActions: ITableAction<IProperty>[] = [
@@ -59,12 +61,15 @@ export const useConsultProperty = () => {
   ];
 
   const downloadCollection = useCallback(() => {
+    const token = localStorage.getItem("token");
     const { page, perPage } = paginateData;
     const { plate, description } = formWatch;
     const url = new URL(`${urlApiAccounting}/api/v1/furniture/generate-xlsx`);
     const params = new URLSearchParams();
     params.append("page", page + 1);
     params.append("perPage", perPage);
+    params.append("authorization", token);
+    params.append("permissions", authorization.encryptedAccess);
     if (plate) {
       params.append("plate", plate);
     }
@@ -77,9 +82,23 @@ export const useConsultProperty = () => {
     if (equipmentStatus) {
       params.append("equipmentStatus", equipmentStatus);
     }
+    if (createdFrom) {
+      params.append("createdFrom", createdFrom);
+    }
+    if (createdUntil) {
+      params.append("createdUntil", createdUntil);
+    }
+
     url.search = params.toString();
     window.open(url.toString(), "_blank");
-  }, [paginateData, formWatch, acquisitionDate, equipmentStatus]);
+  }, [
+    paginateData,
+    formWatch,
+    acquisitionDate,
+    equipmentStatus,
+    createdUntil,
+    createdFrom,
+  ]);
 
   const handleClean = () => {
     reset();
@@ -93,6 +112,8 @@ export const useConsultProperty = () => {
     tableComponentRef.current?.loadData({
       ...filters,
       acquisitionDate: jsDateToISODate(filters.acquisitionDate),
+      createdFrom: jsDateToISODate(filters.createdFrom),
+      createdUntil: jsDateToISODate(filters.createdUntil),
     });
   });
 
@@ -106,11 +127,18 @@ export const useConsultProperty = () => {
 
   useEffect(() => {
     const { plate, description } = formWatch;
-    if (acquisitionDate || equipmentStatus || description || plate) {
+    if (
+      acquisitionDate ||
+      equipmentStatus ||
+      description ||
+      plate ||
+      createdFrom ||
+      createdUntil
+    ) {
       return setSubmitDisabled(false);
     }
     setSubmitDisabled(true);
-  }, [acquisitionDate, equipmentStatus, formWatch]);
+  }, [acquisitionDate, equipmentStatus, formWatch, createdFrom, createdUntil]);
 
   return {
     downloadCollection,
@@ -129,5 +157,7 @@ export const useConsultProperty = () => {
     handleChange,
     handleClean,
     validateActionAccess,
+    showFooterActions,
+    setShowFooterActions,
   };
 };

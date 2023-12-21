@@ -23,21 +23,27 @@ const InventoryControlTechForm = ({
   handleClose,
   handleSave,
   downloadCollection,
-  // validateActionAccess,
+  showFooterActions,
+  setShowFooterActions,
+  validateActionAccess,
 }) => (
-  <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
+  <div className="container-sections-forms mt-24px ml-16px mr-16px p-0 container-width">
     <FormComponent
       id="searchAccountStatementForm"
       className="form-signIn"
       action={onSubmit}
     >
       <div className=" container-sections-forms ml-20px mr-20px">
-        <div className="pb-40px">
+        <div className="pb-40px" style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap"
+        }}>
           <span className="text-black huge bold grid-span-4-columns">
-            Control de inventario activos tecnológicos
+            Control inventario activo tecnológico
           </span>
 
-          <div className="button-save-container-display mr-33px mt--18px button-create-business">
+          <div className="button-save-container-display mr-33px button-create-business">
             <Link
               to="/contabilidad/control-inventario/activos-tecnologicos/inventario-tecnologico"
               className="text-links"
@@ -80,6 +86,7 @@ const InventoryControlTechForm = ({
             columns={tableColumns}
             useCustomRendering={true}
             isShowModal={true}
+            setShowFooterActions={setShowFooterActions}
             emptyMessage="No se generó resultado en la búsqueda"
             descriptionModalNoResult="No se generó resultado en la búsqueda"
             titleMessageModalNoResult="Control inventario"
@@ -92,32 +99,34 @@ const InventoryControlTechForm = ({
             backgroundColor: "#e0e0e0",
           }}
         ></div>
-        <div className="button-save-container-display mr-24px">
-          <ButtonComponent
-            value="Cerrar"
-            className="button-save big"
-            action={handleClose}
-          />
-          <ButtonComponent
-            value="Guardar"
-            className="button-save big"
-            action={handleSave}
-          />
-          {/* {validateActionAccess("CUENTA_COBRO_EXCEL") && ( */}
-          <ButtonComponent
-            value={
-              <>
-                <div className="container-buttonText">
-                  <span>Descargar</span>
-                  <Svgs svg="excel" width={23.593} height={28.505} />
-                </div>
-              </>
-            }
-            className="button-download large "
-            action={downloadCollection}
-          />
-          {/* )} */}
-        </div>
+        {showFooterActions && (
+          <div className="button-save-container-display mr-24px">
+            <ButtonComponent
+              value="Cerrar"
+              className="button-save big"
+              action={handleClose}
+            />
+            <ButtonComponent
+              value="Guardar"
+              className="button-save big"
+              action={handleSave}
+            />
+            {validateActionAccess("ACTIVO_FIJO_INVENTARIO") && (
+              <ButtonComponent
+                value={
+                  <>
+                    <div className="container-buttonText">
+                      <span>Descargar</span>
+                      <Svgs svg="excel" width={23.593} height={28.505} />
+                    </div>
+                  </>
+                }
+                className="button-download large "
+                action={downloadCollection}
+              />
+            )}
+          </div>
+        )}
       </>
     )}
   </div>

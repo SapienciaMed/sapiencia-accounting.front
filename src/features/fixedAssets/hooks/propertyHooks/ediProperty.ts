@@ -11,6 +11,7 @@ import { useGetGenericItems } from "./getGenericItems";
 import { useGetAllIdentification } from "./getAllIdentificationUserHook";
 import { useGetAllWorkersFullName } from "./getAllWorkersFullNameHook";
 import { EResponseCodes } from "../../../../common/constants/api.enum";
+import { DateTime } from "luxon";
 
 export const useEditProperty = () => {
   const navigate = useNavigate();
@@ -52,8 +53,12 @@ export const useEditProperty = () => {
 
   const updateProperty = async (data) => {
     try {
+      const body = {
+        ...data,
+        // acquisitionDate: DateTime.fromJSDate(data.acquisitionDate).toSQL(),
+      };
       const endpoint = `/api/v1/furniture/${id}/update-by-id`;
-      const resp = await put(endpoint, data);
+      const resp = await put(endpoint, body);
 
       if (resp.operation.code === EResponseCodes.FAIL) {
         return setMessage({

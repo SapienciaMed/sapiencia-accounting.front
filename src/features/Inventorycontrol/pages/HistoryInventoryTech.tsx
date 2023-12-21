@@ -14,6 +14,7 @@ const HistoryInventoryTechActive = () => {
     dateSelect,
     handleCheckboxChange,
     handleClose,
+    validateActionAccess,
   } = useHistoryInventoryTechActive();
   const titleInventory = <span className="bold">Fecha inventario : </span>;
   return (
@@ -24,7 +25,7 @@ const HistoryInventoryTechActive = () => {
         action={downloadCollection}
       >
         <span className="text-black extra-large bold grid-span-3-columns p-20px">
-          Control inventario activo tecnológico
+          Histórico inventario activo tecnologico
         </span>
         <div className="container-sections-forms ml-5px mr-20px">
           <div>
@@ -49,20 +50,20 @@ const HistoryInventoryTechActive = () => {
         </div>
 
         <div className="button-save-container-display mr-24px">
-          {/* {validateActionAccess("CUENTA_COBRO_EXCEL") && ( */}
-          <ButtonComponent
-            value={
-              <>
-                <div className="container-buttonText">
-                  <span>Descargar</span>
-                  <Svgs svg="excel" width={23.593} height={28.505} />
-                </div>
-              </>
-            }
-            className="button-download large "
-            type="submit"
-          />
-          {/* )} */}
+          {validateActionAccess("ACTIVO_FIJO_INVENTARIO") && (
+            <ButtonComponent
+              value={
+                <>
+                  <div className="container-buttonText">
+                    <span>Descargar</span>
+                    <Svgs svg="excel" width={23.593} height={28.505} />
+                  </div>
+                </>
+              }
+              className="button-download large "
+              type="submit"
+            />
+          )}
           <ButtonComponent
             value="Cerrar"
             className="button-save big"

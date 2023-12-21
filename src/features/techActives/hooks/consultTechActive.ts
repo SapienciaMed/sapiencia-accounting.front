@@ -12,6 +12,7 @@ import { consultTechActiveSchema } from "../../../common/schemas/techActives.sch
 import { urlApiAccounting } from "../../../common/utils/base-url";
 import { useGetGenericItems } from "../../fixedAssets/hooks/propertyHooks/getGenericItems";
 import { useGetAllWorkersAllInfoHook } from "./getAllWorkersAllInfo.hook";
+import { jsDateToISODate } from "../../../common/utils/helpers";
 
 export const useConsultTechActive = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const useConsultTechActive = () => {
   const { fullInfo } = useGetAllWorkersAllInfoHook();
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
-  const { validateActionAccess } = useContext(AppContext);
+  const { validateActionAccess, authorization } = useContext(AppContext);
   const [showFooterActions, setShowFooterActions] = useState(false);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const resolver = useYupValidationResolver(consultTechActiveSchema);
@@ -38,7 +39,13 @@ export const useConsultTechActive = () => {
     plate: "",
     serial: "",
   });
-  const [type, campus, ownerId] = watch(["type", "campus", "ownerId"]);
+  const [type, campus, ownerId, createdFrom, createdUntil] = watch([
+    "type",
+    "campus",
+    "ownerId",
+    "createdFrom",
+    "createdUntil",
+  ]);
 
   const tableActions: ITableAction<ITechActives>[] = [
     {
@@ -46,14 +53,14 @@ export const useConsultTechActive = () => {
       onClick: (row) => {
         navigate(`/contabilidad/activos-tecnologicos/detalle/${row.id}`);
       },
-      // hide: !validateActionAccess("BIEN_MUEBLE_DETALLE"),
+      hide: !validateActionAccess("ACTIVO_FIJO_DETALLE"),
     },
     {
       icon: "Edit",
       onClick: (row) => {
         navigate(`/contabilidad/activos-tecnologicos/editar/${row.id}`);
       },
-      // hide: !validateActionAccess("BIEN_MUEBLE_EDITAR"),
+      hide: !validateActionAccess("ACTIVO_FIJO_EDITAR"),
     },
   ];
 
@@ -66,6 +73,7 @@ export const useConsultTechActive = () => {
     params.append("perPage", perPage);
     const token = localStorage.getItem("token");
     params.append("authorization", token);
+    params.append("permissions", authorization.encryptedAccess);
     if (plate) {
       params.append("plate", plate);
     }
@@ -81,9 +89,15 @@ export const useConsultTechActive = () => {
     if (campus) {
       params.append("campus", campus);
     }
+    if (createdFrom) {
+      params.append("createdFrom", createdFrom);
+    }
+    if (createdUntil) {
+      params.append("createdUntil", createdUntil);
+    }
     url.search = params.toString();
     window.open(url.toString(), "_blank");
-  }, [paginateData, formWatch, type, campus]);
+  }, [paginateData, formWatch, type, , createdUntil, createdFrom]);
 
   const handleClean = () => {
     reset();
@@ -96,6 +110,8 @@ export const useConsultTechActive = () => {
     setTableView(true);
     tableComponentRef.current?.loadData({
       ...filters,
+      createdFrom: jsDateToISODate(filters.createdFrom),
+      createdUntil: jsDateToISODate(filters.createdUntil),
     });
   });
 
@@ -109,11 +125,19 @@ export const useConsultTechActive = () => {
 
   useEffect(() => {
     const { plate, serial } = formWatch;
-    if (type || campus || serial || ownerId || plate) {
+    if (
+      type ||
+      campus ||
+      serial ||
+      ownerId ||
+      plate ||
+      createdFrom ||
+      createdUntil
+    ) {
       return setSubmitDisabled(false);
     }
     setSubmitDisabled(true);
-  }, [type, campus, ownerId, formWatch]);
+  }, [type, campus, ownerId, formWatch, createdFrom, createdUntil]);
 
   return {
     downloadCollection,

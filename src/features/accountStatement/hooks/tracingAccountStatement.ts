@@ -38,6 +38,7 @@ export const useTracingAccountStatement = () => {
   const onSubmit = handleSubmit(async (ev: IAccount) => {
     try {
       const { accountNum } = ev;
+      if (!accountNum) return;
       const resp = await getAccountStatementByAccountNum(accountNum);
       if (resp.operation.code === EResponseCodes.FAIL) {
         setMessage({

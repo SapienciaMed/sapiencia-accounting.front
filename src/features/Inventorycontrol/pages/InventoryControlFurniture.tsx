@@ -16,9 +16,15 @@ const InventoryControlFurniture = () => {
     handleClose,
     handleSave,
     downloadCollection,
+    setShowFooterActions,
+    showFooterActions,
+    validateActionAccess,
   } = useInventoryControlFurniture();
   return (
     <InventoryControlFurnitureForm
+      validateActionAccess={validateActionAccess}
+      showFooterActions={showFooterActions}
+      setShowFooterActions={setShowFooterActions}
       errors={errors}
       handleSave={handleSave}
       handleClose={handleClose}

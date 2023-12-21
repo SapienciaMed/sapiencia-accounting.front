@@ -23,9 +23,11 @@ const BusinessForm = ({
   setPaginateData,
   business,
   validateActionAccess,
+  showFooterActions,
+  setShowFooterActions,
 }) => {
   return (
-    <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
+    <div className="container-sections-forms mt-24px ml-16px mr-16px p-0 container-width">
       <FormComponent
         id="BusinessForm"
         className="form-signIn"
@@ -94,6 +96,7 @@ const BusinessForm = ({
               columns={tableColumns}
               actions={tableActions}
               isShowModal={true}
+              setShowFooterActions={setShowFooterActions}
               emptyMessage="No se generó resultado en la búsqueda"
               descriptionModalNoResult="No se generó resultado en la búsqueda"
               titleMessageModalNoResult="Resultado de búsqueda"
@@ -106,13 +109,15 @@ const BusinessForm = ({
               backgroundColor: "#e0e0e0",
             }}
           ></div>
-          <div className="button-save-container-display mr-24px">
-            <ButtonComponent
-              value="Cerrar"
-              className="button-save big"
-              action={handleClean}
-            />
-          </div>
+          {showFooterActions && (
+            <div className="button-save-container-display mr-24px">
+              <ButtonComponent
+                value="Cerrar"
+                className="button-save big"
+                action={handleClean}
+              />
+            </div>
+          )}
         </>
       )}
     </div>

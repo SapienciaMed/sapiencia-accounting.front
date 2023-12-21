@@ -149,8 +149,8 @@ export const useAccountStatement = () => {
     const contractFound = contractData.find(
       ({ value }) => value === contractValue
     );
-    setValue("nit", contractFound?.data.nit);
-    setValue("business", contractFound?.data.name);
+    setValue("nit", contractFound?.data?.nit);
+    setValue("business", contractFound?.data?.name);
   }, [contractValue]);
 
   return {

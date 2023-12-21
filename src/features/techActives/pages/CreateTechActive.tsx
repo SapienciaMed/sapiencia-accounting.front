@@ -207,7 +207,7 @@ const CreateTechActive = () => {
                       Placa activo <span>*</span>
                     </>
                   }
-                  typeInput="text"
+                  typeInput="number"
                   register={register}
                   errors={errors}
                   className="input-basic medium"

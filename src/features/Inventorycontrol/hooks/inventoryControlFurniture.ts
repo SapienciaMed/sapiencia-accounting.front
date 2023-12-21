@@ -17,9 +17,10 @@ type IPlate = {
 export const useInventoryControlFurniture = () => {
   const { setMessage } = useContext(AppContext);
   const [searchResults, setSearchResults] = useState<IFilterPlate[]>([]);
-  //   const { validateActionAccess } = useContext(AppContext);
   const navigate = useNavigate();
   const tableComponentRef = useRef(null);
+  const { validateActionAccess, authorization } = useContext(AppContext);
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const [paginateData, setPaginateData] = useState({ page: "", perPage: "" });
   const [tableView, setTableView] = useState<boolean>(false);
   const { get } = useCrudService(urlApiAccounting);
@@ -125,6 +126,8 @@ export const useInventoryControlFurniture = () => {
       const params = new URLSearchParams();
       const token = localStorage.getItem("token");
       params.append("authorization", token);
+      params.append("permissions", authorization.encryptedAccess);
+
       params.append("furnitureIds", JSON.stringify(requestDataid));
       url.search = params.toString();
       window.open(url.toString(), "_blank");
@@ -142,10 +145,25 @@ export const useInventoryControlFurniture = () => {
   };
 
   const handleClose = () => {
-    handleClean();
-    navigate(`/contabilidad`);
+    setMessage({
+      title: "Control inventario",
+      description:
+        "¿Está segur@ de cerrar los cambios? \n Si cierras podrías perder los inventarios no guardados ",
+      show: true,
+      okTitle: "Aceptar",
+      cancelTitle: "Cancelar",
+      background: true,
+      onOk: () => {
+        setMessage({ show: false });
+        navigate(`/contabilidad`);
+        handleClean();
+      },
+      onCancel: () => {
+        setMessage({ show: false });
+      },
+      onClose: () => setMessage({ show: false }),
+    });
   };
-
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setFormWatch({
@@ -179,5 +197,8 @@ export const useInventoryControlFurniture = () => {
     handleSave,
     searchResults,
     downloadCollection,
+    showFooterActions,
+    setShowFooterActions,
+    validateActionAccess,
   };
 };

@@ -20,9 +20,13 @@ const ConsultAccountStatement = () => {
     downloadCollection,
     urlGetAccountStatement,
     validateActionAccess,
+    setShowFooterActions,
+    showFooterActions,
   } = useConsultAccountStatement();
   return (
     <ConsultAccountStatementForm
+      showFooterActions={showFooterActions}
+      setShowFooterActions={setShowFooterActions}
       validateActionAccess={validateActionAccess}
       errors={errors}
       control={control}

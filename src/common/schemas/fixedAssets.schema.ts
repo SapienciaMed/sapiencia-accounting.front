@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import moment from "moment";
 
 export const createPropertySchema = yup.object({
   area: yup.number().required("Completar información"),
@@ -44,6 +45,22 @@ export const consultPropertySchema = yup.object({
     .optional()
     .max(50, "Solo se permiten 50 caracteres"),
   plate: yup.string().optional().max(12, "Solo se permiten 12 caracteres"),
+  createdFrom: yup
+    .date()
+    .optional()
+    .nullable()
+    .test("", "", async (value, context) => {
+      if (!value || !context.parent.createdUntil) return true;
+      return moment(value).isBefore(moment(context.parent.createdUntil));
+    }),
+  createdUntil: yup
+    .date()
+    .optional()
+    .nullable()
+    .test("", "", async (value, context) => {
+      if (!value || !context.parent.createdFrom) return true;
+      return moment(value).isAfter(moment(context.parent.createdFrom));
+    }),
 });
 
 export const editProperySchema = yup.object({

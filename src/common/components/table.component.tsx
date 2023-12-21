@@ -206,7 +206,7 @@ const TableComponent = forwardRef<IRef, IProps<any>>((props, ref) => {
           })}
         </div>
         <div className="card-footer">
-          {actions.map((action, index) => (
+          {actions?.map((action, index) => (
             <div key={index} onClick={() => action.onClick(item)}>
               {action.customIcon ? (
                 <div className="button grid-button button-link">

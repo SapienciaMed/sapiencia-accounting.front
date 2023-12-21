@@ -16,6 +16,7 @@ export const useGetDetailTechActive = () => {
   const navigate = useNavigate();
   const { id, techActive } = useTechActiveById();
   const { control, register, reset, watch } = useForm();
+  const { validateActionAccess } = useContext(AppContext);
   const [historyData, setHistoryData] = useState<IFurnitureHistoryData[]>(null);
   const { setMessage } = useContext(AppContext);
   const { get } = useCrudService(urlApiAccounting);
@@ -62,5 +63,6 @@ export const useGetDetailTechActive = () => {
     showHistoryTechActive,
     type,
     typeActive,
+    validateActionAccess,
   };
 };

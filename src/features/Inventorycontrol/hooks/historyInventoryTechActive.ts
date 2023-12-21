@@ -11,6 +11,7 @@ export const useHistoryInventoryTechActive = () => {
   const { datesInventory } = useGetAllDatesTechActiveInventory();
   const [dateSelect, setDateSelect] = useState([]);
   const dates = datesInventory.map((item: IDatesInventory) => item.createdAt);
+  const { validateActionAccess, authorization } = useContext(AppContext);
 
   const handleCheckboxChange = (date, isChecked) => {
     if (isChecked) {
@@ -47,6 +48,8 @@ export const useHistoryInventoryTechActive = () => {
       const token = localStorage.getItem("token");
       params.append("inventoryDates", JSON.stringify(requestDataid));
       params.append("authorization", token);
+      params.append("permissions", authorization.encryptedAccess);
+
       url.search = params.toString();
       window.open(url.toString(), "_blank");
     } catch (err) {
@@ -60,5 +63,6 @@ export const useHistoryInventoryTechActive = () => {
     handleCheckboxChange,
     handleClose,
     downloadCollection,
+    validateActionAccess,
   };
 };

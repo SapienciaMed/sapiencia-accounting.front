@@ -22,6 +22,7 @@ export const useConsultContract = () => {
   const { contract, setReload: setReloadContracts } = useGetContract();
   const { validateActionAccess } = useContext(AppContext);
   const { business, setReload } = useGetBusiness();
+  const [showFooterActions, setShowFooterActions] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [tableView, setTableView] = useState<boolean>(false);
   const { deleted } = useCrudService(urlApiAccounting);
@@ -139,5 +140,7 @@ export const useConsultContract = () => {
     submitDisabled,
     handleClean,
     validateActionAccess,
+    showFooterActions,
+    setShowFooterActions,
   };
 };

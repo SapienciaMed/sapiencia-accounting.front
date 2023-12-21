@@ -119,12 +119,16 @@ export interface ITechActivesFilters {
   ownerId: string;
   type: number;
   campus: number;
+  createdFrom: Date;
+  createdUntil: Date;
 }
 export interface IPropertyFilters {
   plate: string;
   description: string;
   acquisitionDate: Date;
   equipmentStatus: number;
+  createdFrom: Date;
+  createdUntil: Date;
 }
 
 export interface IFurniture {
