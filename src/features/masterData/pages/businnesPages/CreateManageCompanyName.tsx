@@ -11,7 +11,7 @@ import { useManageCompanyName } from "../../hooks/businessHooks/manageCompanyNam
 const CreateManageCompanyName = () => {
   const { control, handleSubmit, register, errors, handleCancel, isValid } =
     useManageCompanyName();
-  const { municipality } = useGetMunicipality();
+  const { municipality } = useGetMunicipality(true);
   return (
     <div className="container-sections-forms mt-24px ml-16px mr-16px p-0">
       <FormComponent

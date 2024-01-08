@@ -14,7 +14,7 @@ interface AdditionalFields {
   departmentId: string;
 }
 
-export const useGetMunicipality = () => {
+export const useGetMunicipality = (sorteable: boolean = false) => {
   const { get } = useCrudService(urlApiCore);
   const [municipality, setMunicipality] = useState<any>(null);
 
@@ -28,7 +28,10 @@ export const useGetMunicipality = () => {
           name: itemDescription,
         };
       });
-      setMunicipality(adaptedData);
+      const sortedData = sorteable
+        ? adaptedData.sort((a, b) => a.name.localeCompare(b.name))
+        : adaptedData;
+      setMunicipality(sortedData);
     } catch (err) {
       console.error(err);
       console.log("Error response:", err.response);
